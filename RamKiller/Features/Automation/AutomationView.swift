@@ -18,32 +18,41 @@ struct AutomationView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Picker("Range", selection: $days) {
-                    Text("7 days").tag(7); Text("30 days").tag(30)
+        VStack(spacing: 0) {
+            // Sticky top bar — View tabs + Range picker on a single row
+            HStack(spacing: 12) {
+                Picker("", selection: $tab) {
+                    ForEach(Tab.allCases) { t in Text(t.label).tag(t) }
                 }
                 .pickerStyle(.segmented)
-                .frame(width: 200)
-                Spacer()
-            }
-            .padding(.horizontal)
+                .frame(maxWidth: .infinity)
+                .labelsHidden()
 
-            Picker("View", selection: $tab) {
-                ForEach(Tab.allCases) { t in Text(t.label).tag(t) }
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal)
-
-            Group {
-                switch tab {
-                case .timeline: PressureTimelineView(days: days)
-                case .culprits: CulpritProcessesView(days: days)
-                case .alerts:   AlertHistoryView()
-                case .actions:  UserActionHistoryView()
+                Picker("", selection: $days) {
+                    Text("7d").tag(7)
+                    Text("30d").tag(30)
                 }
+                .pickerStyle(.segmented)
+                .frame(width: 100)
+                .labelsHidden()
             }
-            .padding()
+            .padding(.horizontal, 12)
+            .padding(.vertical, 8)
+
+            Divider()
+
+            // Content
+            ScrollView {
+                Group {
+                    switch tab {
+                    case .timeline: PressureTimelineView(days: days)
+                    case .culprits: CulpritProcessesView(days: days)
+                    case .alerts:   AlertHistoryView()
+                    case .actions:  UserActionHistoryView()
+                    }
+                }
+                .padding()
+            }
         }
         .navigationTitle("Automation")
     }
