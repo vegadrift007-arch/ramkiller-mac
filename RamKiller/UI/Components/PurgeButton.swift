@@ -58,13 +58,17 @@ struct PurgeButton: View {
                 switch result {
                 case .success:
                     cooldown.markFired()
+                    UserActionLog.shared.record(type: "purge", success: true)
                 case .denied(let r):
                     lastError = "Denied: \(r)"
+                    UserActionLog.shared.record(type: "purge", success: false, error: r)
                 case .failed(let e):
                     lastError = e
+                    UserActionLog.shared.record(type: "purge", success: false, error: e)
                 }
             } catch {
                 lastError = error.localizedDescription
+                UserActionLog.shared.record(type: "purge", success: false, error: error.localizedDescription)
             }
             inFlight = false
         }

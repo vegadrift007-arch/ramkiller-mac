@@ -8,7 +8,12 @@ struct RamKillerApp: App {
     @StateObject private var samplingCoordinator: SamplingCoordinator
 
     init() {
-        let schema = Schema([MemorySnapshot.self, ProcessSnapshot.self])
+        let schema = Schema([
+            MemorySnapshot.self,
+            ProcessSnapshot.self,
+            AlertEvent.self,
+            UserAction.self
+        ])
         let url = URL.applicationSupportDirectory.appending(path: "RamKiller/db.store")
         try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
         let config = ModelConfiguration(schema: schema, url: url)

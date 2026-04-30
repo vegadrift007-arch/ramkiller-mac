@@ -47,6 +47,8 @@ struct SettingsView: View {
                     .foregroundStyle(.secondary)
             }
 
+            AutomationSettingsSection()
+
             Section("About") {
                 LabeledContent("Version", value: "0.1.0")
                 LabeledContent("Bundle ID", value: "com.vannaq.RamKiller")

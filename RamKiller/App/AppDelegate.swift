@@ -12,6 +12,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSLog("RamKiller launched")
         scheduleRetention()
+        Task { @MainActor in
+            await NotificationService.shared.requestAuthorization()
+        }
     }
 
     /// Closing the main window does NOT terminate the app — menubar stays alive.

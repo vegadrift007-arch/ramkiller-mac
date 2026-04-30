@@ -128,11 +128,18 @@ struct ProcessesView: View {
 
     private func performKill(process: ProcessReading, force: Bool) {
         let signal: Int32 = force ? SIGKILL : SIGTERM
+        let actionType = force ? "force_kill" : "kill"
+        let target = "\(process.pid):\(process.name)"
+
         if process.user == NSUserName() {
             // Own process — kill directly, no helper needed
             let result = kill(process.pid, signal)
-            if result != 0 {
-                killError = "kill(\(process.pid), \(signal)) failed: \(String(cString: strerror(errno)))"
+            if result == 0 {
+                UserActionLog.shared.record(type: actionType, target: target, success: true)
+            } else {
+                let err = String(cString: strerror(errno))
+                killError = "kill(\(process.pid), \(signal)) failed: \(err)"
+                UserActionLog.shared.record(type: actionType, target: target, success: false, error: err)
             }
         } else {
             // System process — use helper
@@ -140,12 +147,18 @@ struct ProcessesView: View {
                 do {
                     let result = try await HelperBridge.shared.send(.killProcess(pid: process.pid, signal: signal))
                     switch result {
-                    case .success:           break
-                    case .denied(let r):     killError = "Denied: \(r)"
-                    case .failed(let e):     killError = e
+                    case .success:
+                        UserActionLog.shared.record(type: actionType, target: target, success: true)
+                    case .denied(let r):
+                        killError = "Denied: \(r)"
+                        UserActionLog.shared.record(type: actionType, target: target, success: false, error: r)
+                    case .failed(let e):
+                        killError = e
+                        UserActionLog.shared.record(type: actionType, target: target, success: false, error: e)
                     }
                 } catch {
                     killError = error.localizedDescription
+                    UserActionLog.shared.record(type: actionType, target: target, success: false, error: error.localizedDescription)
                 }
             }
         }
