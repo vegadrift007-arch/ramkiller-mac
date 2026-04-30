@@ -13,7 +13,11 @@ struct UninstallerView: View {
         HStack(spacing: 0) {
             VStack(spacing: 0) {
                 AppDropZone { url in
-                    if let info = AppDiscoveryService().appInfo(at: url) {
+                    Task {
+                        let info = await Task.detached(priority: .userInitiated) {
+                            AppDiscoveryService().appInfo(at: url)
+                        }.value
+                        guard let info else { return }
                         if !apps.contains(where: { $0.id == info.id }) {
                             apps.insert(info, at: 0)
                         }
@@ -47,10 +51,11 @@ struct UninstallerView: View {
 
     private func loadApps() async {
         loading = true
-        let result = AppDiscoveryService().discover()
-        await MainActor.run {
-            apps = result
-            loading = false
-        }
+        // Run on background thread to avoid blocking the main thread (each app scans its bundle for size)
+        let result = await Task.detached(priority: .userInitiated) {
+            AppDiscoveryService().discover()
+        }.value
+        apps = result
+        loading = false
     }
 }
