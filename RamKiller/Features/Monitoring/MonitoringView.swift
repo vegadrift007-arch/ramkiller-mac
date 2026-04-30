@@ -17,6 +17,9 @@ struct MonitoringView: View {
         }
         .navigationTitle("Memory")
         .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                PurgeButton(style: .prominent)
+            }
             ToolbarItem {
                 Picker("Window", selection: $windowHours) {
                     Text("1h").tag(1)

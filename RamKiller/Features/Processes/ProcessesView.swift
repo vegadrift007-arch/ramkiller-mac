@@ -1,5 +1,6 @@
 import SwiftUI
 import Darwin
+import Shared
 
 struct ProcessesView: View {
     @EnvironmentObject private var coordinator: SamplingCoordinator
@@ -113,33 +114,40 @@ struct ProcessesView: View {
 
     @ViewBuilder
     private func killButton(for p: ProcessReading) -> some View {
-        if p.user == NSUserName() {
-            Button {
-                killContext = KillConfirmContext(process: p, force: false)
-            } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundStyle(.red)
-                    .imageScale(.large)
-            }
-            .buttonStyle(.borderless)
-            .help("Kill (SIGTERM)")
-        } else {
-            Image(systemName: "lock.fill")
-                .foregroundStyle(.orange)
+        let isOwn = (p.user == NSUserName())
+        Button {
+            killContext = KillConfirmContext(process: p, force: false)
+        } label: {
+            Image(systemName: "xmark.circle.fill")
+                .foregroundStyle(isOwn ? .red : .orange)
                 .imageScale(.large)
-                .help("System process — needs helper (Phase 2 step 2)")
         }
+        .buttonStyle(.borderless)
+        .help(isOwn ? "Kill (SIGTERM)" : "Kill via privileged helper")
     }
 
     private func performKill(process: ProcessReading, force: Bool) {
         let signal: Int32 = force ? SIGKILL : SIGTERM
         if process.user == NSUserName() {
+            // Own process — kill directly, no helper needed
             let result = kill(process.pid, signal)
             if result != 0 {
                 killError = "kill(\(process.pid), \(signal)) failed: \(String(cString: strerror(errno)))"
             }
         } else {
-            killError = "System processes need privileged helper (coming in Phase 2 step 2)"
+            // System process — use helper
+            Task {
+                do {
+                    let result = try await HelperBridge.shared.send(.killProcess(pid: process.pid, signal: signal))
+                    switch result {
+                    case .success:           break
+                    case .denied(let r):     killError = "Denied: \(r)"
+                    case .failed(let e):     killError = e
+                    }
+                } catch {
+                    killError = error.localizedDescription
+                }
+            }
         }
     }
 

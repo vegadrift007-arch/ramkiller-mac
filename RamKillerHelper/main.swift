@@ -1,8 +1,11 @@
 import Foundation
 
-// XPC server arrives in Phase 2. For now we just log and idle.
-// Helper will run as a daemon registered via SMAppService later.
-NSLog("RamKillerHelper stub started — Phase 2 will fill this in")
+NSLog("[helper] starting v\(HelperService.version)")
 
-// Run forever so launchd doesn't restart-loop us in dev tests.
+let listener = NSXPCListener(machServiceName: "com.vannaq.RamKillerHelper")
+let delegate = HelperService()
+listener.delegate = delegate
+listener.resume()
+
+NSLog("[helper] XPC listener resumed; entering run loop")
 RunLoop.current.run()

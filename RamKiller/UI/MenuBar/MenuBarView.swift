@@ -32,6 +32,10 @@ struct MenuBarView: View {
                 Divider()
             }
 
+            PurgeButton(style: .compact)
+
+            Divider()
+
             Button("Open Main Window") { openWindow(id: "main") }
             Button("Quit") { NSApplication.shared.terminate(nil) }
                 .keyboardShortcut("q")

@@ -7,11 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84C1E90161A122A7E1046126 /* com.vannaq.RamKillerHelper.plist in Copy LaunchDaemon plist */ = {isa = PBXBuildFile; fileRef = 93FC901FD4E8D631B6FB0D98 /* com.vannaq.RamKillerHelper.plist */; };
+		A5660636062703A1D7EE1B0C /* RamKillerHelper in Embed Helper Tool */ = {isa = PBXBuildFile; fileRef = F33053022FA32F3400E51C66 /* RamKillerHelper */; };
 		F33052FD2FA32E4000E51C66 /* Shared in Frameworks */ = {isa = PBXBuildFile; productRef = F33052FC2FA32E4000E51C66 /* Shared */; };
 		F330530B2FA32F5100E51C66 /* Shared in Frameworks */ = {isa = PBXBuildFile; productRef = F330530A2FA32F5100E51C66 /* Shared */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		39613D82ABF5C42609287964 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F33052C72FA32C0E00E51C66 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F33053012FA32F3400E51C66;
+			remoteInfo = RamKillerHelper;
+		};
 		F33052DF2FA32C0F00E51C66 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F33052C72FA32C0E00E51C66 /* Project object */;
@@ -29,6 +38,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1CC9DC34C1F6BA0AF5B0DD8A /* Copy LaunchDaemon plist */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LaunchDaemons;
+			dstSubfolderSpec = 1;
+			files = (
+				84C1E90161A122A7E1046126 /* com.vannaq.RamKillerHelper.plist in Copy LaunchDaemon plist */,
+			);
+			name = "Copy LaunchDaemon plist";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2995DEC10508572C3536FC3 /* Embed Helper Tool */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/MacOS;
+			dstSubfolderSpec = 1;
+			files = (
+				A5660636062703A1D7EE1B0C /* RamKillerHelper in Embed Helper Tool */,
+			);
+			name = "Embed Helper Tool";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F33053002FA32F3400E51C66 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -41,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		93FC901FD4E8D631B6FB0D98 /* com.vannaq.RamKillerHelper.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = com.vannaq.RamKillerHelper.plist; path = RamKillerHelper/com.vannaq.RamKillerHelper.plist; sourceTree = "<group>"; };
 		F33052CF2FA32C0E00E51C66 /* RamKiller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RamKiller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33052DE2FA32C0F00E51C66 /* RamKillerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RamKillerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33052E82FA32C0F00E51C66 /* RamKillerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RamKillerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -113,6 +145,7 @@
 				F33053032FA32F3400E51C66 /* RamKillerHelper */,
 				F33053092FA32F5100E51C66 /* Frameworks */,
 				F33052D02FA32C0E00E51C66 /* Products */,
+				93FC901FD4E8D631B6FB0D98 /* com.vannaq.RamKillerHelper.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,10 +177,13 @@
 				F33052CB2FA32C0E00E51C66 /* Sources */,
 				F33052CC2FA32C0E00E51C66 /* Frameworks */,
 				F33052CD2FA32C0E00E51C66 /* Resources */,
+				1CC9DC34C1F6BA0AF5B0DD8A /* Copy LaunchDaemon plist */,
+				D2995DEC10508572C3536FC3 /* Embed Helper Tool */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				137A4AB72437E3C77AC7069C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				F33052D12FA32C0E00E51C66 /* RamKiller */,
@@ -177,8 +213,6 @@
 				F33052E12FA32C0F00E51C66 /* RamKillerTests */,
 			);
 			name = RamKillerTests;
-			packageProductDependencies = (
-			);
 			productName = RamKillerTests;
 			productReference = F33052DE2FA32C0F00E51C66 /* RamKillerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -200,8 +234,6 @@
 				F33052EB2FA32C0F00E51C66 /* RamKillerUITests */,
 			);
 			name = RamKillerUITests;
-			packageProductDependencies = (
-			);
 			productName = RamKillerUITests;
 			productReference = F33052E82FA32C0F00E51C66 /* RamKillerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -336,6 +368,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		137A4AB72437E3C77AC7069C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = RamKillerHelper;
+			target = F33053012FA32F3400E51C66 /* RamKillerHelper */;
+			targetProxy = 39613D82ABF5C42609287964 /* PBXContainerItemProxy */;
+		};
 		F33052E02FA32C0F00E51C66 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F33052CE2FA32C0E00E51C66 /* RamKiller */;
@@ -622,8 +660,11 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = RamKillerHelper/RamKillerHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = 3APC6ALUWK;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RamKillerHelper/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
@@ -636,8 +677,11 @@
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = RamKillerHelper/RamKillerHelper.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
 				DEVELOPMENT_TEAM = 3APC6ALUWK;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RamKillerHelper/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
