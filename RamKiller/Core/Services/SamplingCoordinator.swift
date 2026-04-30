@@ -25,11 +25,11 @@ public final class SamplingCoordinator: ObservableObject {
     public func start() {
         sampleMemory()       // immediate first read
         sampleProcesses()
-        memoryTimer = Timer.scheduledTimer(withTimeInterval: Self.memoryInterval, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.sampleMemory() }
+        memoryTimer = Timer.scheduledTimer(withTimeInterval: Self.memoryInterval, repeats: true) { _ in
+            Task { @MainActor [weak self] in self?.sampleMemory() }
         }
-        processTimer = Timer.scheduledTimer(withTimeInterval: Self.processInterval, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.sampleProcesses() }
+        processTimer = Timer.scheduledTimer(withTimeInterval: Self.processInterval, repeats: true) { _ in
+            Task { @MainActor [weak self] in self?.sampleProcesses() }
         }
     }
 
