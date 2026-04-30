@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F33052FD2FA32E4000E51C66 /* Shared in Frameworks */ = {isa = PBXBuildFile; productRef = F33052FC2FA32E4000E51C66 /* Shared */; };
+		F330530B2FA32F5100E51C66 /* Shared in Frameworks */ = {isa = PBXBuildFile; productRef = F330530A2FA32F5100E51C66 /* Shared */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,10 +28,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F33053002FA32F3400E51C66 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		F33052CF2FA32C0E00E51C66 /* RamKiller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RamKiller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33052DE2FA32C0F00E51C66 /* RamKillerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RamKillerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F33052E82FA32C0F00E51C66 /* RamKillerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RamKillerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F33053022FA32F3400E51C66 /* RamKillerHelper */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RamKillerHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -47,6 +61,11 @@
 		F33052EB2FA32C0F00E51C66 /* RamKillerUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = RamKillerUITests;
+			sourceTree = "<group>";
+		};
+		F33053032FA32F3400E51C66 /* RamKillerHelper */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = RamKillerHelper;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -74,6 +93,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F33052FF2FA32F3400E51C66 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F330530B2FA32F5100E51C66 /* Shared in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -83,6 +110,8 @@
 				F33052D12FA32C0E00E51C66 /* RamKiller */,
 				F33052E12FA32C0F00E51C66 /* RamKillerTests */,
 				F33052EB2FA32C0F00E51C66 /* RamKillerUITests */,
+				F33053032FA32F3400E51C66 /* RamKillerHelper */,
+				F33053092FA32F5100E51C66 /* Frameworks */,
 				F33052D02FA32C0E00E51C66 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,8 +122,16 @@
 				F33052CF2FA32C0E00E51C66 /* RamKiller.app */,
 				F33052DE2FA32C0F00E51C66 /* RamKillerTests.xctest */,
 				F33052E82FA32C0F00E51C66 /* RamKillerUITests.xctest */,
+				F33053022FA32F3400E51C66 /* RamKillerHelper */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		F33053092FA32F5100E51C66 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,6 +206,29 @@
 			productReference = F33052E82FA32C0F00E51C66 /* RamKillerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		F33053012FA32F3400E51C66 /* RamKillerHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F33053062FA32F3400E51C66 /* Build configuration list for PBXNativeTarget "RamKillerHelper" */;
+			buildPhases = (
+				F33052FE2FA32F3400E51C66 /* Sources */,
+				F33052FF2FA32F3400E51C66 /* Frameworks */,
+				F33053002FA32F3400E51C66 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F33053032FA32F3400E51C66 /* RamKillerHelper */,
+			);
+			name = RamKillerHelper;
+			packageProductDependencies = (
+				F330530A2FA32F5100E51C66 /* Shared */,
+			);
+			productName = RamKillerHelper;
+			productReference = F33053022FA32F3400E51C66 /* RamKillerHelper */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -189,6 +249,9 @@
 					F33052E72FA32C0F00E51C66 = {
 						CreatedOnToolsVersion = 26.4.1;
 						TestTargetID = F33052CE2FA32C0E00E51C66;
+					};
+					F33053012FA32F3400E51C66 = {
+						CreatedOnToolsVersion = 26.4.1;
 					};
 				};
 			};
@@ -212,6 +275,7 @@
 				F33052CE2FA32C0E00E51C66 /* RamKiller */,
 				F33052DD2FA32C0F00E51C66 /* RamKillerTests */,
 				F33052E72FA32C0F00E51C66 /* RamKillerUITests */,
+				F33053012FA32F3400E51C66 /* RamKillerHelper */,
 			);
 		};
 /* End PBXProject section */
@@ -256,6 +320,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		F33052E42FA32C0F00E51C66 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F33052FE2FA32F3400E51C66 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -544,6 +615,34 @@
 			};
 			name = Release;
 		};
+		F33053072FA32F3400E51C66 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RamKillerHelper/RamKillerHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3APC6ALUWK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F33053082FA32F3400E51C66 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = RamKillerHelper/RamKillerHelper.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3APC6ALUWK;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -583,6 +682,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		F33053062FA32F3400E51C66 /* Build configuration list for PBXNativeTarget "RamKillerHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F33053072FA32F3400E51C66 /* Debug */,
+				F33053082FA32F3400E51C66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -595,6 +703,11 @@
 /* Begin XCSwiftPackageProductDependency section */
 		F33052FC2FA32E4000E51C66 /* Shared */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = Shared;
+		};
+		F330530A2FA32F5100E51C66 /* Shared */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F33052FB2FA32E4000E51C66 /* XCLocalSwiftPackageReference "Shared" */;
 			productName = Shared;
 		};
 /* End XCSwiftPackageProductDependency section */
