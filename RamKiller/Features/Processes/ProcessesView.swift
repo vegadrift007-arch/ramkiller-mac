@@ -11,7 +11,14 @@ struct ProcessesView: View {
     @State private var killError: String?
 
     private var visible: [ProcessReading] {
-        let source = showAll ? fullList : coordinator.latestProcesses
+        // If user toggled "All processes" but fullList not yet populated, fall back to coordinator's Top 30
+        // so the UI is never empty.
+        let source: [ProcessReading]
+        if showAll {
+            source = fullList.isEmpty ? coordinator.latestProcesses : fullList
+        } else {
+            source = coordinator.latestProcesses
+        }
         guard !search.isEmpty else { return source }
         return source.filter { $0.name.localizedCaseInsensitiveContains(search) }
     }
@@ -88,6 +95,11 @@ struct ProcessesView: View {
             }
         }
         .navigationTitle("Processes")
+        .task(id: showAll) {
+            if showAll {
+                refreshFullList()
+            }
+        }
         .killConfirmAlert($killContext) { process, force in
             performKill(process: process, force: force)
         }
@@ -105,15 +117,17 @@ struct ProcessesView: View {
             Button {
                 killContext = KillConfirmContext(process: p, force: false)
             } label: {
-                Image(systemName: "xmark.circle")
-                    .foregroundStyle(.red.opacity(0.7))
+                Image(systemName: "xmark.circle.fill")
+                    .foregroundStyle(.red)
+                    .imageScale(.large)
             }
             .buttonStyle(.borderless)
             .help("Kill (SIGTERM)")
         } else {
-            Image(systemName: "lock")
-                .foregroundStyle(.secondary)
-                .help("Helper required (Phase 2 step 2)")
+            Image(systemName: "lock.fill")
+                .foregroundStyle(.orange)
+                .imageScale(.large)
+                .help("System process — needs helper (Phase 2 step 2)")
         }
     }
 
