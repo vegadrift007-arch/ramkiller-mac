@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F33052FD2FA32E4000E51C66 /* Shared in Frameworks */ = {isa = PBXBuildFile; productRef = F33052FC2FA32E4000E51C66 /* Shared */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F33052DF2FA32C0F00E51C66 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F33052FD2FA32E4000E51C66 /* Shared in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +117,7 @@
 			);
 			name = RamKiller;
 			packageProductDependencies = (
+				F33052FC2FA32E4000E51C66 /* Shared */,
 			);
 			productName = RamKiller;
 			productReference = F33052CF2FA32C0E00E51C66 /* RamKiller.app */;
@@ -195,6 +201,9 @@
 			);
 			mainGroup = F33052C62FA32C0E00E51C66;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F33052FB2FA32E4000E51C66 /* XCLocalSwiftPackageReference "Shared" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F33052D02FA32C0E00E51C66 /* Products */;
 			projectDirPath = "";
@@ -575,6 +584,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		F33052FB2FA32E4000E51C66 /* XCLocalSwiftPackageReference "Shared" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Shared;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F33052FC2FA32E4000E51C66 /* Shared */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Shared;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F33052C72FA32C0E00E51C66 /* Project object */;
 }
