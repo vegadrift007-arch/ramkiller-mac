@@ -16,6 +16,19 @@ struct CacheCleanerView: View {
             .reduce(into: 0) { $0 += sizes[$1.id] ?? 0 }
     }
 
+    /// While scanning we show everything (so user sees activity).
+    /// After scan: only show cleaners with size > 0, and only categories that have at least one such cleaner.
+    private var visibleCategories: [(CleanerCategory, [Cleaner])] {
+        kb.byCategory().compactMap { (cat, items) in
+            let filtered = items.filter { c in
+                if scanning { return true }            // show all while scanning
+                guard let s = sizes[c.id] else { return true }
+                return s > 0
+            }
+            return filtered.isEmpty ? nil : (cat, filtered)
+        }
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             // Sticky top bar
@@ -40,10 +53,10 @@ struct CacheCleanerView: View {
 
             Divider()
 
-            // Cleaner list
+            // Cleaner list — hide rows with size = 0 once scan completes
             ScrollView {
                 VStack(spacing: 8) {
-                    ForEach(kb.byCategory(), id: \.0) { (cat, items) in
+                    ForEach(visibleCategories, id: \.0) { (cat, items) in
                         CleanerCategorySection(
                             category: cat,
                             cleaners: items,
@@ -51,6 +64,14 @@ struct CacheCleanerView: View {
                             selectedIDs: $selectedIDs
                         )
                         .padding(.horizontal, 12)
+                    }
+                    if !scanning && visibleCategories.isEmpty {
+                        ContentUnavailableView(
+                            "Nothing to clean",
+                            systemImage: "checkmark.circle",
+                            description: Text("No reclaimable cache found.")
+                        )
+                        .padding(.top, 40)
                     }
                 }
                 .padding(.vertical, 8)
