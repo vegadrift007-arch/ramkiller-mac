@@ -8,6 +8,7 @@ struct MonitoringView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
+                SmartKillBanner()
                 statCardsRow
                 chartsSection
                 if advanced { AdvancedBreakdownView() }

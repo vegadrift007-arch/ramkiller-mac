@@ -1,4 +1,5 @@
 import SwiftUI
+import Darwin
 
 struct ProcessesView: View {
     @EnvironmentObject private var coordinator: SamplingCoordinator
@@ -6,6 +7,8 @@ struct ProcessesView: View {
     @State private var selectedPID: pid_t?
     @State private var showAll: Bool = false
     @State private var fullList: [ProcessReading] = []
+    @State private var killContext: KillConfirmContext?
+    @State private var killError: String?
 
     private var visible: [ProcessReading] {
         let source = showAll ? fullList : coordinator.latestProcesses
@@ -20,7 +23,7 @@ struct ProcessesView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            // Toolbar at top
+            // Toolbar
             HStack {
                 TextField("Search", text: $search)
                     .textFieldStyle(.roundedBorder)
@@ -43,8 +46,15 @@ struct ProcessesView: View {
             // Master-detail
             HStack(spacing: 0) {
                 Table(visible, selection: $selectedPID) {
-                    TableColumn("Name") { p in Text(p.name).lineLimit(1) }
-                        .width(min: 180, ideal: 240)
+                    TableColumn("Name") { p in
+                        HStack {
+                            Text(p.name).lineLimit(1)
+                            Spacer()
+                            killButton(for: p)
+                        }
+                    }
+                    .width(min: 200, ideal: 260)
+
                     TableColumn("PID") { p in Text("\(p.pid)").monospacedDigit() }
                         .width(70)
                     TableColumn("RSS") { p in Text(ByteFormat.mb(p.rssBytes)).monospacedDigit() }
@@ -53,6 +63,16 @@ struct ProcessesView: View {
                         .width(90)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .contextMenu(forSelectionType: pid_t.self) { selectedPIDs in
+                    if let pid = selectedPIDs.first, let p = visible.first(where: { $0.pid == pid }) {
+                        Button("Kill (SIGTERM)") {
+                            killContext = KillConfirmContext(process: p, force: false)
+                        }
+                        Button("Force kill (SIGKILL)") {
+                            killContext = KillConfirmContext(process: p, force: true)
+                        }
+                    }
+                }
 
                 Divider()
 
@@ -68,6 +88,45 @@ struct ProcessesView: View {
             }
         }
         .navigationTitle("Processes")
+        .killConfirmAlert($killContext) { process, force in
+            performKill(process: process, force: force)
+        }
+        .alert("Kill failed", isPresented: Binding(
+            get: { killError != nil },
+            set: { if !$0 { killError = nil } }
+        )) {
+            Button("OK", role: .cancel) {}
+        } message: { Text(killError ?? "") }
+    }
+
+    @ViewBuilder
+    private func killButton(for p: ProcessReading) -> some View {
+        if p.user == NSUserName() {
+            Button {
+                killContext = KillConfirmContext(process: p, force: false)
+            } label: {
+                Image(systemName: "xmark.circle")
+                    .foregroundStyle(.red.opacity(0.7))
+            }
+            .buttonStyle(.borderless)
+            .help("Kill (SIGTERM)")
+        } else {
+            Image(systemName: "lock")
+                .foregroundStyle(.secondary)
+                .help("Helper required (Phase 2 step 2)")
+        }
+    }
+
+    private func performKill(process: ProcessReading, force: Bool) {
+        let signal: Int32 = force ? SIGKILL : SIGTERM
+        if process.user == NSUserName() {
+            let result = kill(process.pid, signal)
+            if result != 0 {
+                killError = "kill(\(process.pid), \(signal)) failed: \(String(cString: strerror(errno)))"
+            }
+        } else {
+            killError = "System processes need privileged helper (coming in Phase 2 step 2)"
+        }
     }
 
     private func refreshFullList() {
