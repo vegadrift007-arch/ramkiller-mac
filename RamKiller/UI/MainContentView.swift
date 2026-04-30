@@ -2,11 +2,11 @@ import SwiftUI
 
 struct MainContentView: View {
     @State private var selection: SidebarItem? = .monitoring
+    @EnvironmentObject private var themeManager: ThemeManager
 
     var body: some View {
         NavigationSplitView {
             VStack(alignment: .leading, spacing: 0) {
-                // Brand block at top of sidebar
                 HStack(spacing: 8) {
                     Image(systemName: "memorychip.fill")
                         .foregroundStyle(Theme.accent)
@@ -27,7 +27,9 @@ struct MainContentView: View {
             detailView
                 .background(Theme.bg)
         }
-        .preferredColorScheme(.dark)
+        .preferredColorScheme(themeManager.current.palette.isLight ? .light : .dark)
+        // re-key the entire view tree when theme changes so all static Theme.* reads pick up new palette
+        .id(themeManager.current.rawValue)
     }
 
     @ViewBuilder
@@ -44,10 +46,4 @@ struct MainContentView: View {
         case nil:            PlaceholderView(title: "Pick a tool", phase: "—", icon: "sidebar.left")
         }
     }
-}
-
-#Preview {
-    MainContentView()
-        .frame(width: 1100, height: 720)
-        .preferredColorScheme(.dark)
 }

@@ -28,6 +28,7 @@ struct RamKillerApp: App {
             MainContentView()
                 .frame(minWidth: 900, minHeight: 600)
                 .environmentObject(samplingCoordinator)
+                .environmentObject(ThemeManager.shared)
                 .onAppear { samplingCoordinator.start() }
         }
         .modelContainer(container)
@@ -36,9 +37,11 @@ struct RamKillerApp: App {
         MenuBarExtra {
             MenuBarView()
                 .environmentObject(samplingCoordinator)
+                .environmentObject(ThemeManager.shared)
         } label: {
             MenuBarIcon()
                 .environmentObject(samplingCoordinator)
+                .environmentObject(ThemeManager.shared)
         }
         .menuBarExtraStyle(.window)
     }

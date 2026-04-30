@@ -1,42 +1,146 @@
 import SwiftUI
+import Combine
 
-/// VannaQ-inspired design system — dark navy + vivid green accent.
-/// All colors should flow through here so we have one source of truth.
+// MARK: - Color Palette
+
+public struct ColorPalette {
+    let bg: Color
+    let bg2: Color
+    let cardBg: Color
+    let cardBgHover: Color
+    let line: Color
+    let lineStrong: Color
+    let ink: Color
+    let inkSoft: Color
+    let mute: Color
+    let accent: Color
+    let accentSoft: Color
+    let positive: Color    // semantic green (healthy)
+    let warn: Color
+    let danger: Color
+    let purple: Color
+    let isLight: Bool      // for system colorScheme
+}
+
+// MARK: - Themes
+
+public enum AppTheme: String, CaseIterable, Identifiable {
+    case midnight
+    case bloom
+
+    public var id: String { rawValue }
+
+    public var label: String {
+        switch self {
+        case .midnight: return "Midnight"
+        case .bloom:    return "Bloom"
+        }
+    }
+
+    public var description: String {
+        switch self {
+        case .midnight: return "Dark navy + electric green"
+        case .bloom:    return "Pastel pink + soft purple"
+        }
+    }
+
+    public var palette: ColorPalette {
+        switch self {
+        case .midnight:
+            return ColorPalette(
+                bg: Color(hex: 0x0A0F1C),
+                bg2: Color(hex: 0x10162A),
+                cardBg: Color.white.opacity(0.04),
+                cardBgHover: Color.white.opacity(0.06),
+                line: Color.white.opacity(0.08),
+                lineStrong: Color.white.opacity(0.14),
+                ink: Color(hex: 0xF5F5F7),
+                inkSoft: Color(hex: 0xC8CCD6),
+                mute: Color(hex: 0x6E7484),
+                accent: Color(hex: 0x00C805),
+                accentSoft: Color(red: 0/255, green: 200/255, blue: 5/255, opacity: 0.16),
+                positive: Color(hex: 0x00C805),
+                warn: Color(hex: 0xFFB02E),
+                danger: Color(hex: 0xFF453A),
+                purple: Color(hex: 0x8B5CF6),
+                isLight: false
+            )
+        case .bloom:
+            return ColorPalette(
+                bg: Color(hex: 0xFCE9F3),
+                bg2: Color(hex: 0xEFE0F8),
+                cardBg: Color.white,
+                cardBgHover: Color(hex: 0xFFF6FB),
+                line: Color(red: 26/255, green: 14/255, blue: 46/255, opacity: 0.08),
+                lineStrong: Color(red: 26/255, green: 14/255, blue: 46/255, opacity: 0.16),
+                ink: Color(hex: 0x1A0E2E),
+                inkSoft: Color(hex: 0x4A3A66),
+                mute: Color(hex: 0x7A6E8E),
+                accent: Color(hex: 0xFF2D87),
+                accentSoft: Color(red: 255/255, green: 45/255, blue: 135/255, opacity: 0.12),
+                positive: Color(hex: 0x0EAB6E),
+                warn: Color(hex: 0xFF9700),
+                danger: Color(hex: 0xE81879),
+                purple: Color(hex: 0x9D6FFE),
+                isLight: true
+            )
+        }
+    }
+}
+
+// MARK: - Theme Manager (observable)
+
+@MainActor
+public final class ThemeManager: ObservableObject {
+    public static let shared = ThemeManager()
+
+    @Published public var current: AppTheme {
+        didSet { UserDefaults.standard.set(current.rawValue, forKey: "theme") }
+    }
+
+    private init() {
+        let raw = UserDefaults.standard.string(forKey: "theme") ?? AppTheme.midnight.rawValue
+        self.current = AppTheme(rawValue: raw) ?? .midnight
+    }
+}
+
+// MARK: - Static accessors (re-evaluate on each call so static reads pick up new theme after view re-render)
+
 public enum Theme {
-    // MARK: - Colors
-    public static let bg          = Color(hex: 0x0A0F1C)
-    public static let bg2         = Color(hex: 0x10162A)
-    public static let cardBg      = Color.white.opacity(0.04)
-    public static let cardBgHover = Color.white.opacity(0.06)
-    public static let line        = Color.white.opacity(0.08)
-    public static let lineStrong  = Color.white.opacity(0.14)
+    static var palette: ColorPalette { ThemeManager.shared.current.palette }
 
-    public static let ink         = Color(hex: 0xF5F5F7)
-    public static let inkSoft     = Color(hex: 0xC8CCD6)
-    public static let mute        = Color(hex: 0x6E7484)
+    static var bg: Color           { palette.bg }
+    static var bg2: Color          { palette.bg2 }
+    static var cardBg: Color       { palette.cardBg }
+    static var cardBgHover: Color  { palette.cardBgHover }
+    static var line: Color         { palette.line }
+    static var lineStrong: Color   { palette.lineStrong }
+    static var ink: Color          { palette.ink }
+    static var inkSoft: Color      { palette.inkSoft }
+    static var mute: Color         { palette.mute }
+    static var accent: Color       { palette.accent }
+    static var accentSoft: Color   { palette.accentSoft }
+    static var positive: Color     { palette.positive }
+    static var warn: Color         { palette.warn }
+    static var danger: Color       { palette.danger }
+    static var purple: Color       { palette.purple }
 
-    public static let accent      = Color(hex: 0x00C805)       // signature green
-    public static let accentSoft  = Color(red: 0/255, green: 200/255, blue: 5/255, opacity: 0.16)
-    public static let accentGlow  = Color(red: 0/255, green: 200/255, blue: 5/255, opacity: 0.5)
-
-    public static let warn        = Color(hex: 0xFFB02E)
-    public static let danger      = Color(hex: 0xFF453A)
-    public static let purple      = Color(hex: 0x8B5CF6)
-
-    // MARK: - Fonts (use system font but apply tight tracking like Inter)
-    public static func display(_ size: CGFloat) -> Font {
+    // Fonts (theme-agnostic)
+    static func display(_ size: CGFloat) -> Font {
         .system(size: size, weight: .heavy, design: .rounded)
     }
-    public static func headline(_ size: CGFloat = 17) -> Font {
+    static func headline(_ size: CGFloat = 17) -> Font {
         .system(size: size, weight: .semibold, design: .rounded)
     }
-    public static func mono(_ size: CGFloat = 13) -> Font {
+    static func mono(_ size: CGFloat = 13) -> Font {
         .system(size: size, weight: .medium, design: .monospaced)
     }
-    public static let eyebrow: Font = .system(size: 10, weight: .bold, design: .default)
-    public static let bodyText: Font = .system(size: 14, weight: .regular)
-    public static let caption: Font = .system(size: 12, weight: .regular)
+    static let eyebrow: Font = .system(size: 10, weight: .bold, design: .default)
+    static let bodyText: Font = .system(size: 14, weight: .regular)
+    static let caption: Font = .system(size: 12, weight: .regular)
 }
+
+// MARK: - Color hex helper
 
 extension Color {
     init(hex: UInt32) {
@@ -47,10 +151,9 @@ extension Color {
     }
 }
 
-// MARK: - View modifiers
+// MARK: - Modifiers
 
 extension View {
-    /// Standard card surface — translucent panel with subtle hairline border.
     func vqCard(padding: CGFloat = 16) -> some View {
         self
             .padding(padding)
@@ -62,17 +165,15 @@ extension View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
-    /// Pill-shaped eyebrow label (small uppercase tracker above stats).
-    func vqEyebrow(color: Color = Theme.mute) -> some View {
+    func vqEyebrow(color: Color? = nil) -> some View {
         self
             .font(Theme.eyebrow)
             .tracking(1.2)
             .textCase(.uppercase)
-            .foregroundStyle(color)
+            .foregroundStyle(color ?? Theme.mute)
     }
 }
 
-/// Status pill: small tag with colored background, used everywhere.
 struct VQTag: View {
     let text: String
     let color: Color
@@ -93,7 +194,6 @@ struct VQTag: View {
     }
 }
 
-/// Pulsing dot — for "live" indicators.
 struct VQPulseDot: View {
     let color: Color
     @State private var phase: CGFloat = 0

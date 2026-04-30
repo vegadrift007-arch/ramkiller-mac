@@ -59,6 +59,8 @@ struct SettingsView: View {
                     }
                 }
 
+                ThemePickerSection()
+
                 AutomationSettingsSection()
 
                 section("About") {
