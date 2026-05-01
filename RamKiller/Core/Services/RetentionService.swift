@@ -8,23 +8,12 @@ public final class RetentionService {
         self.retentionHours = retentionHours
     }
 
+    /// Batch-delete records older than the cutoff. Uses SwiftData's `delete(model:where:)`
+    /// which executes a single SQL DELETE — no per-row materialization.
     public func prune(in context: ModelContext, now: Date = Date()) throws {
         let cutoff = now.addingTimeInterval(-Double(retentionHours) * 3600)
-
-        let memDescriptor = FetchDescriptor<MemorySnapshot>(
-            predicate: #Predicate { $0.timestamp < cutoff }
-        )
-        for old in try context.fetch(memDescriptor) {
-            context.delete(old)
-        }
-
-        let procDescriptor = FetchDescriptor<ProcessSnapshot>(
-            predicate: #Predicate { $0.timestamp < cutoff }
-        )
-        for old in try context.fetch(procDescriptor) {
-            context.delete(old)
-        }
-
+        try context.delete(model: MemorySnapshot.self, where: #Predicate { $0.timestamp < cutoff })
+        try context.delete(model: ProcessSnapshot.self, where: #Predicate { $0.timestamp < cutoff })
         try context.save()
     }
 }

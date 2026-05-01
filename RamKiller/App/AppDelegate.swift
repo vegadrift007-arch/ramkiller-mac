@@ -22,10 +22,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
+    /// Hourly retention prune. Runs the SwiftData work off the main thread so
+    /// large delete batches never block the UI.
     private func scheduleRetention() {
         retentionTimer = Timer.scheduledTimer(withTimeInterval: 3600, repeats: true) { _ in
-            Task { @MainActor in
-                guard let container = SharedContainer.container else { return }
+            Task.detached(priority: .background) {
+                guard let container = await SharedContainer.container else { return }
                 let ctx = ModelContext(container)
                 try? RetentionService().prune(in: ctx)
             }
