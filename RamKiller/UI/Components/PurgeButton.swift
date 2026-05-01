@@ -53,22 +53,16 @@ struct PurgeButton: View {
         inFlight = true
         lastError = nil
         Task {
-            do {
-                let result = try await HelperBridge.shared.send(.purgeMemory)
-                switch result {
-                case .success:
-                    cooldown.markFired()
-                    UserActionLog.shared.record(type: "purge", success: true)
-                case .denied(let r):
-                    lastError = "Denied: \(r)"
-                    UserActionLog.shared.record(type: "purge", success: false, error: r)
-                case .failed(let e):
-                    lastError = e
-                    UserActionLog.shared.record(type: "purge", success: false, error: e)
-                }
-            } catch {
-                lastError = error.localizedDescription
-                UserActionLog.shared.record(type: "purge", success: false, error: error.localizedDescription)
+            let result = await HelperBridge.shared.sendAndLog(.purgeMemory, type: "purge")
+            switch result {
+            case .success?:
+                cooldown.markFired()
+            case .denied(let r)?:
+                lastError = "Denied: \(r)"
+            case .failed(let e)?:
+                lastError = e
+            case nil:
+                lastError = "Helper unreachable"
             }
             inFlight = false
         }

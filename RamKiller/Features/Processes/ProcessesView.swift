@@ -161,21 +161,15 @@ struct ProcessesView: View {
             }
         } else {
             Task {
-                do {
-                    let result = try await HelperBridge.shared.send(.killProcess(pid: process.pid, signal: signal))
-                    switch result {
-                    case .success:
-                        UserActionLog.shared.record(type: actionType, target: target, success: true)
-                    case .denied(let r):
-                        killError = "Denied: \(r)"
-                        UserActionLog.shared.record(type: actionType, target: target, success: false, error: r)
-                    case .failed(let e):
-                        killError = e
-                        UserActionLog.shared.record(type: actionType, target: target, success: false, error: e)
-                    }
-                } catch {
-                    killError = error.localizedDescription
-                    UserActionLog.shared.record(type: actionType, target: target, success: false, error: error.localizedDescription)
+                let result = await HelperBridge.shared.sendAndLog(
+                    .killProcess(pid: process.pid, signal: signal),
+                    type: actionType, target: target
+                )
+                switch result {
+                case .success?: break
+                case .denied(let r)?: killError = "Denied: \(r)"
+                case .failed(let e)?: killError = e
+                case nil:             killError = "Helper unreachable"
                 }
             }
         }

@@ -115,12 +115,7 @@ struct AppDetailView: View {
                     .foregroundStyle(Theme.mute)
                     .padding(.vertical, 12)
             } else if !leftovers.isEmpty {
-                Toggle(isOn: Binding(
-                    get: { selectedLeftovers.count == leftovers.count && !leftovers.isEmpty },
-                    set: { isOn in
-                        selectedLeftovers = isOn ? Set(leftovers.map { $0.id }) : []
-                    }
-                )) {
+                Toggle(isOn: $selectedLeftovers.selectAll(of: leftovers.map { $0.id })) {
                     Text("Select all (\(leftovers.count))")
                         .font(Theme.caption)
                         .foregroundStyle(Theme.inkSoft)
@@ -142,12 +137,8 @@ struct AppDetailView: View {
 
     private func leftoverRow(_ l: Leftover) -> some View {
         HStack(spacing: 10) {
-            Toggle("", isOn: Binding(
-                get: { selectedLeftovers.contains(l.id) },
-                set: { v in
-                    if v { selectedLeftovers.insert(l.id) } else { selectedLeftovers.remove(l.id) }
-                }
-            )).labelsHidden().toggleStyle(.checkbox)
+            Toggle("", isOn: $selectedLeftovers.contains(l.id))
+                .labelsHidden().toggleStyle(.checkbox)
             Image(systemName: l.kind.icon).foregroundStyle(Theme.inkSoft).frame(width: 18)
             VStack(alignment: .leading, spacing: 2) {
                 Text(l.path).font(Theme.mono(11)).foregroundStyle(Theme.inkSoft)

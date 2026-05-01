@@ -1,4 +1,5 @@
 import Foundation
+import Shared
 
 public final class UninstallerService {
     public init() {}
@@ -14,32 +15,37 @@ public final class UninstallerService {
         var freed: Int64 = 0
         var errs: [String] = []
 
-        // 1. Remove the .app bundle
+        // 1. Remove the .app bundle (always user-writable in /Applications or ~/Applications)
         do {
-            if moveToTrash {
-                var resulting: NSURL?
-                try FileManager.default.trashItem(at: app.bundleURL, resultingItemURL: &resulting)
-            } else {
-                try FileManager.default.removeItem(at: app.bundleURL)
-            }
+            try FileManager.default.remove(app.bundleURL, toTrash: moveToTrash)
             freed += app.bundleSize
         } catch {
             errs.append("\(app.bundleURL.path): \(error.localizedDescription)")
         }
 
-        // 2. Remove leftovers (user paths only — system paths would need helper extension)
+        // 2. Leftovers — system paths go through helper, user paths direct
         for l in leftovers {
-            let url = URL(fileURLWithPath: l.path)
-            do {
-                if moveToTrash {
-                    var resulting: NSURL?
-                    try FileManager.default.trashItem(at: url, resultingItemURL: &resulting)
-                } else {
-                    try FileManager.default.removeItem(at: url)
+            if l.path.hasPrefix("/Library/") {
+                // Helper accepts only .plist files under /Library/Launch{Agents,Daemons}/,
+                // which is exactly what LeftoverScanner returns for these kinds.
+                do {
+                    let result = try await HelperBridge.shared.send(.deletePlist(path: l.path))
+                    switch result {
+                    case .success:           freed += l.size
+                    case .denied(let r):     errs.append("\(l.path): denied — \(r)")
+                    case .failed(let e):     errs.append("\(l.path): \(e)")
+                    }
+                } catch {
+                    errs.append("\(l.path): \(error.localizedDescription)")
                 }
-                freed += l.size
-            } catch {
-                errs.append("\(l.path): \(error.localizedDescription)")
+            } else {
+                let url = URL(fileURLWithPath: l.path)
+                do {
+                    try FileManager.default.remove(url, toTrash: moveToTrash)
+                    freed += l.size
+                } catch {
+                    errs.append("\(l.path): \(error.localizedDescription)")
+                }
             }
         }
 

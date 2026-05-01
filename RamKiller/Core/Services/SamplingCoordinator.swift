@@ -98,19 +98,8 @@ public final class SamplingCoordinator: ObservableObject {
     }
 
     private func autoPurge() async {
-        do {
-            let result = try await HelperBridge.shared.send(.purgeMemory)
-            switch result {
-            case .success:
-                lastAutoPurge = Date()
-                UserActionLog.shared.record(type: "auto_purge", success: true)
-            case .denied(let r):
-                UserActionLog.shared.record(type: "auto_purge", success: false, error: r)
-            case .failed(let e):
-                UserActionLog.shared.record(type: "auto_purge", success: false, error: e)
-            }
-        } catch {
-            UserActionLog.shared.record(type: "auto_purge", success: false, error: error.localizedDescription)
+        if case .success? = await HelperBridge.shared.sendAndLog(.purgeMemory, type: "auto_purge") {
+            lastAutoPurge = Date()
         }
     }
 }

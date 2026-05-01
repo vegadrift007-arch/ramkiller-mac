@@ -92,12 +92,7 @@ struct DuplicateListView: View {
             let keepID = keep[g.id]
             for e in g.entries where e.id != keepID {
                 do {
-                    if moveToTrash {
-                        var resulting: NSURL?
-                        try FileManager.default.trashItem(at: e.url, resultingItemURL: &resulting)
-                    } else {
-                        try FileManager.default.removeItem(at: e.url)
-                    }
+                    try FileManager.default.remove(e.url, toTrash: moveToTrash)
                     freed += e.size
                 } catch {
                     NSLog("dup delete failed: \(error)")

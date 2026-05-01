@@ -58,6 +58,31 @@ final class HelperBridge {
         }
     }
 
+    /// Sends a command and records the outcome to UserActionLog in one shot.
+    /// Returns the result on success/denied/failed; nil on transport error (which is also logged).
+    func sendAndLog(
+        _ command: HelperCommand,
+        type: String,
+        target: String? = nil,
+        bytesFreed: Int64? = nil
+    ) async -> HelperResult? {
+        do {
+            let result = try await send(command)
+            switch result {
+            case .success:
+                UserActionLog.shared.record(type: type, target: target, success: true, bytesFreed: bytesFreed)
+            case .denied(let r):
+                UserActionLog.shared.record(type: type, target: target, success: false, error: r)
+            case .failed(let e):
+                UserActionLog.shared.record(type: type, target: target, success: false, error: e)
+            }
+            return result
+        } catch {
+            UserActionLog.shared.record(type: type, target: target, success: false, error: error.localizedDescription)
+            return nil
+        }
+    }
+
     private func makeConnection() -> NSXPCConnection {
         if let conn = connection { return conn }
         let conn = NSXPCConnection(machServiceName: "com.vannaq.RamKillerHelper", options: .privileged)

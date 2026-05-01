@@ -18,12 +18,7 @@ struct CleanerCategorySection: View {
                     CleanerRow(
                         cleaner: cleaner,
                         size: sizes[cleaner.id],
-                        selected: Binding(
-                            get: { selectedIDs.contains(cleaner.id) },
-                            set: { isOn in
-                                if isOn { selectedIDs.insert(cleaner.id) } else { selectedIDs.remove(cleaner.id) }
-                            }
-                        )
+                        selected: $selectedIDs.contains(cleaner.id)
                     )
                     Divider()
                 }

@@ -33,12 +33,7 @@ struct LargeFileListView: View {
 
             // Selection toolbar
             HStack {
-                Toggle(isOn: Binding(
-                    get: { allSelected },
-                    set: { isOn in
-                        marked = isOn ? Set(entries.map { $0.id }) : []
-                    }
-                )) {
+                Toggle(isOn: $marked.selectAll(of: entries.map { $0.id })) {
                     Text(allSelected ? "Unselect all" : "Select all")
                         .font(.caption)
                 }
@@ -56,14 +51,9 @@ struct LargeFileListView: View {
 
             Table(entries) {
                 TableColumn("") { e in
-                    Toggle("", isOn: Binding(
-                        get: { marked.contains(e.id) },
-                        set: { isOn in
-                            if isOn { marked.insert(e.id) } else { marked.remove(e.id) }
-                        }
-                    ))
-                    .labelsHidden()
-                    .toggleStyle(.checkbox)
+                    Toggle("", isOn: $marked.contains(e.id))
+                        .labelsHidden()
+                        .toggleStyle(.checkbox)
                 }
                 .width(28)
 
@@ -110,12 +100,7 @@ struct LargeFileListView: View {
         var freed: Int64 = 0
         for e in toDelete {
             do {
-                if moveToTrash {
-                    var resulting: NSURL?
-                    try FileManager.default.trashItem(at: e.url, resultingItemURL: &resulting)
-                } else {
-                    try FileManager.default.removeItem(at: e.url)
-                }
+                try FileManager.default.remove(e.url, toTrash: moveToTrash)
                 freed += e.size
             } catch {
                 NSLog("delete failed: \(error)")
