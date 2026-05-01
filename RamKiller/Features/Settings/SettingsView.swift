@@ -72,7 +72,6 @@ struct SettingsView: View {
             .frame(maxWidth: 720)
         }
         .background(Theme.bg)
-        .preferredColorScheme(.dark)
         .navigationTitle("Settings")
         .onAppear {
             if launchAtLogin && LoginItemService.shared.status != .enabled {

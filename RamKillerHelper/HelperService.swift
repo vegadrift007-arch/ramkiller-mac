@@ -2,11 +2,20 @@ import Foundation
 import Shared
 
 final class HelperService: NSObject, NSXPCListenerDelegate, HelperProtocol {
-    static let version = "0.2.0"
+    static let version = "0.3.0"
+
+    /// Cap incoming command size to prevent memory exhaustion DoS.
+    private static let maxCommandBytes = 64 * 1024
+
+    /// Code-signing requirement: caller must be RamKiller signed with our Apple Development team.
+    /// Team ID 6G8MT5T376 is the personal team for vegadrift007@gmail.com.
+    private static let codeSigningRequirement =
+        "identifier \"com.vannaq.RamKiller\" and anchor apple generic " +
+        "and certificate leaf[subject.OU] = \"6G8MT5T376\""
 
     func listener(_ listener: NSXPCListener, shouldAcceptNewConnection conn: NSXPCConnection) -> Bool {
-        // For self-use: accept all connections. Hardening (code-sign requirement validation)
-        // is a future phase — see plan file for FIXME.
+        // Pin caller to our app's signing identity. Without this, any local process can drive root.
+        conn.setCodeSigningRequirement(Self.codeSigningRequirement)
         conn.exportedInterface = NSXPCInterface(with: HelperProtocol.self)
         conn.exportedObject = self
         conn.resume()
@@ -20,6 +29,11 @@ final class HelperService: NSObject, NSXPCListenerDelegate, HelperProtocol {
     }
 
     func execute(commandData: Data, reply: @escaping (Data) -> Void) {
+        guard commandData.count <= Self.maxCommandBytes else {
+            let err = HelperResult.denied(reason: "command too large (\(commandData.count) bytes)")
+            reply((try? JSONEncoder().encode(err)) ?? Data())
+            return
+        }
         do {
             let cmd = try JSONDecoder().decode(HelperCommand.self, from: commandData)
             let result = run(cmd)
@@ -40,27 +54,15 @@ final class HelperService: NSObject, NSXPCListenerDelegate, HelperProtocol {
             }
             return .success
         case .killProcess(let pid, let sig):
-            switch KillOperation.run(pid: pid, signal: sig) {
-            case .success:                return .success
-            case .denied(let r):          return .denied(reason: r)
-            case .failed(let e):          return .failed(error: e)
-            }
+            return KillOperation.run(pid: pid, signal: sig)
         case .unloadLaunchPlist(let path):
-            return adapt(LaunchItemOperation.unload(path: path))
+            return LaunchItemOperation.unload(path: path)
         case .loadLaunchPlist(let path):
-            return adapt(LaunchItemOperation.load(path: path))
+            return LaunchItemOperation.load(path: path)
         case .renamePlist(let from, let to):
-            return adapt(LaunchItemOperation.rename(from: from, to: to))
+            return LaunchItemOperation.rename(from: from, to: to)
         case .deletePlist(let path):
-            return adapt(LaunchItemOperation.delete(path: path))
-        }
-    }
-
-    private func adapt(_ outcome: LaunchItemOperation.Outcome) -> HelperResult {
-        switch outcome {
-        case .success:        return .success
-        case .denied(let r):  return .denied(reason: r)
-        case .failed(let e):  return .failed(error: e)
+            return LaunchItemOperation.delete(path: path)
         }
     }
 }

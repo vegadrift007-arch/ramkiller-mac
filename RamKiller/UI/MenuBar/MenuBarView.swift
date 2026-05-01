@@ -69,7 +69,6 @@ struct MenuBarView: View {
         .padding(14)
         .frame(width: 300)
         .background(Theme.bg)
-        .preferredColorScheme(.dark)
     }
 
     private func statRow(_ title: String, value: String, accent: Color, fraction: Double? = nil) -> some View {

@@ -120,7 +120,6 @@ struct ProcessesView: View {
         }
         .background(Theme.bg)
         .navigationTitle("Processes")
-        .preferredColorScheme(.dark)
         .killConfirmAlert($killContext) { process, force in
             performKill(process: process, force: force)
         }

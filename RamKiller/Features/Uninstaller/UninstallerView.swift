@@ -49,7 +49,6 @@ struct UninstallerView: View {
             .background(Theme.bg)
         }
         .navigationTitle("Uninstaller")
-        .preferredColorScheme(.dark)
         .task { await loadApps() }
     }
 

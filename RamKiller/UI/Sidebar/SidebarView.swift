@@ -40,5 +40,4 @@ struct SidebarView: View {
     @Previewable @State var sel: SidebarItem? = .monitoring
     return SidebarView(selection: $sel)
         .frame(width: 220, height: 500)
-        .preferredColorScheme(.dark)
 }

@@ -17,7 +17,6 @@ struct MonitoringView: View {
             .padding(24)
         }
         .background(Theme.bg)
-        .preferredColorScheme(.dark)
         .navigationTitle("Memory")
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
