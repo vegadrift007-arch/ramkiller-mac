@@ -32,12 +32,12 @@ public final class SamplingCoordinator: ObservableObject {
 
     public func start() {
         sampleMemory()
-        sampleProcesses()
+        Task { await sampleProcesses() }
         memoryTimer = Timer.scheduledTimer(withTimeInterval: Self.memoryInterval, repeats: true) { _ in
             Task { @MainActor [weak self] in self?.sampleMemory() }
         }
         processTimer = Timer.scheduledTimer(withTimeInterval: Self.processInterval, repeats: true) { _ in
-            Task { @MainActor [weak self] in self?.sampleProcesses() }
+            Task { [weak self] in await self?.sampleProcesses() }
         }
     }
 
@@ -46,6 +46,7 @@ public final class SamplingCoordinator: ObservableObject {
         processTimer?.invalidate()
     }
 
+    /// vm_statistics64 is a fast syscall — fine to keep on main.
     private func sampleMemory() {
         let reading = memoryService.readCurrent()
         latestMemory = reading
@@ -57,14 +58,22 @@ public final class SamplingCoordinator: ObservableObject {
         }
     }
 
-    private func sampleProcesses() {
-        let top = processService.topByRSS(limit: Self.processTopN)
-        latestProcesses = top
-        let ts = Date()
-        for r in top {
-            modelContext.insert(ProcessSnapshot(reading: r, timestamp: ts))
+    /// Process sampling enumerates 800+ procs via sysctl + proc_pidinfo — 1-3s on main thread
+    /// would freeze UI. Run the gather on a detached task, hop back to main only for state assign.
+    nonisolated private func sampleProcesses() async {
+        let top = await Task.detached(priority: .utility) { [processService] in
+            processService.topByRSS(limit: Self.processTopN)
+        }.value
+
+        await MainActor.run { [weak self] in
+            guard let self else { return }
+            self.latestProcesses = top
+            let ts = Date()
+            for r in top {
+                self.modelContext.insert(ProcessSnapshot(reading: r, timestamp: ts))
+            }
+            try? self.modelContext.save()
         }
-        try? modelContext.save()
     }
 
     private func handleAlert(level: AlertLevel, reading: MemoryReading) {
@@ -88,7 +97,6 @@ public final class SamplingCoordinator: ObservableObject {
 
         if engine.config.autoPurgeEnabled,
            level.severity >= engine.config.autoPurgeAtLevel.severity {
-            // Respect cooldown
             if let last = lastAutoPurge,
                Date().timeIntervalSince(last) < Double(engine.config.autoPurgeCooldownSeconds) {
                 return

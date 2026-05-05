@@ -178,6 +178,12 @@ struct ProcessesView: View {
     }
 
     private func refreshFullList() {
-        fullList = ProcessService().readAll().sorted { $0.rssBytes > $1.rssBytes }
+        Task {
+            // Off-main: enumerating 800+ procs is multi-second work that would freeze UI.
+            let result = await Task.detached(priority: .userInitiated) {
+                ProcessService().readAll().sorted { $0.rssBytes > $1.rssBytes }
+            }.value
+            await MainActor.run { fullList = result }
+        }
     }
 }
