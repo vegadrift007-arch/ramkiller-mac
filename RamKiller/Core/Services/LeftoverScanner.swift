@@ -3,16 +3,39 @@ import Foundation
 public actor LeftoverScanner {
     public init() {}
 
+    public struct ScanResult: Sendable {
+        public let leftovers: [Leftover]
+        public let hasFullDiskAccess: Bool
+    }
+
+    /// Backward-compatible shorthand — drops the TCC flag.
     public func scan(for app: AppInfo) async -> [Leftover] {
+        await scanFull(for: app).leftovers
+    }
+
+    /// Returns leftovers + a TCC sentinel result so the UI can warn when access is missing.
+    public func scanFull(for app: AppInfo) async -> ScanResult {
         let homeURL = FileManager.default.homeDirectoryForCurrentUser
         let bid = sanitize(app.bundleIdentifier)
         let nameSafe = sanitize(app.name)
+        let hasAccess = canReadLibrarySentinel(home: homeURL)
+        guard !bid.isEmpty, !nameSafe.isEmpty else {
+            return ScanResult(leftovers: [], hasFullDiskAccess: hasAccess)
+        }
+        let leftovers = collectLeftovers(homeURL: homeURL, bid: bid, nameSafe: nameSafe)
+        return ScanResult(leftovers: leftovers, hasFullDiskAccess: hasAccess)
+    }
 
-        // Reject bundle ids that would escape — bundle id should be reverse-DNS only
-        guard !bid.isEmpty, !nameSafe.isEmpty else { return [] }
+    /// Probes ~/Library/Application Support readability. macOS gates many subdirs of ~/Library
+    /// behind TCC ("Files and Folders" / "Full Disk Access") prompts; if the app hasn't been
+    /// granted, fileExists() / contentsOfDirectory silently fail on those paths.
+    private func canReadLibrarySentinel(home: URL) -> Bool {
+        let path = home.appending(path: "Library/Application Support").path
+        let entries = try? FileManager.default.contentsOfDirectory(atPath: path)
+        return (entries?.count ?? 0) > 0
+    }
 
-        // Build candidate URLs via URL.appendingPathComponent (validates path components)
-        // rather than string interpolation
+    private func collectLeftovers(homeURL: URL, bid: String, nameSafe: String) -> [Leftover] {
         let lib = homeURL.appending(path: "Library")
         let candidatesUser: [(URL, Leftover.Kind)] = [
             (lib.appending(path: "Application Support").appending(path: nameSafe), .applicationSupport),
@@ -30,7 +53,6 @@ public actor LeftoverScanner {
             (lib.appending(path: "LaunchAgents").appending(path: "\(bid).plist"), .launchAgent),
         ]
 
-        // System paths — keep as plain strings since /Library/... is fixed
         let candidatesSystem: [(String, Leftover.Kind)] = [
             ("/Library/LaunchAgents/\(bid).plist", .launchAgent),
             ("/Library/LaunchDaemons/\(bid).plist", .launchDaemon),
@@ -38,26 +60,27 @@ public actor LeftoverScanner {
 
         var leftovers: [Leftover] = []
         for (url, kind) in candidatesUser {
-            // Final containment check: resolved url must be within home directory
             guard isWithin(url, root: homeURL) else { continue }
             if FileManager.default.fileExists(atPath: url.path) {
-                leftovers.append(Leftover(id: url.path, path: url.path, size: sizeOf(path: url.path), kind: kind))
+                leftovers.append(Leftover(id: url.path, path: url.path, size: url.diskSize(), kind: kind))
             }
         }
         for (path, kind) in candidatesSystem {
             if FileManager.default.fileExists(atPath: path) {
-                leftovers.append(Leftover(id: path, path: path, size: sizeOf(path: path), kind: kind))
+                let url = URL(fileURLWithPath: path)
+                leftovers.append(Leftover(id: path, path: path, size: url.diskSize(), kind: kind))
             }
         }
 
-        // Glob: anything in HTTPStorages containing bundle id
+        leftovers.append(contentsOf: scanPkgReceipts(bundleId: bid))
+
         let storagesDir = lib.appending(path: "HTTPStorages")
         if let entries = try? FileManager.default.contentsOfDirectory(atPath: storagesDir.path) {
             for e in entries where e.contains(bid) && !e.contains("..") && !e.contains("/") {
                 let url = storagesDir.appending(path: e)
                 guard isWithin(url, root: homeURL) else { continue }
                 if !leftovers.contains(where: { $0.path == url.path }) {
-                    leftovers.append(Leftover(id: url.path, path: url.path, size: sizeOf(path: url.path), kind: .httpStorage))
+                    leftovers.append(Leftover(id: url.path, path: url.path, size: url.diskSize(), kind: .httpStorage))
                 }
             }
         }
@@ -65,8 +88,40 @@ public actor LeftoverScanner {
         return leftovers.sorted { $0.size > $1.size }
     }
 
-    /// Strips path-traversal characters from a string before using it as a path component.
-    /// Bundle IDs and app names can in principle contain anything; we sanitize aggressively.
+    /// Scans `pkgutil --pkgs` for receipts whose bundle id matches or shares a vendor prefix.
+    private func scanPkgReceipts(bundleId: String) -> [Leftover] {
+        let parts = bundleId.split(separator: ".")
+        guard parts.count >= 2 else { return [] }
+        let vendorPrefix = parts.prefix(2).joined(separator: ".")
+
+        let task = Process()
+        task.executableURL = URL(fileURLWithPath: "/usr/sbin/pkgutil")
+        task.arguments = ["--pkgs"]
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.standardError = Pipe()
+        do {
+            try task.run()
+            task.waitUntilExit()
+        } catch {
+            return []
+        }
+        guard task.terminationStatus == 0 else { return [] }
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
+        guard let text = String(data: data, encoding: .utf8) else { return [] }
+
+        return text
+            .split(separator: "\n")
+            .map { String($0).trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty && ($0 == bundleId || $0.hasPrefix(vendorPrefix + ".")) }
+            .map { receipt in
+                Leftover(id: "pkgutil:\(receipt)",
+                         path: "pkgutil:\(receipt)",
+                         size: 0,
+                         kind: .pkgReceipt)
+            }
+    }
+
     private func sanitize(_ s: String) -> String {
         s.replacingOccurrences(of: "/", with: "")
          .replacingOccurrences(of: "\\", with: "")
@@ -75,28 +130,9 @@ public actor LeftoverScanner {
          .trimmingCharacters(in: .whitespaces)
     }
 
-    /// Verifies a URL stays within the given root after standardization.
     private func isWithin(_ url: URL, root: URL) -> Bool {
         let r = root.standardizedFileURL.path
         let u = url.standardizedFileURL.path
         return u.hasPrefix(r + "/") || u == r
-    }
-
-    private func sizeOf(path: String) -> Int64 {
-        let url = URL(fileURLWithPath: path)
-        var isDir: ObjCBool = false
-        guard FileManager.default.fileExists(atPath: path, isDirectory: &isDir) else { return 0 }
-        if isDir.boolValue {
-            var total: Int64 = 0
-            if let e = FileManager.default.enumerator(at: url, includingPropertiesForKeys: [.fileSizeKey]) {
-                for case let f as URL in e {
-                    let r = try? f.resourceValues(forKeys: [.fileSizeKey])
-                    total += Int64(r?.fileSize ?? 0)
-                }
-            }
-            return total
-        }
-        let r = try? url.resourceValues(forKeys: [.fileSizeKey])
-        return Int64(r?.fileSize ?? 0)
     }
 }

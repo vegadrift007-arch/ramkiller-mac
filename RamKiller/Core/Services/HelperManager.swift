@@ -55,4 +55,25 @@ final class HelperManager: ObservableObject {
             return error.localizedDescription
         }
     }
+
+    /// Cycle the daemon: unregister + re-register. Forces launchd to load the
+    /// current binary on disk (useful after rebuilding helper code).
+    @discardableResult
+    func restart() async -> String? {
+        do {
+            try await service.unregister()
+        } catch {
+            // ignore — service may not have been registered
+        }
+        // Brief pause so launchd flushes the unregistration before we re-register
+        try? await Task.sleep(nanoseconds: 500_000_000)
+        do {
+            try service.register()
+            refresh()
+            return nil
+        } catch {
+            refresh()
+            return error.localizedDescription
+        }
+    }
 }

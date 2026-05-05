@@ -17,6 +17,7 @@ public struct Leftover: Identifiable, Hashable {
         case httpStorage
         case launchAgent
         case launchDaemon
+        case pkgReceipt
         case other
 
         public var label: String {
@@ -31,6 +32,7 @@ public struct Leftover: Identifiable, Hashable {
             case .httpStorage:        return "HTTP Storage"
             case .launchAgent:        return "Launch Agent"
             case .launchDaemon:       return "Launch Daemon"
+            case .pkgReceipt:         return "Pkg Receipt"
             case .other:              return "Other"
             }
         }
@@ -47,6 +49,7 @@ public struct Leftover: Identifiable, Hashable {
             case .httpStorage:         return "globe"
             case .launchAgent:         return "powerplug"
             case .launchDaemon:        return "shield"
+            case .pkgReceipt:          return "doc.badge.gearshape"
             case .other:               return "questionmark"
             }
         }

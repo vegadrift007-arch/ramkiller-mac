@@ -5,6 +5,7 @@ struct AppDetailView: View {
     @State private var leftovers: [Leftover] = []
     @State private var selectedLeftovers: Set<String> = []
     @State private var scanning: Bool = false
+    @State private var hasFullDiskAccess: Bool = true
     @State private var moveToTrash: Bool = true
     @State private var showConfirm: Bool = false
     @State private var lastResult: UninstallerService.UninstallResult?
@@ -110,8 +111,11 @@ struct AppDetailView: View {
                     .foregroundStyle(Theme.accent)
                     .font(Theme.caption)
             }
+            if !hasFullDiskAccess && !scanning {
+                tccWarning
+            }
             if leftovers.isEmpty && !scanning {
-                Text("No leftovers found.")
+                Text(hasFullDiskAccess ? "No leftovers found." : "Scan may be incomplete — see warning above.")
                     .foregroundStyle(Theme.mute)
                     .padding(.vertical, 12)
             } else if !leftovers.isEmpty {
@@ -133,6 +137,34 @@ struct AppDetailView: View {
                 .vqCard(padding: 0)
             }
         }
+    }
+
+    private var tccWarning: some View {
+        HStack(alignment: .top, spacing: 10) {
+            Image(systemName: "exclamationmark.shield.fill")
+                .foregroundStyle(Theme.warn)
+                .font(.title3)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Limited file access").font(Theme.headline()).foregroundStyle(Theme.ink)
+                Text("RamKiller can't read parts of ~/Library, so some leftovers may be missed. Grant Full Disk Access for best results.")
+                    .font(Theme.caption)
+                    .foregroundStyle(Theme.inkSoft)
+                Button("Open System Settings") {
+                    if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles") {
+                        NSWorkspace.shared.open(url)
+                    }
+                }
+                .buttonStyle(.borderless)
+                .foregroundStyle(Theme.accent)
+                .font(Theme.caption)
+                .padding(.top, 2)
+            }
+            Spacer()
+        }
+        .padding(12)
+        .background(Theme.warn.opacity(0.1))
+        .overlay(RoundedRectangle(cornerRadius: 10).strokeBorder(Theme.warn.opacity(0.3), lineWidth: 1))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 
     private func leftoverRow(_ l: Leftover) -> some View {
@@ -174,31 +206,50 @@ struct AppDetailView: View {
     }
 
     private func resultBanner(_ r: UninstallerService.UninstallResult) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        let ok = r.errors.isEmpty
+        let tint: Color = ok ? Theme.accent : Theme.danger
+        return VStack(alignment: .leading, spacing: 8) {
             HStack {
-                Image(systemName: r.errors.isEmpty ? "checkmark.circle.fill" : "exclamationmark.triangle.fill")
-                    .foregroundStyle(r.errors.isEmpty ? Theme.accent : Theme.warn)
-                Text("Uninstalled \(r.appName) — freed \(ByteFormat.mb(r.bytesFreed))")
-                    .font(Theme.headline(14))
+                Image(systemName: ok ? "checkmark.circle.fill" : "exclamationmark.octagon.fill")
+                    .foregroundStyle(tint)
+                    .font(.title3)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(ok ? "Uninstalled \(r.appName)" : "Uninstall had \(r.errors.count) error\(r.errors.count > 1 ? "s" : "")")
+                        .font(Theme.headline(15))
+                    Text("Freed \(ByteFormat.mb(r.bytesFreed))")
+                        .font(Theme.caption)
+                        .foregroundStyle(Theme.inkSoft)
+                }
                 Spacer()
                 Button("Dismiss") { lastResult = nil }
                     .buttonStyle(.borderless)
                     .foregroundStyle(Theme.inkSoft)
                     .font(Theme.caption)
             }
-            ForEach(r.errors, id: \.self) { e in
-                Text(e).font(Theme.caption).foregroundStyle(Theme.danger).lineLimit(1)
+            if !r.errors.isEmpty {
+                Divider().background(Theme.line)
+                ForEach(r.errors, id: \.self) { e in
+                    HStack(alignment: .top, spacing: 6) {
+                        Text("•").foregroundStyle(Theme.danger)
+                        Text(e)
+                            .font(Theme.caption.monospaced())
+                            .foregroundStyle(Theme.danger)
+                            .textSelection(.enabled)
+                    }
+                }
             }
         }
         .padding(14)
-        .background(Theme.accent.opacity(0.08))
-        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(Theme.accent.opacity(0.3), lineWidth: 1))
+        .background(tint.opacity(0.08))
+        .overlay(RoundedRectangle(cornerRadius: 12).strokeBorder(tint.opacity(0.3), lineWidth: 1))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
 
     private func scanLeftovers() async {
         scanning = true
-        leftovers = await LeftoverScanner().scan(for: app)
+        let result = await LeftoverScanner().scanFull(for: app)
+        leftovers = result.leftovers
+        hasFullDiskAccess = result.hasFullDiskAccess
         selectedLeftovers = Set(leftovers.map { $0.id })
         scanning = false
     }

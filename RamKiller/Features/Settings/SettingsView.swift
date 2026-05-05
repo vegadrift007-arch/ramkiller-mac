@@ -45,6 +45,8 @@ struct SettingsView: View {
                         Button("Install / Repair") { installHelper() }
                             .buttonStyle(.borderedProminent)
                             .tint(Theme.accent)
+                        Button("Restart") { restartHelper() }
+                            .disabled(helperManager.status == .notRegistered)
                         Button("Uninstall") { uninstallHelper() }
                             .disabled(helperManager.status == .notRegistered)
                         if helperManager.status == .requiresApproval {
@@ -140,6 +142,15 @@ struct SettingsView: View {
 
     private func uninstallHelper() {
         helperError = helperManager.uninstall()
+    }
+
+    private func restartHelper() {
+        Task {
+            helperError = await helperManager.restart()
+            if helperError == nil {
+                await loadHelperVersion()
+            }
+        }
     }
 
     private func loadHelperVersion() async {

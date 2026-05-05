@@ -21,29 +21,37 @@ final class HelperBridge {
     }
 
     func send(_ command: HelperCommand) async throws -> HelperResult {
-        // Refresh status before sending — user may have disabled the helper externally
-        // (System Settings → Login Items & Extensions) without our app knowing.
         HelperManager.shared.refresh()
         guard HelperManager.shared.status == .enabled else {
             throw BridgeError.helperNotInstalled
         }
         let conn = makeConnection()
-        var proxyError: Error?
-        let proxy = conn.remoteObjectProxyWithErrorHandler { err in
-            proxyError = err
-        } as? HelperProtocol
-        guard let proxy else {
-            throw BridgeError.unreachable("proxy nil: \(proxyError?.localizedDescription ?? "?")")
-        }
-
         let cmdData = try JSONEncoder().encode(command)
-        return try await withCheckedThrowingContinuation { cont in
+        return try await withCheckedThrowingContinuation { (cont: CheckedContinuation<HelperResult, Error>) in
+            // Resume exactly once — either via the reply block or via XPC error handler.
+            // Without this, code-signing rejection / connection invalidation leaks the continuation.
+            let resumed = ResumeOnce()
+            let proxy = conn.remoteObjectProxyWithErrorHandler { err in
+                resumed.fire {
+                    cont.resume(throwing: BridgeError.unreachable(err.localizedDescription))
+                }
+            } as? HelperProtocol
+
+            guard let proxy else {
+                resumed.fire {
+                    cont.resume(throwing: BridgeError.unreachable("proxy nil"))
+                }
+                return
+            }
+
             proxy.execute(commandData: cmdData) { resData in
-                do {
-                    let result = try JSONDecoder().decode(HelperResult.self, from: resData)
-                    cont.resume(returning: result)
-                } catch {
-                    cont.resume(throwing: BridgeError.decodeError(error.localizedDescription))
+                resumed.fire {
+                    do {
+                        let result = try JSONDecoder().decode(HelperResult.self, from: resData)
+                        cont.resume(returning: result)
+                    } catch {
+                        cont.resume(throwing: BridgeError.decodeError(error.localizedDescription))
+                    }
                 }
             }
         }
@@ -52,14 +60,24 @@ final class HelperBridge {
     func helperVersion() async -> String? {
         guard HelperManager.shared.status == .enabled else { return nil }
         let conn = makeConnection()
-        let proxy = conn.remoteObjectProxy as? HelperProtocol
-        return await withCheckedContinuation { cont in
-            proxy?.helperVersion { v in cont.resume(returning: v) } ?? cont.resume(returning: nil)
+        return await withCheckedContinuation { (cont: CheckedContinuation<String?, Never>) in
+            let resumed = ResumeOnce()
+            let proxy = conn.remoteObjectProxyWithErrorHandler { _ in
+                resumed.fire { cont.resume(returning: nil) }
+            } as? HelperProtocol
+
+            guard let proxy else {
+                resumed.fire { cont.resume(returning: nil) }
+                return
+            }
+
+            proxy.helperVersion { v in
+                resumed.fire { cont.resume(returning: v) }
+            }
         }
     }
 
     /// Sends a command and records the outcome to UserActionLog in one shot.
-    /// Returns the result on success/denied/failed; nil on transport error (which is also logged).
     func sendAndLog(
         _ command: HelperCommand,
         type: String,
@@ -96,5 +114,22 @@ final class HelperBridge {
         conn.resume()
         connection = conn
         return conn
+    }
+}
+
+/// Helper that ensures a continuation is resumed exactly once, even when both
+/// the XPC reply and the error handler fire (or neither does).
+private final class ResumeOnce: @unchecked Sendable {
+    private let lock = NSLock()
+    private var done = false
+
+    func fire(_ block: () -> Void) {
+        lock.lock()
+        let wasDone = done
+        done = true
+        lock.unlock()
+        if !wasDone {
+            block()
+        }
     }
 }
