@@ -5,26 +5,32 @@ struct AdvancedBreakdownView: View {
 
     var body: some View {
         if let m = coordinator.latestMemory {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Advanced breakdown").font(.headline)
-                HStack(spacing: 16) {
-                    breakdown("Wired", bytes: m.wiredBytes)
-                    breakdown("Active", bytes: m.activeBytes)
-                    breakdown("Inactive", bytes: m.inactiveBytes)
-                    breakdown("Speculative", bytes: m.speculativeBytes)
-                }
-                .font(.callout)
+            HStack(spacing: 14) {
+                StatCard(
+                    title: "Wired",
+                    value: ByteFormat.gb(m.wiredBytes),
+                    subtitle: "kernel-locked",
+                    tint: Theme.purple
+                )
+                StatCard(
+                    title: "Active",
+                    value: ByteFormat.gb(m.activeBytes),
+                    subtitle: "recently used",
+                    tint: Theme.accent
+                )
+                StatCard(
+                    title: "Inactive",
+                    value: ByteFormat.gb(m.inactiveBytes),
+                    subtitle: "reclaimable",
+                    tint: Theme.warn
+                )
+                StatCard(
+                    title: "Speculative",
+                    value: ByteFormat.gb(m.speculativeBytes),
+                    subtitle: "prefetch",
+                    tint: Theme.inkSoft
+                )
             }
-            .padding(12)
-            .background(Color(NSColor.controlBackgroundColor))
-            .clipShape(RoundedRectangle(cornerRadius: 8))
-        }
-    }
-
-    private func breakdown(_ title: String, bytes: Int64) -> some View {
-        VStack(alignment: .leading) {
-            Text(title).font(.caption).foregroundStyle(.secondary)
-            Text(ByteFormat.gb(bytes)).monospacedDigit()
         }
     }
 }

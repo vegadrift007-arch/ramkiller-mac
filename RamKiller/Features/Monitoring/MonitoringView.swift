@@ -11,8 +11,14 @@ struct MonitoringView: View {
                 heroBlock
                 SmartKillBanner()
                 statCardsRow
+                if advanced {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Kernel breakdown").vqEyebrow()
+                        AdvancedBreakdownView()
+                    }
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                }
                 chartsSection
-                if advanced { AdvancedBreakdownView() }
             }
             .padding(24)
         }
@@ -34,7 +40,7 @@ struct MonitoringView: View {
                 .labelsHidden()
             }
             ToolbarItem {
-                Toggle("Advanced", isOn: $advanced)
+                Toggle("Advanced", isOn: $advanced.animation(.easeInOut(duration: 0.2)))
             }
         }
     }
