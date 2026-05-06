@@ -9,25 +9,25 @@ struct AdvancedBreakdownView: View {
                 StatCard(
                     title: "Wired",
                     value: ByteFormat.gb(m.wiredBytes),
-                    subtitle: "kernel-locked",
+                    subtitle: String(localized: "kernel-locked"),
                     tint: Theme.purple
                 )
                 StatCard(
                     title: "Active",
                     value: ByteFormat.gb(m.activeBytes),
-                    subtitle: "recently used",
+                    subtitle: String(localized: "recently used"),
                     tint: Theme.accent
                 )
                 StatCard(
                     title: "Inactive",
                     value: ByteFormat.gb(m.inactiveBytes),
-                    subtitle: "reclaimable",
+                    subtitle: String(localized: "reclaimable"),
                     tint: Theme.warn
                 )
                 StatCard(
                     title: "Speculative",
                     value: ByteFormat.gb(m.speculativeBytes),
-                    subtitle: "prefetch",
+                    subtitle: String(localized: "prefetch"),
                     tint: Theme.inkSoft
                 )
             }

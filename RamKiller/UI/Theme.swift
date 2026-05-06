@@ -32,15 +32,15 @@ public enum AppTheme: String, CaseIterable, Identifiable {
 
     public var label: String {
         switch self {
-        case .midnight: return "Midnight"
-        case .bloom:    return "Bloom"
+        case .midnight: return String(localized: "Midnight")
+        case .bloom:    return String(localized: "Bloom")
         }
     }
 
     public var description: String {
         switch self {
-        case .midnight: return "Dark navy + electric green"
-        case .bloom:    return "Pastel pink + soft purple"
+        case .midnight: return String(localized: "Dark navy + electric green")
+        case .bloom:    return String(localized: "Pastel pink + soft purple")
         }
     }
 

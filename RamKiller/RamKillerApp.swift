@@ -8,6 +8,9 @@ struct RamKillerApp: App {
     @StateObject private var samplingCoordinator: SamplingCoordinator
 
     init() {
+        // Apply persisted language preference BEFORE any UI loads so AppleLanguages takes effect.
+        LanguageManager.bootstrap()
+
         let schema = Schema([
             MemorySnapshot.self,
             ProcessSnapshot.self,

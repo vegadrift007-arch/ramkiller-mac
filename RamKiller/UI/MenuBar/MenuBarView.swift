@@ -71,7 +71,7 @@ struct MenuBarView: View {
         .background(Theme.bg)
     }
 
-    private func statRow(_ title: String, value: String, accent: Color, fraction: Double? = nil) -> some View {
+    private func statRow(_ title: LocalizedStringKey, value: String, accent: Color, fraction: Double? = nil) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Text(title).font(Theme.caption).foregroundStyle(Theme.mute)
@@ -95,9 +95,9 @@ struct MenuBarView: View {
 
     private func pressureBadge(_ level: Int) -> some View {
         switch level {
-        case 0: return AnyView(VQTag(text: "Healthy", color: Theme.accent))
-        case 1: return AnyView(VQTag(text: "Warn", color: Theme.warn))
-        default: return AnyView(VQTag(text: "Critical", color: Theme.danger))
+        case 0: return AnyView(VQTag(text: String(localized: "Healthy"), color: Theme.accent))
+        case 1: return AnyView(VQTag(text: String(localized: "Warn"), color: Theme.warn))
+        default: return AnyView(VQTag(text: String(localized: "Critical"), color: Theme.danger))
         }
     }
 

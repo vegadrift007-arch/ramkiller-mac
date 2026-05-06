@@ -50,7 +50,7 @@ struct ProcessDetailView: View {
         }
     }
 
-    private func detailRow(_ title: String, value: String) -> some View {
+    private func detailRow(_ title: LocalizedStringKey, value: String) -> some View {
         HStack {
             Text(title).vqEyebrow()
             Spacer()

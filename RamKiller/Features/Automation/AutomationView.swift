@@ -9,10 +9,10 @@ struct AutomationView: View {
         var id: String { rawValue }
         var label: String {
             switch self {
-            case .timeline: return "Pressure Timeline"
-            case .culprits: return "Culprit Processes"
-            case .alerts:   return "Alert History"
-            case .actions:  return "User Actions"
+            case .timeline: return String(localized: "Pressure Timeline")
+            case .culprits: return String(localized: "Culprit Processes")
+            case .alerts:   return String(localized: "Alert History")
+            case .actions:  return String(localized: "User Actions")
             }
         }
     }

@@ -14,12 +14,12 @@ public enum CleanerCategory: String, Codable, CaseIterable {
 
     public var label: String {
         switch self {
-        case .developer: return "Developer Tools"
-        case .browser:   return "Browsers"
-        case .media:     return "Media"
-        case .appCache:  return "Application Caches"
-        case .system:    return "System"
-        case .trash:     return "Trash"
+        case .developer: return String(localized: "Developer Tools")
+        case .browser:   return String(localized: "Browsers")
+        case .media:     return String(localized: "Media")
+        case .appCache:  return String(localized: "Application Caches")
+        case .system:    return String(localized: "System")
+        case .trash:     return String(localized: "Trash")
         }
     }
 

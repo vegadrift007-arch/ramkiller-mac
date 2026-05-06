@@ -6,7 +6,9 @@ struct LargeFilesView: View {
     enum Tab: String, CaseIterable, Identifiable {
         case large, duplicates
         var id: String { rawValue }
-        var label: String { self == .large ? "Large Files" : "Duplicates" }
+        var label: String {
+            self == .large ? String(localized: "Large Files") : String(localized: "Duplicates")
+        }
     }
 
     var body: some View {

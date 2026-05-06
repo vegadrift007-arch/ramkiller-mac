@@ -63,10 +63,12 @@ struct SettingsView: View {
 
                 ThemePickerSection()
 
+                LanguagePickerSection()
+
                 AutomationSettingsSection()
 
                 section("About") {
-                    HStack { Text("Version").vqEyebrow(); Spacer(); Text("0.1.0").font(Theme.mono(12)).foregroundStyle(Theme.ink) }
+                    HStack { Text("Version").vqEyebrow(); Spacer(); Text(appVersion).font(Theme.mono(12)).foregroundStyle(Theme.ink) }
                     HStack { Text("Bundle ID").vqEyebrow(); Spacer(); Text("com.vannaq.RamKiller").font(Theme.mono(11)).foregroundStyle(Theme.inkSoft) }
                 }
             }
@@ -86,7 +88,7 @@ struct SettingsView: View {
         .task { await loadHelperVersion() }
     }
 
-    private func section<Content: View>(_ title: String, @ViewBuilder _ content: () -> Content) -> some View {
+    private func section<Content: View>(_ title: LocalizedStringKey, @ViewBuilder _ content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 14) {
             Text(title).vqEyebrow()
             content()
@@ -96,21 +98,25 @@ struct SettingsView: View {
 
     private var loginStatusLabel: String {
         switch LoginItemService.shared.status {
-        case .enabled:           return "Enabled"
-        case .notRegistered:     return "Not registered"
-        case .requiresApproval:  return "Requires approval (System Settings)"
-        case .notFound:          return "Not found"
-        @unknown default:        return "Unknown"
+        case .enabled:           return String(localized: "Enabled")
+        case .notRegistered:     return String(localized: "Not registered")
+        case .requiresApproval:  return String(localized: "Requires approval (System Settings)")
+        case .notFound:          return String(localized: "Not found")
+        @unknown default:        return String(localized: "Unknown")
         }
     }
 
     private var helperStatusLabel: String {
         switch helperManager.status {
-        case .enabled:           return "Helper enabled"
-        case .requiresApproval:  return "Needs approval — open System Settings"
-        case .notRegistered:     return "Not installed"
-        case .unknown:           return "Unknown"
+        case .enabled:           return String(localized: "Helper enabled")
+        case .requiresApproval:  return String(localized: "Needs approval — open System Settings")
+        case .notRegistered:     return String(localized: "Not installed")
+        case .unknown:           return String(localized: "Unknown")
         }
+    }
+
+    private var appVersion: String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
     }
 
     private var helperBadgeColor: Color {

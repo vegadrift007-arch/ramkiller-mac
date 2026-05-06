@@ -116,13 +116,13 @@ struct MonitoringView: View {
                 StatCard(
                     title: "Compressor",
                     value: ByteFormat.gb(m.compressorBytes),
-                    subtitle: "memory squeezed",
+                    subtitle: String(localized: "memory squeezed"),
                     tint: Theme.warn
                 )
                 StatCard(
                     title: "Total",
                     value: ByteFormat.gb(m.totalBytes),
-                    subtitle: "physical RAM",
+                    subtitle: String(localized: "physical RAM"),
                     tint: Theme.inkSoft
                 )
             }
@@ -155,9 +155,9 @@ struct MonitoringView: View {
 
     private func pressureLabel(_ l: Int) -> String {
         switch l {
-        case 0: return "Healthy"
-        case 1: return "Under pressure"
-        default: return "Critical"
+        case 0: return String(localized: "Healthy")
+        case 1: return String(localized: "Under pressure")
+        default: return String(localized: "Critical")
         }
     }
 
@@ -171,9 +171,9 @@ struct MonitoringView: View {
 
     private func pressurePill(_ l: Int) -> some View {
         switch l {
-        case 0: return AnyView(VQTag(text: "Healthy", color: Theme.accent))
-        case 1: return AnyView(VQTag(text: "Warn", color: Theme.warn))
-        default: return AnyView(VQTag(text: "Critical", color: Theme.danger))
+        case 0: return AnyView(VQTag(text: String(localized: "Healthy"), color: Theme.accent))
+        case 1: return AnyView(VQTag(text: String(localized: "Warn"), color: Theme.warn))
+        default: return AnyView(VQTag(text: String(localized: "Critical"), color: Theme.danger))
         }
     }
 }

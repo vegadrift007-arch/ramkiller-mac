@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct PlaceholderView: View {
-    let title: String
+    let title: LocalizedStringKey
     let phase: String
     let icon: String
 

@@ -9,10 +9,10 @@ public struct LaunchItem: Identifiable, Hashable {
 
         public var label: String {
             switch self {
-            case .loginItem:           return "Login Item"
-            case .userLaunchAgent:     return "User Agent"
-            case .systemLaunchAgent:   return "System Agent"
-            case .systemLaunchDaemon:  return "System Daemon"
+            case .loginItem:           return String(localized: "Login Item")
+            case .userLaunchAgent:     return String(localized: "User Agent")
+            case .systemLaunchAgent:   return String(localized: "System Agent")
+            case .systemLaunchDaemon:  return String(localized: "System Daemon")
             }
         }
     }

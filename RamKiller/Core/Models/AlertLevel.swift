@@ -7,9 +7,9 @@ public enum AlertLevel: String, Codable, CaseIterable {
 
     public var label: String {
         switch self {
-        case .warning:   return "Warning"
-        case .critical:  return "Critical"
-        case .emergency: return "Emergency"
+        case .warning:   return String(localized: "Warning")
+        case .critical:  return String(localized: "Critical")
+        case .emergency: return String(localized: "Emergency")
         }
     }
 

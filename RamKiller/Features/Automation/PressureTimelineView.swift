@@ -91,7 +91,7 @@ struct PressureTimelineView: View {
         .padding(.horizontal, 4)
     }
 
-    private func stat(_ title: String, value: String) -> some View {
+    private func stat(_ title: LocalizedStringKey, value: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(title).font(.caption).foregroundStyle(.secondary)
             Text(value).font(.callout).fontWeight(.medium).monospacedDigit()
@@ -139,7 +139,7 @@ struct PressureTimelineView: View {
         .padding(.horizontal, 4)
     }
 
-    private func legendItem(color: Color, label: String) -> some View {
+    private func legendItem(color: Color, label: LocalizedStringKey) -> some View {
         HStack(spacing: 4) {
             Rectangle().fill(color).frame(width: 12, height: 12).cornerRadius(2)
             Text(label).foregroundStyle(.secondary)

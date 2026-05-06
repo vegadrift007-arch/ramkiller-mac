@@ -55,7 +55,7 @@ struct ProcessesView: View {
                     .foregroundStyle(Theme.accent)
                     .font(Theme.caption)
                 Spacer()
-                VQTag(text: "\(visible.count) procs", color: Theme.inkSoft)
+                VQTag(text: String(localized: "\(visible.count) procs"), color: Theme.inkSoft)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 10)

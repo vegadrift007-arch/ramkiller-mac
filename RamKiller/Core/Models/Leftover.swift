@@ -22,18 +22,18 @@ public struct Leftover: Identifiable, Hashable {
 
         public var label: String {
             switch self {
-            case .applicationSupport: return "App Support"
-            case .caches:             return "Caches"
-            case .preferences:        return "Preferences"
-            case .logs:               return "Logs"
-            case .container:          return "Container"
-            case .groupContainer:     return "Group Container"
-            case .savedState:         return "Saved State"
-            case .httpStorage:        return "HTTP Storage"
-            case .launchAgent:        return "Launch Agent"
-            case .launchDaemon:       return "Launch Daemon"
-            case .pkgReceipt:         return "Pkg Receipt"
-            case .other:              return "Other"
+            case .applicationSupport: return String(localized: "App Support")
+            case .caches:             return String(localized: "Caches")
+            case .preferences:        return String(localized: "Preferences")
+            case .logs:               return String(localized: "Logs")
+            case .container:          return String(localized: "Container")
+            case .groupContainer:     return String(localized: "Group Container")
+            case .savedState:         return String(localized: "Saved State")
+            case .httpStorage:        return String(localized: "HTTP Storage")
+            case .launchAgent:        return String(localized: "Launch Agent")
+            case .launchDaemon:       return String(localized: "Launch Daemon")
+            case .pkgReceipt:         return String(localized: "Pkg Receipt")
+            case .other:              return String(localized: "Other")
             }
         }
 
