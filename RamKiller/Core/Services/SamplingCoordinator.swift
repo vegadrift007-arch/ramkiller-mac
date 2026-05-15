@@ -7,9 +7,14 @@ import Shared
 public final class SamplingCoordinator: ObservableObject {
     @Published public private(set) var latestMemory: MemoryReading?
     @Published public private(set) var latestProcesses: [ProcessReading] = []
+    @Published public private(set) var cpuPercent: Double = 0
+    @Published public private(set) var networkDown: Double = 0
+    @Published public private(set) var networkUp: Double = 0
 
     private let memoryService = MemoryService()
     private let processService = ProcessService()
+    private let cpuService = CPUService()
+    private let networkService = NetworkService()
     private let modelContext: ModelContext
     private let engine = ThresholdEngine(config: ThresholdConfig.load())
 
@@ -46,10 +51,14 @@ public final class SamplingCoordinator: ObservableObject {
         processTimer?.invalidate()
     }
 
-    /// vm_statistics64 is a fast syscall — fine to keep on main.
+    /// vm_statistics64 + CPU + network are fast syscalls — fine to keep on main.
     private func sampleMemory() {
         let reading = memoryService.readCurrent()
         latestMemory = reading
+        cpuPercent = cpuService.cpuUsage()
+        let net = networkService.readCurrent()
+        networkDown = net.downBytesPerSec
+        networkUp   = net.upBytesPerSec
         modelContext.insert(MemorySnapshot(reading: reading))
         try? modelContext.save()
 

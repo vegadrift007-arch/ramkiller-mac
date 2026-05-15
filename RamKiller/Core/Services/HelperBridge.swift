@@ -62,16 +62,27 @@ final class HelperBridge {
         let conn = makeConnection()
         return await withCheckedContinuation { (cont: CheckedContinuation<String?, Never>) in
             let resumed = ResumeOnce()
+
+            // 2-second watchdog: if neither the reply nor the error handler fires
+            // (e.g. helper is unresponsive), we still resume the continuation.
+            let watchdog = DispatchSource.makeTimerSource(queue: .main)
+            watchdog.schedule(deadline: .now() + 2)
+            watchdog.setEventHandler { resumed.fire { cont.resume(returning: nil) } }
+            watchdog.resume()
+
             let proxy = conn.remoteObjectProxyWithErrorHandler { _ in
+                watchdog.cancel()
                 resumed.fire { cont.resume(returning: nil) }
             } as? HelperProtocol
 
             guard let proxy else {
+                watchdog.cancel()
                 resumed.fire { cont.resume(returning: nil) }
                 return
             }
 
             proxy.helperVersion { v in
+                watchdog.cancel()
                 resumed.fire { cont.resume(returning: v) }
             }
         }

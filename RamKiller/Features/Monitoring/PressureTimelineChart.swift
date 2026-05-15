@@ -1,23 +1,12 @@
 import SwiftUI
 import Charts
-import SwiftData
 
 struct PressureTimelineChart: View {
-    @Query private var snapshots: [MemorySnapshot]
-    let windowHours: Int
-
-    init(windowHours: Int = 1) {
-        self.windowHours = windowHours
-        let cutoff = Date().addingTimeInterval(-Double(windowHours) * 3600)
-        let predicate = #Predicate<MemorySnapshot> { $0.timestamp >= cutoff }
-        _snapshots = Query(filter: predicate, sort: \MemorySnapshot.timestamp)
-    }
-
-    private var rendered: [MemorySnapshot] { downsample(snapshots, target: 250) }
+    let data: [MemorySnapshot]
 
     var body: some View {
         Chart {
-            ForEach(rendered) { snap in
+            ForEach(data) { snap in
                 BarMark(
                     x: .value("Time", snap.timestamp),
                     y: .value("Level", snap.pressureLevel + 1)

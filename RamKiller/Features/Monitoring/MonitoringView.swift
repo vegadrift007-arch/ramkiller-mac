@@ -1,13 +1,18 @@
 import SwiftUI
+import SwiftData
 
 struct MonitoringView: View {
     @EnvironmentObject private var coordinator: SamplingCoordinator
+    @Environment(\.modelContext) private var modelContext
     @AppStorage("monitoring.advanced") private var advanced: Bool = false
     @State private var windowHours: Int = 1
+    // Single fetch owned here — charts receive plain arrays, no @Query inside them.
+    // Capped at 300 rows to eliminate the 51k-row scan that caused scroll lag.
+    @State private var chartData: [MemorySnapshot] = []
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
+            LazyVStack(alignment: .leading, spacing: 24) {
                 heroBlock
                 SmartKillBanner()
                 statCardsRow
@@ -18,7 +23,18 @@ struct MonitoringView: View {
                     }
                     .transition(.opacity.combined(with: .move(edge: .top)))
                 }
-                chartsSection
+                VStack(alignment: .leading, spacing: 14) {
+                    sectionHeader("Memory usage", value: "GB over time")
+                    MemoryAreaChart(data: chartData).vqCard()
+                }
+                VStack(alignment: .leading, spacing: 14) {
+                    sectionHeader("Pressure", value: "color = level")
+                    PressureTimelineChart(data: chartData).vqCard()
+                }
+                VStack(alignment: .leading, spacing: 14) {
+                    sectionHeader("Swap activity", value: "pages / second")
+                    SwapRateChart(data: chartData).vqCard()
+                }
             }
             .padding(24)
         }
@@ -43,6 +59,26 @@ struct MonitoringView: View {
                 Toggle("Advanced", isOn: $advanced.animation(.easeInOut(duration: 0.2)))
             }
         }
+        .onAppear { refreshChartData() }
+        .onChange(of: windowHours) { _, _ in refreshChartData() }
+        .task(id: windowHours) {
+            // Refresh chart data every 30 seconds — charts don't need live 2s updates.
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: 30_000_000_000)
+                refreshChartData()
+            }
+        }
+    }
+
+    private func refreshChartData() {
+        let cutoff = Date().addingTimeInterval(-Double(windowHours) * 3600)
+        var descriptor = FetchDescriptor<MemorySnapshot>(
+            predicate: #Predicate { $0.timestamp >= cutoff },
+            sortBy: [SortDescriptor(\.timestamp, order: .reverse)]
+        )
+        // Fetch only the 300 most-recent rows, then reverse for chronological display.
+        descriptor.fetchLimit = 300
+        chartData = ((try? modelContext.fetch(descriptor)) ?? []).reversed()
     }
 
     @ViewBuilder
@@ -126,22 +162,6 @@ struct MonitoringView: View {
                     tint: Theme.inkSoft
                 )
             }
-        }
-    }
-
-    private var chartsSection: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            sectionHeader("Memory usage", value: "GB over time")
-            MemoryAreaChart(windowHours: windowHours)
-                .vqCard()
-
-            sectionHeader("Pressure", value: "color = level")
-            PressureTimelineChart(windowHours: windowHours)
-                .vqCard()
-
-            sectionHeader("Swap activity", value: "pages / second")
-            SwapRateChart(windowHours: windowHours)
-                .vqCard()
         }
     }
 

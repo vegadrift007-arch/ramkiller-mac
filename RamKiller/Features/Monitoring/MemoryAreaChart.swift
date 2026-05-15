@@ -1,26 +1,12 @@
 import SwiftUI
 import Charts
-import SwiftData
 
 struct MemoryAreaChart: View {
-    @Query private var snapshots: [MemorySnapshot]
-    let windowHours: Int
-
-    /// Use a predicate-based Query so SwiftData only materializes recent rows.
-    /// Without the predicate, fetching 24h × 1800 ≈ 43k @Model objects every 2s tick = PPT lag.
-    init(windowHours: Int = 1) {
-        self.windowHours = windowHours
-        let cutoff = Date().addingTimeInterval(-Double(windowHours) * 3600)
-        let predicate = #Predicate<MemorySnapshot> { $0.timestamp >= cutoff }
-        _snapshots = Query(filter: predicate, sort: \MemorySnapshot.timestamp)
-    }
-
-    /// Cap to ~250 points for Chart rendering speed.
-    private var rendered: [MemorySnapshot] { downsample(snapshots, target: 250) }
+    let data: [MemorySnapshot]
 
     var body: some View {
         Chart {
-            ForEach(rendered) { snap in
+            ForEach(data) { snap in
                 AreaMark(
                     x: .value("Time", snap.timestamp),
                     y: .value("Used", Double(snap.usedBytes) / 1_073_741_824)
