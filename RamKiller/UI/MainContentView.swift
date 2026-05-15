@@ -38,6 +38,7 @@ struct MainContentView: View {
         case .monitoring:    MonitoringView()
         case .processes:     ProcessesView()
         case .automation:    AutomationView()
+        case .security:      SecurityView()
         case .cacheCleaner:  CacheCleanerView()
         case .largeFiles:    LargeFilesView()
         case .uninstaller:   UninstallerView()
