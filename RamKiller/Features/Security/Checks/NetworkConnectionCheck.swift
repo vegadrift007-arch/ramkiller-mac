@@ -40,8 +40,11 @@ struct NetworkConnectionCheck: SecurityCheck {
         p.standardOutput = pipe
         p.standardError = Pipe()
         try? p.run()
+        // Read stdout BEFORE waitUntilExit — otherwise lsof blocks when pipe buffer fills up,
+        // and waitUntilExit never returns (classic pipe deadlock).
+        let data = pipe.fileHandleForReading.readDataToEndOfFile()
         p.waitUntilExit()
-        let out = String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? ""
+        let out = String(data: data, encoding: .utf8) ?? ""
         return out.components(separatedBy: .newlines)
             .filter { $0.hasPrefix("p") }
             .compactMap { pid_t($0.dropFirst()) }

@@ -30,13 +30,13 @@ struct SecurityView: View {
                         .font(Theme.caption).foregroundStyle(Theme.mute)
                 }
             }
-            ToolbarItem(placement: .primaryAction) {
-                Button { Task { await coordinator.scan() } } label: {
-                    Label(String(localized: "Scan Now"), systemImage: "shield.checkerboard")
+            if case .done = coordinator.scanState {
+                ToolbarItem(placement: .primaryAction) {
+                    Button { Task { await coordinator.scan() } } label: {
+                        Label(String(localized: "Scan Again"), systemImage: "arrow.clockwise.shield")
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.borderedProminent)
-                .tint(Theme.accent)
-                .disabled(coordinator.scanState != .idle)
             }
         }
         .confirmationDialog(
@@ -63,14 +63,29 @@ struct SecurityView: View {
     private var statusBanner: some View {
         switch coordinator.scanState {
         case .idle:
-            HStack(spacing: 10) {
-                Image(systemName: "shield").foregroundStyle(Theme.mute)
+            VStack(spacing: 16) {
+                Image(systemName: "shield.checkerboard")
+                    .font(.system(size: 44))
+                    .foregroundStyle(Theme.accent.opacity(0.8))
                 Text(String(localized: "Run a scan to check your Mac for threats"))
                     .font(Theme.bodyText).foregroundStyle(Theme.mute)
-                Spacer()
+                    .multilineTextAlignment(.center)
+                Button {
+                    Task { await coordinator.scan() }
+                } label: {
+                    Label(String(localized: "Scan Now"), systemImage: "shield.checkerboard")
+                        .font(Theme.headline(15))
+                        .padding(.horizontal, 28)
+                        .padding(.vertical, 10)
+                }
+                .buttonStyle(.borderedProminent)
+                .tint(Theme.accent)
+                .controlSize(.large)
             }
-            .padding(14)
-            .background(RoundedRectangle(cornerRadius: 10).fill(Theme.cardBg))
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 36)
+            .background(RoundedRectangle(cornerRadius: 14).fill(Theme.cardBg))
+            .overlay(RoundedRectangle(cornerRadius: 14).strokeBorder(Theme.accent.opacity(0.15), lineWidth: 1))
 
         case .scanning(let p):
             HStack(spacing: 12) {

@@ -57,14 +57,16 @@ final class SecurityScanCoordinator: ObservableObject {
         guard scanState == .idle else { return }
         scanState = .scanning(progress: 0)
 
-        async let m = checks[0].run()
-        async let l = checks[1].run()
-        scanState = .scanning(progress: 0.3)
-        async let n = checks[2].run()
-        async let p = checks[3].run()
-        scanState = .scanning(progress: 0.7)
-
-        let all = await m + l + n + p
+        // Run all checks with a 20-second per-check timeout so a hung subprocess
+        // (e.g. lsof pipe deadlock) can't freeze the scan indefinitely.
+        var all: [SecurityFinding] = []
+        let total = Double(checks.count)
+        for (i, check) in checks.enumerated() {
+            scanState = .scanning(progress: Double(i) / total)
+            let results = await withTimeout(seconds: 20) { await check.run() }
+            all += results ?? []
+        }
+        scanState = .scanning(progress: 1)
         let ignored = ignoredIDs
         let filtered = all
             .filter { !ignored.contains($0.id.uuidString) }
@@ -103,6 +105,20 @@ final class SecurityScanCoordinator: ObservableObject {
         } catch {
             UserActionLog.shared.record(type: "security_remove", target: path,
                                         success: false, error: error.localizedDescription)
+        }
+    }
+
+    /// Runs `operation` and returns its result, or `nil` if it exceeds `seconds`.
+    private func withTimeout<T: Sendable>(seconds: Double, operation: @escaping @Sendable () async -> T) async -> T? {
+        await withTaskGroup(of: T?.self) { group in
+            group.addTask { await operation() }
+            group.addTask {
+                try? await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+                return nil
+            }
+            let result = await group.next() ?? nil
+            group.cancelAll()
+            return result
         }
     }
 
