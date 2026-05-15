@@ -62,7 +62,9 @@ struct PermissionAbuseCheck: SecurityCheck {
     private func queryTCC(at path: String) -> [(String, String)] {
         let p = Process()
         p.executableURL = URL(fileURLWithPath: "/usr/bin/sqlite3")
-        p.arguments = [path, "SELECT client, service FROM access WHERE allowed=1 AND client_type=0;"]
+        // auth_value=2 is the "allowed" value on macOS Ventura+ (14.4+ deployment target).
+        // Fallback OR covers older schema where the column was named `allowed`.
+        p.arguments = [path, "SELECT client, service FROM access WHERE (auth_value=2 OR allowed=1) AND client_type=0;"]
         let pipe = Pipe()
         p.standardOutput = pipe
         p.standardError = Pipe()
