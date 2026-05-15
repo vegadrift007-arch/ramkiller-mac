@@ -27,7 +27,11 @@ enum Severity: String, Codable, CaseIterable, Comparable {
     case info, warning, critical
 
     private var order: Int {
-        switch self { case .info: return 0; case .warning: return 1; case .critical: return 2 }
+        switch self {
+        case .info:     return 0
+        case .warning:  return 1
+        case .critical: return 2
+        }
     }
     static func < (lhs: Severity, rhs: Severity) -> Bool { lhs.order < rhs.order }
 }
@@ -38,6 +42,8 @@ enum ScanState: Equatable {
     case done(Date)
 }
 
+// Findings are transient — only their UUIDs are persisted in UserDefaults for the ignore list.
+// Codable is intentionally not adopted.
 struct SecurityFinding: Identifiable, Equatable {
     let id: UUID
     let checkType: SecurityCheckType
