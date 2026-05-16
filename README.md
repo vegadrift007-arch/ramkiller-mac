@@ -3,7 +3,7 @@
 > A native macOS memory cleaner, security scanner, and system monitor — built with SwiftUI.
 
 <p align="center">
-  <img src="RamKiller/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png" width="180" alt="RamKiller icon"/>
+  <img src="docs/icon.png" width="180" alt="RamKiller icon"/>
 </p>
 
 <p align="center">
