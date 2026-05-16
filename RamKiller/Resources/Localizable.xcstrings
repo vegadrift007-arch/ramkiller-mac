@@ -1415,6 +1415,188 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Pick a tool" } },
         "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "选一个工具" } }
       }
+    },
+    "Security" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Security" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "安全" } }
+      }
+    },
+    "Scan Now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scan Now" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "立即扫描" } }
+      }
+    },
+    "Malware" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Malware" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恶意软件" } }
+      }
+    },
+    "Network Connections" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Network Connections" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "网络连接" } }
+      }
+    },
+    "Permission Abuse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Permission Abuse" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "权限滥用" } }
+      }
+    },
+    "All clear" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All clear" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全部正常" } }
+      }
+    },
+    "No threats detected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No threats detected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未检测到威胁" } }
+      }
+    },
+    "Remove this item?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove this item?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除此项目？" } }
+      }
+    },
+    "Full Disk Access required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Full Disk Access required" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "需要完全磁盘访问权限" } }
+      }
+    },
+    "Auto-scan interval" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Auto-scan interval" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自动扫描间隔" } }
+      }
+    },
+    "Off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Off" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "关闭" } }
+      }
+    },
+    "Daily" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每天" } }
+      }
+    },
+    "Weekly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每周" } }
+      }
+    },
+    "Run a scan to check your Mac for threats" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Run a scan to check your Mac for threats" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "运行扫描以检查 Mac 是否存在威胁" } }
+      }
+    },
+    "Scanning..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scanning..." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在扫描..." } }
+      }
+    },
+    "Review the findings below and take action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Review the findings below and take action" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "查看以下发现并采取措施" } }
+      }
+    },
+    "Ignore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ignore" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "忽略" } }
+      }
+    },
+    "Remove" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除" } }
+      }
+    },
+    "%d issue(s) found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d issue(s) found" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "发现 %d 个问题" } }
+      }
+    },
+    "RamKiller — Security Alert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "RamKiller — Security Alert" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "RamKiller — 安全警告" } }
+      }
+    },
+    "%d security issue(s) found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d security issue(s) found" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "发现 %d 个安全问题" } }
+      }
+    },
+    "Grant Full Disk Access in System Settings → Privacy & Security to enable permission scanning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Grant Full Disk Access in System Settings → Privacy & Security to enable permission scanning" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在系统设置 → 隐私与安全性中授予完全磁盘访问权限以启用权限扫描" } }
+      }
+    },
+    "No known malware detected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No known malware detected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未检测到已知恶意软件" } }
+      }
+    },
+    "All launch items are signed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All launch items are signed" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "所有启动项均已签名" } }
+      }
+    },
+    "All connections from signed apps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All connections from signed apps" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "所有连接来自已签名应用" } }
+      }
+    },
+    "No permission abuse detected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No permission abuse detected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未检测到权限滥用" } }
+      }
     }
   }
 }

@@ -1,0 +1,35 @@
+<h2>Security 扫描：你最想检测什么？</h2>
+<p class="subtitle">帮我了解这个功能的核心目标，选一个或多个</p>
+
+<div class="options" data-multiselect>
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>🦠 已知恶意软件 / 木马</h3>
+      <p>扫描文件路径、文件名、Bundle ID，对比一个本地维护的 macOS 恶意软件特征库（如 KnockKnock 数据库）</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>🚀 可疑启动项</h3>
+      <p>检查 LaunchAgents / LaunchDaemons / Login Items 中是否有未签名、来源不明或已知恶意的条目</p>
+    </div>
+  </div>
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>🌐 可疑网络连接</h3>
+      <p>列出正在建立外连的进程，标记来自非 App Store、无签名或已知 C2 地址的连接</p>
+    </div>
+  </div>
+  <div class="option" data-choice="d" onclick="toggleSelect(this)">
+    <div class="letter">D</div>
+    <div class="content">
+      <h3>🔑 权限滥用检测</h3>
+      <p>找出请求了过多 TCC 权限（全磁盘访问、摄像头、麦克风等）但来源可疑的应用</p>
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:20px">可多选，选完后在终端告诉我</p>

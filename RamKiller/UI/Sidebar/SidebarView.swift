@@ -3,7 +3,7 @@ import SwiftUI
 struct SidebarView: View {
     @Binding var selection: SidebarItem?
 
-    private let tools: [SidebarItem] = [.monitoring, .processes, .automation,
+    private let tools: [SidebarItem] = [.monitoring, .processes, .automation, .security,
                                          .cacheCleaner, .largeFiles, .uninstaller, .launchItems]
     private let system: [SidebarItem] = [.settings]
 

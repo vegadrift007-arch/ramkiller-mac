@@ -1,0 +1,98 @@
+<h2>Security 页面 — 最终设计</h2>
+<p class="subtitle">分组列表式，确认后进入实现阶段</p>
+
+<div class="mockup" style="max-width:760px;margin:0 auto">
+  <div class="mockup-header">安全 — RamKiller</div>
+  <div class="mockup-body" style="padding:0;font-family:system-ui;font-size:12px;background:#0A0F1C;color:#F5F5F7;min-height:480px;border-radius:0 0 10px 10px">
+
+    <!-- Toolbar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.08)">
+      <div>
+        <div style="font-size:11px;color:#6E7484">上次扫描：今天 22:03 · 耗时 4s</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:11px;color:#6E7484">自动扫描：每天</div>
+        <div style="padding:5px 16px;background:#00C805;border-radius:7px;color:#000;font-weight:700;font-size:12px;cursor:pointer">▶ 立即扫描</div>
+      </div>
+    </div>
+
+    <!-- Overall status banner -->
+    <div style="margin:16px 20px 0;background:rgba(255,170,0,0.07);border:1px solid rgba(255,170,0,0.18);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px">
+      <div style="font-size:22px">⚠️</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:#FFAA00">发现 3 个问题需要关注</div>
+        <div style="font-size:11px;color:#6E7484;margin-top:2px">2 个可疑启动项 · 1 个权限滥用</div>
+      </div>
+    </div>
+
+    <div style="padding:16px 20px;display:flex;flex-direction:column;gap:14px">
+
+      <!-- Section: Malware -->
+      <div>
+        <div style="font-size:10px;color:#6E7484;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">🦠 恶意软件</div>
+        <div style="background:rgba(0,200,5,0.06);border:1px solid rgba(0,200,5,0.15);border-radius:9px;padding:11px 14px;display:flex;align-items:center;gap:10px">
+          <div style="color:#00C805;font-size:16px">✓</div>
+          <div style="font-size:12px;color:#00C805">未检测到已知恶意软件</div>
+          <div style="margin-left:auto;font-size:10px;color:#6E7484">扫描了 1,243 个路径</div>
+        </div>
+      </div>
+
+      <!-- Section: Launch Items -->
+      <div>
+        <div style="font-size:10px;color:#6E7484;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">🚀 可疑启动项 · <span style="color:#FFAA00">2 项</span></div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:9px;overflow:hidden">
+          <div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#FFAA00">com.unknown.agent</div>
+              <div style="font-size:10px;color:#6E7484;margin-top:2px">未签名 LaunchAgent · ~/Library/LaunchAgents/com.unknown.agent.plist</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <div style="padding:4px 10px;background:rgba(255,255,255,0.06);border-radius:5px;font-size:10px;color:#6E7484;cursor:pointer">忽略</div>
+              <div style="padding:4px 10px;background:rgba(255,68,68,0.12);border-radius:5px;font-size:10px;color:#FF4444;cursor:pointer">移到废纸篓</div>
+            </div>
+          </div>
+          <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#FFAA00">io.suspicious.helper</div>
+              <div style="font-size:10px;color:#6E7484;margin-top:2px">未签名 LaunchDaemon · /Library/LaunchDaemons/io.suspicious.helper.plist</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <div style="padding:4px 10px;background:rgba(255,255,255,0.06);border-radius:5px;font-size:10px;color:#6E7484;cursor:pointer">忽略</div>
+              <div style="padding:4px 10px;background:rgba(255,68,68,0.12);border-radius:5px;font-size:10px;color:#FF4444;cursor:pointer">移到废纸篓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Network -->
+      <div>
+        <div style="font-size:10px;color:#6E7484;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">🌐 网络连接</div>
+        <div style="background:rgba(0,200,5,0.06);border:1px solid rgba(0,200,5,0.15);border-radius:9px;padding:11px 14px;display:flex;align-items:center;gap:10px">
+          <div style="color:#00C805;font-size:16px">✓</div>
+          <div style="font-size:12px;color:#00C805">所有活跃连接来自已签名应用</div>
+          <div style="margin-left:auto;font-size:10px;color:#6E7484">检查了 38 个进程</div>
+        </div>
+      </div>
+
+      <!-- Section: Permissions -->
+      <div>
+        <div style="font-size:10px;color:#6E7484;text-transform:uppercase;letter-spacing:1px;margin-bottom:7px">🔑 权限滥用 · <span style="color:#FF4444">1 项高风险</span></div>
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:9px;overflow:hidden">
+          <div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between">
+            <div>
+              <div style="font-size:12px;font-weight:600;color:#FF4444">SomeApp</div>
+              <div style="font-size:10px;color:#6E7484;margin-top:2px">持有：全磁盘访问 + 麦克风 + 摄像头 · 无开发者签名 · 非 App Store</div>
+            </div>
+            <div style="display:flex;gap:6px">
+              <div style="padding:4px 10px;background:rgba(255,255,255,0.06);border-radius:5px;font-size:10px;color:#6E7484;cursor:pointer">忽略</div>
+              <div style="padding:4px 10px;background:rgba(255,68,68,0.12);border-radius:5px;font-size:10px;color:#FF4444;cursor:pointer">卸载</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:16px;text-align:center">这就是完整的 Security 页面，确认后开始写实现计划</p>

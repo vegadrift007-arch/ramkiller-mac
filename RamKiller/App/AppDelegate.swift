@@ -22,6 +22,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         return false
     }
 
+    @objc func openMainWindow() {
+        if let win = NSApp.windows.first(where: { $0.identifier?.rawValue == "main" }) {
+            win.makeKeyAndOrderFront(nil)
+        }
+        NSApp.activate(ignoringOtherApps: true)
+    }
+
     /// Hourly retention prune. Runs the SwiftData work off the main thread so
     /// large delete batches never block the UI.
     private func scheduleRetention() {

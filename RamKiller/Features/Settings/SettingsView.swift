@@ -7,6 +7,7 @@ struct SettingsView: View {
     @ObservedObject private var helperManager = HelperManager.shared
     @State private var helperError: String?
     @State private var helperVersion: String = "?"
+    @EnvironmentObject private var securityCoordinator: SecurityScanCoordinator
 
     var body: some View {
         ScrollView {
@@ -61,11 +62,26 @@ struct SettingsView: View {
                     }
                 }
 
+                DesktopOverlaySection()
+
                 ThemePickerSection()
 
                 LanguagePickerSection()
 
                 AutomationSettingsSection()
+
+                section("Security") {
+                    Picker(String(localized: "Auto-scan interval"),
+                           selection: Binding(
+                               get: { securityCoordinator.autoScanInterval },
+                               set: { securityCoordinator.autoScanInterval = $0 }
+                           )) {
+                        Text(String(localized: "Off")).tag("off")
+                        Text(String(localized: "Daily")).tag("daily")
+                        Text(String(localized: "Weekly")).tag("weekly")
+                    }
+                    .pickerStyle(.segmented)
+                }
 
                 section("About") {
                     HStack { Text("Version").vqEyebrow(); Spacer(); Text(appVersion).font(Theme.mono(12)).foregroundStyle(Theme.ink) }

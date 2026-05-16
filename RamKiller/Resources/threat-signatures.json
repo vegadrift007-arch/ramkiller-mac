@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "updated": "2026-05-15",
+  "malware": [
+    { "name": "Shlayer",      "pathPatterns": ["*/com.shlayer.*", "*/MacOS/staf"] },
+    { "name": "Adload",       "pathPatterns": ["/Library/LaunchAgents/com.adload.*", "*/com.amc.*"] },
+    { "name": "Pirrit",       "pathPatterns": ["*/com.pirrit.*", "*/pirrit*"] },
+    { "name": "KeRanger",     "pathPatterns": ["*/Transmission.app/Contents/Resources/General.rtf"] },
+    { "name": "XCSSET",       "pathPatterns": ["*/XCSSET*", "*/.slToken"] },
+    { "name": "MacDefender",  "pathPatterns": ["*/MacDefender*", "*/MacProtector*", "*/MacSecurity*"] },
+    { "name": "Flashback",    "pathPatterns": ["*/com.java.update*", "*/.jupdate"] },
+    { "name": "Genieo",       "pathPatterns": ["*/Genieo*", "*/com.genieoinnovation*"] },
+    { "name": "DubRobber",    "pathPatterns": ["*/OSX.DubRobber*", "*/.ttt"] },
+    { "name": "Tarmac",       "pathPatterns": ["*/com.intego.tarmac*"] },
+    { "name": "CrescentCore", "pathPatterns": ["*/CrescentCore*"] },
+    { "name": "Bundlore",     "pathPatterns": ["*/Bundlore*", "*/com.bundl.*"] },
+    { "name": "NetWeird",     "pathPatterns": ["*/netweird*"] },
+    { "name": "WireLurker",   "pathPatterns": ["*/WireLurker*", "*/FontMap1*"] },
+    { "name": "EvilQuest",    "pathPatterns": ["*/com.apple.questd*", "*/.fseventsd*"] },
+    { "name": "OSX.Dok",      "pathPatterns": ["*/Library/LaunchAgents/com.apple.Safari.helper*"] },
+    { "name": "LoudMiner",    "pathPatterns": ["*/LoudMiner*"] },
+    { "name": "Mughthesec",   "pathPatterns": ["*/Mughthesec*", "*/OriginalBrowser*"] },
+    { "name": "Proton",       "pathPatterns": ["*/Proton*", "*/com.proton.rat*"] },
+    { "name": "FruitFly",     "pathPatterns": ["*/Library/LaunchAgents/com.apple.finder.plist", "*/Library/LaunchDaemons/com.apple.systemkeychain*"] }
+  ]
+}

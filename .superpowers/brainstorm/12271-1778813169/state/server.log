@@ -1,0 +1,3 @@
+{"type":"server-started","port":63999,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:63999","screen_dir":"/Users/a77/RamKiller/.claude/worktrees/sweet-shaw-6b1604/.superpowers/brainstorm/12271-1778813169/content","state_dir":"/Users/a77/RamKiller/.claude/worktrees/sweet-shaw-6b1604/.superpowers/brainstorm/12271-1778813169/state"}
+{"type":"screen-added","file":"/Users/a77/RamKiller/.claude/worktrees/sweet-shaw-6b1604/.superpowers/brainstorm/12271-1778813169/content/scan-scope.html"}
+{"type":"server-stopped","reason":"idle timeout"}

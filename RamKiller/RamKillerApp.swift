@@ -6,6 +6,7 @@ struct RamKillerApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
     private let container: ModelContainer
     @StateObject private var samplingCoordinator: SamplingCoordinator
+    @StateObject private var securityCoordinator = SecurityScanCoordinator()
 
     init() {
         // Apply persisted language preference BEFORE any UI loads so AppleLanguages takes effect.
@@ -32,7 +33,12 @@ struct RamKillerApp: App {
                 .frame(minWidth: 900, minHeight: 600)
                 .environmentObject(samplingCoordinator)
                 .environmentObject(ThemeManager.shared)
-                .onAppear { samplingCoordinator.start() }
+                .environmentObject(securityCoordinator)
+                .onAppear {
+                    samplingCoordinator.start()
+                    DesktopOverlayController.shared.configure(coordinator: samplingCoordinator)
+                    securityCoordinator.start()
+                }
         }
         .modelContainer(container)
         .windowToolbarStyle(.unified)
