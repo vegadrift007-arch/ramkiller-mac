@@ -1,5 +1,7 @@
 # BeagleX
 
+### 🐕 魔丸比格，撕碎一切 · Hunt malware. Shred junk. Set your Mac free.
+
 > A native macOS memory cleaner, security scanner, and system monitor — built with SwiftUI.
 > 一款原生 macOS 内存清理、安全扫描和系统监控工具 — 用 SwiftUI 构建。
 
