@@ -16,24 +16,24 @@
 
 | Path | Purpose |
 |---|---|
-| `RamKiller/Core/Models/LargeFileEntry.swift` | One file row |
-| `RamKiller/Core/Models/DuplicateGroup.swift` | A group of identical files |
-| `RamKiller/Core/Services/LargeFileScanner.swift` | Spotlight + walk |
-| `RamKiller/Core/Services/DuplicateScanner.swift` | 3-stage hashing |
-| `RamKiller/Core/Services/ScanScopeStore.swift` | Persist user folder selection |
-| `RamKiller/Features/LargeFiles/LargeFilesView.swift` | (replace) tabbed view |
-| `RamKiller/Features/LargeFiles/LargeFileListView.swift` | List of single files |
-| `RamKiller/Features/LargeFiles/DuplicateListView.swift` | Grouped view |
-| `RamKiller/Features/LargeFiles/ScanScopeSettings.swift` | Folder picker / list |
-| `RamKillerTests/DuplicateScannerTests.swift` | |
+| `BeagleX/Core/Models/LargeFileEntry.swift` | One file row |
+| `BeagleX/Core/Models/DuplicateGroup.swift` | A group of identical files |
+| `BeagleX/Core/Services/LargeFileScanner.swift` | Spotlight + walk |
+| `BeagleX/Core/Services/DuplicateScanner.swift` | 3-stage hashing |
+| `BeagleX/Core/Services/ScanScopeStore.swift` | Persist user folder selection |
+| `BeagleX/Features/LargeFiles/LargeFilesView.swift` | (replace) tabbed view |
+| `BeagleX/Features/LargeFiles/LargeFileListView.swift` | List of single files |
+| `BeagleX/Features/LargeFiles/DuplicateListView.swift` | Grouped view |
+| `BeagleX/Features/LargeFiles/ScanScopeSettings.swift` | Folder picker / list |
+| `BeagleXTests/DuplicateScannerTests.swift` | |
 
 ---
 
 ## Task 1: `LargeFileEntry` + `DuplicateGroup`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/LargeFileEntry.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/DuplicateGroup.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/LargeFileEntry.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/DuplicateGroup.swift`
 
 - [ ] **Step 1: Write LargeFileEntry**
 
@@ -72,7 +72,7 @@ public struct DuplicateGroup: Identifiable, Hashable {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Core/Models
+git add BeagleX/Core/Models
 git commit -m "phase-5: LargeFileEntry + DuplicateGroup models"
 ```
 
@@ -81,7 +81,7 @@ git commit -m "phase-5: LargeFileEntry + DuplicateGroup models"
 ## Task 2: `ScanScopeStore`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/ScanScopeStore.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/ScanScopeStore.swift`
 
 - [ ] **Step 1: Write the store**
 
@@ -131,7 +131,7 @@ public final class ScanScopeStore: ObservableObject {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/ScanScopeStore.swift
+git add BeagleX/Core/Services/ScanScopeStore.swift
 git commit -m "phase-5: ScanScopeStore"
 ```
 
@@ -140,7 +140,7 @@ git commit -m "phase-5: ScanScopeStore"
 ## Task 3: `LargeFileScanner`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/LargeFileScanner.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/LargeFileScanner.swift`
 
 - [ ] **Step 1: Write the scanner**
 
@@ -192,7 +192,7 @@ public actor LargeFileScanner {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/LargeFileScanner.swift
+git add BeagleX/Core/Services/LargeFileScanner.swift
 git commit -m "phase-5: LargeFileScanner (FileManager walk)"
 ```
 
@@ -201,14 +201,14 @@ git commit -m "phase-5: LargeFileScanner (FileManager walk)"
 ## Task 4: `DuplicateScanner` 3-stage
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/DuplicateScanner.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/DuplicateScannerTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/DuplicateScanner.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/DuplicateScannerTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class DuplicateScannerTests: XCTestCase {
     func testFindsExactDuplicates() async throws {
@@ -307,7 +307,7 @@ public actor DuplicateScanner {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Core/Services/DuplicateScanner.swift RamKillerTests/DuplicateScannerTests.swift
+git add BeagleX/Core/Services/DuplicateScanner.swift BeagleXTests/DuplicateScannerTests.swift
 git commit -m "phase-5: DuplicateScanner with 3-stage hashing"
 ```
 
@@ -316,7 +316,7 @@ git commit -m "phase-5: DuplicateScanner with 3-stage hashing"
 ## Task 5: `ScanScopeSettings` UI
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/LargeFiles/ScanScopeSettings.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/LargeFiles/ScanScopeSettings.swift`
 
 - [ ] **Step 1: Write the picker view**
 
@@ -370,7 +370,7 @@ struct ScanScopeSettings: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/LargeFiles/ScanScopeSettings.swift
+git add BeagleX/Features/LargeFiles/ScanScopeSettings.swift
 git commit -m "phase-5: scan scope settings view"
 ```
 
@@ -379,7 +379,7 @@ git commit -m "phase-5: scan scope settings view"
 ## Task 6: `LargeFileListView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/LargeFiles/LargeFileListView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/LargeFiles/LargeFileListView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -468,7 +468,7 @@ struct LargeFileListView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/LargeFiles/LargeFileListView.swift
+git add BeagleX/Features/LargeFiles/LargeFileListView.swift
 git commit -m "phase-5: LargeFileListView"
 ```
 
@@ -477,7 +477,7 @@ git commit -m "phase-5: LargeFileListView"
 ## Task 7: `DuplicateListView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/LargeFiles/DuplicateListView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/LargeFiles/DuplicateListView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -594,7 +594,7 @@ struct DuplicateListView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/LargeFiles/DuplicateListView.swift
+git add BeagleX/Features/LargeFiles/DuplicateListView.swift
 git commit -m "phase-5: DuplicateListView"
 ```
 
@@ -603,7 +603,7 @@ git commit -m "phase-5: DuplicateListView"
 ## Task 8: `LargeFilesView` tabs
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/LargeFiles/LargeFilesView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/LargeFiles/LargeFilesView.swift`
 
 - [ ] **Step 1: Replace placeholder**
 
@@ -646,7 +646,7 @@ struct LargeFilesView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/LargeFiles/LargeFilesView.swift
+git add BeagleX/Features/LargeFiles/LargeFilesView.swift
 git commit -m "phase-5: LargeFilesView tabbed"
 ```
 

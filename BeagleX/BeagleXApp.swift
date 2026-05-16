@@ -1,0 +1,57 @@
+import SwiftUI
+import SwiftData
+
+@main
+struct BeagleXApp: App {
+    @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    private let container: ModelContainer
+    @StateObject private var samplingCoordinator: SamplingCoordinator
+    @StateObject private var securityCoordinator = SecurityScanCoordinator()
+
+    init() {
+        // Apply persisted language preference BEFORE any UI loads so AppleLanguages takes effect.
+        LanguageManager.bootstrap()
+
+        let schema = Schema([
+            MemorySnapshot.self,
+            ProcessSnapshot.self,
+            AlertEvent.self,
+            UserAction.self
+        ])
+        let url = URL.applicationSupportDirectory.appending(path: "BeagleX/db.store")
+        try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let config = ModelConfiguration(schema: schema, url: url)
+        let container = try! ModelContainer(for: schema, configurations: [config])
+        self.container = container
+        SharedContainer.container = container
+        self._samplingCoordinator = StateObject(wrappedValue: SamplingCoordinator(modelContext: ModelContext(container)))
+    }
+
+    var body: some Scene {
+        Window("BeagleX", id: "main") {
+            MainContentView()
+                .frame(minWidth: 900, minHeight: 600)
+                .environmentObject(samplingCoordinator)
+                .environmentObject(ThemeManager.shared)
+                .environmentObject(securityCoordinator)
+                .onAppear {
+                    samplingCoordinator.start()
+                    DesktopOverlayController.shared.configure(coordinator: samplingCoordinator)
+                    securityCoordinator.start()
+                }
+        }
+        .modelContainer(container)
+        .windowToolbarStyle(.unified)
+
+        MenuBarExtra {
+            MenuBarView()
+                .environmentObject(samplingCoordinator)
+                .environmentObject(ThemeManager.shared)
+        } label: {
+            MenuBarIcon()
+                .environmentObject(samplingCoordinator)
+                .environmentObject(ThemeManager.shared)
+        }
+        .menuBarExtraStyle(.window)
+    }
+}

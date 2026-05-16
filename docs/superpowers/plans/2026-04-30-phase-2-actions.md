@@ -4,13 +4,13 @@
 
 **Goal:** Add executable actions on top of Phase 1 monitoring — kill a process (own or system) and purge memory. Kill of system processes and `purge` go through a privileged helper daemon registered via `SMAppService.daemon`, communicated via XPC with strict command + path whitelisting.
 
-**Architecture:** Add `RamKillerHelper` real implementation (XPC server) + `Shared` types defining the protocol. The app side gains `HelperManager` (lifecycle: register/check/install) and `HelperBridge` (XPC client with command dispatch). UI: Kill button in process row, Force-kill in right-click menu, Purge button in menubar + main window with 60-second cooldown, Smart-Kill banner suggesting idle high-memory processes.
+**Architecture:** Add `BeagleXHelper` real implementation (XPC server) + `Shared` types defining the protocol. The app side gains `HelperManager` (lifecycle: register/check/install) and `HelperBridge` (XPC client with command dispatch). UI: Kill button in process row, Force-kill in right-click menu, Purge button in menubar + main window with 60-second cooldown, Smart-Kill banner suggesting idle high-memory processes.
 
 **Tech Stack:** SMAppService.daemon (macOS 13+), NSXPCConnection / NSXPCListener, Foundation, Mach `vm_purge` syscall.
 
 **Prerequisite:** Phase 0 + 1 complete and verified.
 
-**⚠️ Manual user steps:** First-time helper installation requires user to approve "RamKiller Helper" in **System Settings → General → Login Items & Extensions → Allow in the Background**. This cannot be automated.
+**⚠️ Manual user steps:** First-time helper installation requires user to approve "BeagleX Helper" in **System Settings → General → Login Items & Extensions → Allow in the Background**. This cannot be automated.
 
 ---
 
@@ -21,34 +21,34 @@
 | `Shared/Sources/Shared/HelperCommand.swift` | Codable command enum |
 | `Shared/Sources/Shared/HelperResult.swift` | Codable result enum |
 | `Shared/Sources/Shared/HelperProtocol.swift` | `@objc` XPC protocol |
-| `RamKillerHelper/main.swift` | (replace) XPC server entry |
-| `RamKillerHelper/HelperService.swift` | NSXPCListenerDelegate + command dispatch |
-| `RamKillerHelper/Operations/PurgeOperation.swift` | Calls `vm_purge` |
-| `RamKillerHelper/Operations/KillOperation.swift` | Calls `kill(2)` after whitelist check |
-| `RamKillerHelper/Info.plist` | MachServices, version |
-| `RamKillerHelper/com.vannaq.ramkiller.helper.plist` | launchd job (placed in `Contents/Library/LaunchDaemons/`) |
-| `RamKiller/Core/Services/HelperManager.swift` | App-side: SMAppService lifecycle |
-| `RamKiller/Core/Services/HelperBridge.swift` | XPC client with auto-install fallback |
-| `RamKiller/Core/Services/PurgeCooldown.swift` | 60-second cooldown logic |
-| `RamKiller/Core/Services/SmartKillAnalyzer.swift` | Identify idle high-memory candidates |
-| `RamKiller/UI/Components/HelperStatusBadge.swift` | Compact helper-status indicator |
-| `RamKiller/UI/Components/PurgeButton.swift` | Reusable purge button + cooldown |
-| `RamKiller/UI/Components/KillConfirmAlert.swift` | Alert factory |
-| `RamKiller/Features/Processes/ProcessesView.swift` | (modify) add kill button + right-click |
-| `RamKiller/Features/Monitoring/MonitoringView.swift` | (modify) add purge button + smart-kill banner |
-| `RamKiller/UI/MenuBar/MenuBarView.swift` | (modify) add purge button |
-| `RamKiller/Features/Settings/SettingsView.swift` | (modify) add helper status row + reinstall button |
-| `RamKillerTests/HelperCommandTests.swift` | Codable round-trip tests |
-| `RamKillerTests/PurgeCooldownTests.swift` | Cooldown logic tests |
-| `RamKillerTests/SmartKillAnalyzerTests.swift` | Recommendation logic tests |
+| `BeagleXHelper/main.swift` | (replace) XPC server entry |
+| `BeagleXHelper/HelperService.swift` | NSXPCListenerDelegate + command dispatch |
+| `BeagleXHelper/Operations/PurgeOperation.swift` | Calls `vm_purge` |
+| `BeagleXHelper/Operations/KillOperation.swift` | Calls `kill(2)` after whitelist check |
+| `BeagleXHelper/Info.plist` | MachServices, version |
+| `BeagleXHelper/com.vannaq.beaglex.helper.plist` | launchd job (placed in `Contents/Library/LaunchDaemons/`) |
+| `BeagleX/Core/Services/HelperManager.swift` | App-side: SMAppService lifecycle |
+| `BeagleX/Core/Services/HelperBridge.swift` | XPC client with auto-install fallback |
+| `BeagleX/Core/Services/PurgeCooldown.swift` | 60-second cooldown logic |
+| `BeagleX/Core/Services/SmartKillAnalyzer.swift` | Identify idle high-memory candidates |
+| `BeagleX/UI/Components/HelperStatusBadge.swift` | Compact helper-status indicator |
+| `BeagleX/UI/Components/PurgeButton.swift` | Reusable purge button + cooldown |
+| `BeagleX/UI/Components/KillConfirmAlert.swift` | Alert factory |
+| `BeagleX/Features/Processes/ProcessesView.swift` | (modify) add kill button + right-click |
+| `BeagleX/Features/Monitoring/MonitoringView.swift` | (modify) add purge button + smart-kill banner |
+| `BeagleX/UI/MenuBar/MenuBarView.swift` | (modify) add purge button |
+| `BeagleX/Features/Settings/SettingsView.swift` | (modify) add helper status row + reinstall button |
+| `BeagleXTests/HelperCommandTests.swift` | Codable round-trip tests |
+| `BeagleXTests/PurgeCooldownTests.swift` | Cooldown logic tests |
+| `BeagleXTests/SmartKillAnalyzerTests.swift` | Recommendation logic tests |
 
 ---
 
 ## Task 1: `HelperCommand` enum
 
 **Files:**
-- Create: `/Users/a77/RamKiller/Shared/Sources/Shared/HelperCommand.swift`
-- Test: `/Users/a77/RamKiller/Shared/Tests/SharedTests/HelperCommandTests.swift`
+- Create: `/Users/a77/BeagleX/Shared/Sources/Shared/HelperCommand.swift`
+- Test: `/Users/a77/BeagleX/Shared/Tests/SharedTests/HelperCommandTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
@@ -76,7 +76,7 @@ final class HelperCommandTests: XCTestCase {
 - [ ] **Step 2: Run, expect failure**
 
 ```bash
-cd /Users/a77/RamKiller/Shared
+cd /Users/a77/BeagleX/Shared
 swift test
 ```
 
@@ -102,7 +102,7 @@ swift test
 - [ ] **Step 5: Commit**
 
 ```bash
-cd /Users/a77/RamKiller
+cd /Users/a77/BeagleX
 git add Shared
 git commit -m "phase-2: HelperCommand enum"
 ```
@@ -112,7 +112,7 @@ git commit -m "phase-2: HelperCommand enum"
 ## Task 2: `HelperResult` enum
 
 **Files:**
-- Create: `/Users/a77/RamKiller/Shared/Sources/Shared/HelperResult.swift`
+- Create: `/Users/a77/BeagleX/Shared/Sources/Shared/HelperResult.swift`
 
 - [ ] **Step 1: Write the type**
 
@@ -129,14 +129,14 @@ public enum HelperResult: Codable, Equatable, Sendable {
 - [ ] **Step 2: Verify package builds**
 
 ```bash
-cd /Users/a77/RamKiller/Shared
+cd /Users/a77/BeagleX/Shared
 swift build
 ```
 
 - [ ] **Step 3: Commit**
 
 ```bash
-cd /Users/a77/RamKiller
+cd /Users/a77/BeagleX
 git add Shared
 git commit -m "phase-2: HelperResult enum"
 ```
@@ -146,7 +146,7 @@ git commit -m "phase-2: HelperResult enum"
 ## Task 3: `HelperProtocol` XPC interface
 
 **Files:**
-- Create: `/Users/a77/RamKiller/Shared/Sources/Shared/HelperProtocol.swift`
+- Create: `/Users/a77/BeagleX/Shared/Sources/Shared/HelperProtocol.swift`
 
 - [ ] **Step 1: Write the protocol**
 
@@ -167,14 +167,14 @@ import Foundation
 - [ ] **Step 2: Build**
 
 ```bash
-cd /Users/a77/RamKiller/Shared
+cd /Users/a77/BeagleX/Shared
 swift build
 ```
 
 - [ ] **Step 3: Commit**
 
 ```bash
-cd /Users/a77/RamKiller
+cd /Users/a77/BeagleX
 git add Shared
 git commit -m "phase-2: HelperProtocol XPC interface"
 ```
@@ -184,7 +184,7 @@ git commit -m "phase-2: HelperProtocol XPC interface"
 ## Task 4: `PurgeOperation`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKillerHelper/Operations/PurgeOperation.swift`
+- Create: `/Users/a77/BeagleX/BeagleXHelper/Operations/PurgeOperation.swift`
 
 - [ ] **Step 1: Write the operation**
 
@@ -226,7 +226,7 @@ enum PurgeOperation {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKillerHelper/Operations/PurgeOperation.swift
+git add BeagleXHelper/Operations/PurgeOperation.swift
 git commit -m "phase-2: PurgeOperation"
 ```
 
@@ -235,7 +235,7 @@ git commit -m "phase-2: PurgeOperation"
 ## Task 5: `KillOperation`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKillerHelper/Operations/KillOperation.swift`
+- Create: `/Users/a77/BeagleX/BeagleXHelper/Operations/KillOperation.swift`
 
 - [ ] **Step 1: Write the operation**
 
@@ -281,7 +281,7 @@ enum HelperResultStub {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKillerHelper/Operations/KillOperation.swift
+git add BeagleXHelper/Operations/KillOperation.swift
 git commit -m "phase-2: KillOperation with whitelist"
 ```
 
@@ -290,7 +290,7 @@ git commit -m "phase-2: KillOperation with whitelist"
 ## Task 6: `HelperService` — XPC dispatch
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKillerHelper/HelperService.swift`
+- Create: `/Users/a77/BeagleX/BeagleXHelper/HelperService.swift`
 
 - [ ] **Step 1: Write the service**
 
@@ -303,7 +303,7 @@ final class HelperService: NSObject, NSXPCListenerDelegate, HelperProtocol {
 
     func listener(_ listener: NSXPCListener, shouldAcceptNewConnection conn: NSXPCConnection) -> Bool {
         // Verify caller is the main app via code-signing requirement.
-        let req = "anchor apple generic and identifier \"com.vannaq.ramkiller\" and certificate leaf[subject.OU] = \"\(teamID)\""
+        let req = "anchor apple generic and identifier \"com.vannaq.beaglex\" and certificate leaf[subject.OU] = \"\(teamID)\""
         var requirement: SecRequirement?
         guard SecRequirementCreateWithString(req as CFString, [], &requirement) == errSecSuccess,
               let requirement,
@@ -390,7 +390,7 @@ private func xpc_connection_get_audit_token_self(_ conn: xpc_connection_t, _ tok
 
 - [ ] **Step 2: Add `Shared` dependency to helper target**
 
-In Xcode → `RamKillerHelper` target → **General** → **Frameworks and Libraries** → **+** → `Shared`. (Already done in Phase 0 Task 4 Step 3 — verify it's still there.)
+In Xcode → `BeagleXHelper` target → **General** → **Frameworks and Libraries** → **+** → `Shared`. (Already done in Phase 0 Task 4 Step 3 — verify it's still there.)
 
 - [ ] **Step 3: Build**
 
@@ -401,7 +401,7 @@ In Xcode → `RamKillerHelper` target → **General** → **Frameworks and Libra
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKillerHelper/HelperService.swift
+git add BeagleXHelper/HelperService.swift
 git commit -m "phase-2: HelperService XPC dispatch (signing check stubbed)"
 ```
 
@@ -410,7 +410,7 @@ git commit -m "phase-2: HelperService XPC dispatch (signing check stubbed)"
 ## Task 7: Replace helper `main.swift` with NSXPCListener
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKillerHelper/main.swift`
+- Modify: `/Users/a77/BeagleX/BeagleXHelper/main.swift`
 
 - [ ] **Step 1: Replace the file**
 
@@ -419,7 +419,7 @@ import Foundation
 
 NSLog("[helper] starting v\(HelperService.version)")
 
-let listener = NSXPCListener(machServiceName: "com.vannaq.ramkiller.helper")
+let listener = NSXPCListener(machServiceName: "com.vannaq.beaglex.helper")
 let delegate = HelperService()
 listener.delegate = delegate
 listener.resume()
@@ -434,7 +434,7 @@ RunLoop.current.run()
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKillerHelper/main.swift
+git add BeagleXHelper/main.swift
 git commit -m "phase-2: helper NSXPCListener boot"
 ```
 
@@ -443,16 +443,16 @@ git commit -m "phase-2: helper NSXPCListener boot"
 ## Task 8: Helper `Info.plist` with MachServices
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKillerHelper/Info.plist` (Xcode auto-generated; we add keys)
+- Modify: `/Users/a77/BeagleX/BeagleXHelper/Info.plist` (Xcode auto-generated; we add keys)
 
 - [ ] **Step 1: Open helper Info.plist in Xcode**
 
-Click `RamKillerHelper/Info.plist`. Add:
+Click `BeagleXHelper/Info.plist`. Add:
 
 | Key | Type | Value |
 |---|---|---|
 | `MachServices` | Dictionary | (one child below) |
-| `→ com.vannaq.ramkiller.helper` | Boolean | `YES` |
+| `→ com.vannaq.beaglex.helper` | Boolean | `YES` |
 | `CFBundleVersion` | String | `1` |
 | `CFBundleShortVersionString` | String | `0.1.0` |
 
@@ -461,7 +461,7 @@ If editing as XML directly:
 ```xml
 <key>MachServices</key>
 <dict>
-    <key>com.vannaq.ramkiller.helper</key>
+    <key>com.vannaq.beaglex.helper</key>
     <true/>
 </dict>
 <key>CFBundleVersion</key>
@@ -473,7 +473,7 @@ If editing as XML directly:
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKillerHelper/Info.plist
+git add BeagleXHelper/Info.plist
 git commit -m "phase-2: helper MachServices declaration"
 ```
 
@@ -482,7 +482,7 @@ git commit -m "phase-2: helper MachServices declaration"
 ## Task 9: launchd plist for the daemon
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKillerHelper/com.vannaq.ramkiller.helper.plist`
+- Create: `/Users/a77/BeagleX/BeagleXHelper/com.vannaq.beaglex.helper.plist`
 
 - [ ] **Step 1: Write the plist**
 
@@ -492,17 +492,17 @@ git commit -m "phase-2: helper MachServices declaration"
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.vannaq.ramkiller.helper</string>
+    <string>com.vannaq.beaglex.helper</string>
     <key>BundleProgram</key>
-    <string>Contents/MacOS/RamKillerHelper</string>
+    <string>Contents/MacOS/BeagleXHelper</string>
     <key>MachServices</key>
     <dict>
-        <key>com.vannaq.ramkiller.helper</key>
+        <key>com.vannaq.beaglex.helper</key>
         <true/>
     </dict>
     <key>AssociatedBundleIdentifiers</key>
     <array>
-        <string>com.vannaq.ramkiller</string>
+        <string>com.vannaq.beaglex</string>
     </array>
 </dict>
 </plist>
@@ -511,42 +511,42 @@ git commit -m "phase-2: helper MachServices declaration"
 - [ ] **Step 2: Have Xcode embed the plist into the app bundle**
 
 In Xcode:
-1. Select the **RamKiller** target → **Build Phases** tab.
+1. Select the **BeagleX** target → **Build Phases** tab.
 2. Click the **+** above the phase list → **New Copy Files Phase**.
 3. Name the new phase: **Copy LaunchDaemon plist**.
 4. **Destination**: Wrapper.
 5. **Subpath**: `Contents/Library/LaunchDaemons`.
-6. Drag `RamKillerHelper/com.vannaq.ramkiller.helper.plist` into the phase's file list.
-7. Verify the file is added to **RamKiller** target membership (not the helper).
+6. Drag `BeagleXHelper/com.vannaq.beaglex.helper.plist` into the phase's file list.
+7. Verify the file is added to **BeagleX** target membership (not the helper).
 
 - [ ] **Step 3: Have Xcode embed the helper executable into the app**
 
-Still in **RamKiller → Build Phases**:
+Still in **BeagleX → Build Phases**:
 1. Add another **New Copy Files Phase**.
 2. Name: **Copy Helper Tool**.
 3. **Destination**: Wrapper.
 4. **Subpath**: `Contents/MacOS`.
-5. Drag the **RamKillerHelper** product (under "Products" in the Project Navigator) into the file list.
+5. Drag the **BeagleXHelper** product (under "Products" in the Project Navigator) into the file list.
 
-This places the helper at `RamKiller.app/Contents/MacOS/RamKillerHelper`. SMAppService will read the embedded `Contents/Library/LaunchDaemons/com.vannaq.ramkiller.helper.plist`.
+This places the helper at `BeagleX.app/Contents/MacOS/BeagleXHelper`. SMAppService will read the embedded `Contents/Library/LaunchDaemons/com.vannaq.beaglex.helper.plist`.
 
 - [ ] **Step 4: Verify embed paths after a build**
 
 ```bash
-xcodebuild -project /Users/a77/RamKiller/RamKiller.xcodeproj -scheme RamKiller -configuration Debug -derivedDataPath /tmp/rk-build build
-ls /tmp/rk-build/Build/Products/Debug/RamKiller.app/Contents/Library/LaunchDaemons/
-ls /tmp/rk-build/Build/Products/Debug/RamKiller.app/Contents/MacOS/
+xcodebuild -project /Users/a77/BeagleX/BeagleX.xcodeproj -scheme BeagleX -configuration Debug -derivedDataPath /tmp/rk-build build
+ls /tmp/rk-build/Build/Products/Debug/BeagleX.app/Contents/Library/LaunchDaemons/
+ls /tmp/rk-build/Build/Products/Debug/BeagleX.app/Contents/MacOS/
 ```
 
 Expected:
-- `Contents/Library/LaunchDaemons/com.vannaq.ramkiller.helper.plist` exists.
-- `Contents/MacOS/RamKiller` exists.
-- `Contents/MacOS/RamKillerHelper` exists.
+- `Contents/Library/LaunchDaemons/com.vannaq.beaglex.helper.plist` exists.
+- `Contents/MacOS/BeagleX` exists.
+- `Contents/MacOS/BeagleXHelper` exists.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKillerHelper/com.vannaq.ramkiller.helper.plist RamKiller.xcodeproj
+git add BeagleXHelper/com.vannaq.beaglex.helper.plist BeagleX.xcodeproj
 git commit -m "phase-2: embed helper plist + executable in app bundle"
 ```
 
@@ -561,16 +561,16 @@ git commit -m "phase-2: embed helper plist + executable in app bundle"
 
 In Xcode → Project → Signing & Capabilities tab.
 
-For **RamKiller**:
+For **BeagleX**:
 - Team: your Apple ID team
 - Signing Certificate: Apple Development
-- Bundle Identifier: `com.vannaq.ramkiller`
+- Bundle Identifier: `com.vannaq.beaglex`
 - Provisioning Profile: Automatic
 
-For **RamKillerHelper**:
+For **BeagleXHelper**:
 - Team: same as above
 - Signing Certificate: Apple Development
-- Bundle Identifier: `com.vannaq.ramkiller.helper`
+- Bundle Identifier: `com.vannaq.beaglex.helper`
 - Provisioning Profile: Automatic
 
 - [ ] **Step 2: Verify signing succeeds**
@@ -579,7 +579,7 @@ Run a clean build:
 
 ```bash
 rm -rf /tmp/rk-build
-xcodebuild -project /Users/a77/RamKiller/RamKiller.xcodeproj -scheme RamKiller -configuration Debug -derivedDataPath /tmp/rk-build build 2>&1 | grep -i "signing\|error:" | head -20
+xcodebuild -project /Users/a77/BeagleX/BeagleX.xcodeproj -scheme BeagleX -configuration Debug -derivedDataPath /tmp/rk-build build 2>&1 | grep -i "signing\|error:" | head -20
 ```
 
 Expected: signing succeeds for both binaries; no errors.
@@ -587,15 +587,15 @@ Expected: signing succeeds for both binaries; no errors.
 - [ ] **Step 3: Verify the embedded helper is signed**
 
 ```bash
-codesign -dvv /tmp/rk-build/Build/Products/Debug/RamKiller.app/Contents/MacOS/RamKillerHelper 2>&1 | head -10
+codesign -dvv /tmp/rk-build/Build/Products/Debug/BeagleX.app/Contents/MacOS/BeagleXHelper 2>&1 | head -10
 ```
 
-Expected output includes `Identifier=com.vannaq.ramkiller.helper` and `TeamIdentifier=...` (your team).
+Expected output includes `Identifier=com.vannaq.beaglex.helper` and `TeamIdentifier=...` (your team).
 
 - [ ] **Step 4: Commit (project-level changes)**
 
 ```bash
-git add RamKiller.xcodeproj
+git add BeagleX.xcodeproj
 git commit -m "phase-2: code signing config for app + helper"
 ```
 
@@ -604,7 +604,7 @@ git commit -m "phase-2: code signing config for app + helper"
 ## Task 11: `HelperManager` (app side)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/HelperManager.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/HelperManager.swift`
 
 - [ ] **Step 1: Write the manager**
 
@@ -623,9 +623,9 @@ final class HelperManager: ObservableObject {
         case unknown
     }
 
-    private let label = "com.vannaq.ramkiller.helper"
-    private let plistPath = "Contents/Library/LaunchDaemons/com.vannaq.ramkiller.helper.plist"
-    private lazy var service: SMAppService = .daemon(plistName: "com.vannaq.ramkiller.helper.plist")
+    private let label = "com.vannaq.beaglex.helper"
+    private let plistPath = "Contents/Library/LaunchDaemons/com.vannaq.beaglex.helper.plist"
+    private lazy var service: SMAppService = .daemon(plistName: "com.vannaq.beaglex.helper.plist")
 
     @Published private(set) var status: InstallStatus = .unknown
 
@@ -658,7 +658,7 @@ final class HelperManager: ObservableObject {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/HelperManager.swift
+git add BeagleX/Core/Services/HelperManager.swift
 git commit -m "phase-2: HelperManager wraps SMAppService.daemon"
 ```
 
@@ -667,7 +667,7 @@ git commit -m "phase-2: HelperManager wraps SMAppService.daemon"
 ## Task 12: `HelperBridge` — XPC client
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/HelperBridge.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/HelperBridge.swift`
 
 - [ ] **Step 1: Write the bridge**
 
@@ -719,7 +719,7 @@ final class HelperBridge {
 
     private func makeConnection() -> NSXPCConnection {
         if let conn = connection { return conn }
-        let conn = NSXPCConnection(machServiceName: "com.vannaq.ramkiller.helper", options: .privileged)
+        let conn = NSXPCConnection(machServiceName: "com.vannaq.beaglex.helper", options: .privileged)
         conn.remoteObjectInterface = NSXPCInterface(with: HelperProtocol.self)
         conn.invalidationHandler = { [weak self] in
             Task { @MainActor in self?.connection = nil }
@@ -737,7 +737,7 @@ final class HelperBridge {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/HelperBridge.swift
+git add BeagleX/Core/Services/HelperBridge.swift
 git commit -m "phase-2: HelperBridge XPC client"
 ```
 
@@ -746,8 +746,8 @@ git commit -m "phase-2: HelperBridge XPC client"
 ## Task 13: Helper status badge + Settings integration
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/Components/HelperStatusBadge.swift`
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Settings/SettingsView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/Components/HelperStatusBadge.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Settings/SettingsView.swift`
 
 - [ ] **Step 1: Write the badge**
 
@@ -829,7 +829,7 @@ struct SettingsView: View {
             }
             Section("About") {
                 LabeledContent("Version", value: "0.1.0")
-                LabeledContent("Bundle ID", value: "com.vannaq.ramkiller")
+                LabeledContent("Bundle ID", value: "com.vannaq.beaglex")
             }
         }
         .formStyle(.grouped)
@@ -874,13 +874,13 @@ struct SettingsView: View {
 ⌘R. In Settings:
 - Helper status shows red "Not installed" initially.
 - Click **Install / Repair** → System dialog appears asking to allow background activity.
-- **Manually go to System Settings → General → Login Items & Extensions → Allow in the Background** and toggle "RamKiller Helper" ON.
-- Return to RamKiller Settings. The badge should turn green within ~1 s after clicking Install again.
+- **Manually go to System Settings → General → Login Items & Extensions → Allow in the Background** and toggle "BeagleX Helper" ON.
+- Return to BeagleX Settings. The badge should turn green within ~1 s after clicking Install again.
 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/UI/Components/HelperStatusBadge.swift RamKiller/Features/Settings/SettingsView.swift
+git add BeagleX/UI/Components/HelperStatusBadge.swift BeagleX/Features/Settings/SettingsView.swift
 git commit -m "phase-2: helper install/uninstall in Settings"
 ```
 
@@ -889,14 +889,14 @@ git commit -m "phase-2: helper install/uninstall in Settings"
 ## Task 14: `PurgeCooldown` logic
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/PurgeCooldown.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/PurgeCooldownTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/PurgeCooldown.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/PurgeCooldownTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class PurgeCooldownTests: XCTestCase {
     func testInitiallyAllowed() {
@@ -965,7 +965,7 @@ final class PurgeCooldown: ObservableObject {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKiller/Core/Services/PurgeCooldown.swift RamKillerTests/PurgeCooldownTests.swift
+git add BeagleX/Core/Services/PurgeCooldown.swift BeagleXTests/PurgeCooldownTests.swift
 git commit -m "phase-2: PurgeCooldown logic"
 ```
 
@@ -974,7 +974,7 @@ git commit -m "phase-2: PurgeCooldown logic"
 ## Task 15: `PurgeButton` reusable component
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/Components/PurgeButton.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/Components/PurgeButton.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -1041,7 +1041,7 @@ struct PurgeButton: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/UI/Components/PurgeButton.swift
+git add BeagleX/UI/Components/PurgeButton.swift
 git commit -m "phase-2: PurgeButton with cooldown"
 ```
 
@@ -1050,8 +1050,8 @@ git commit -m "phase-2: PurgeButton with cooldown"
 ## Task 16: Wire PurgeButton into MonitoringView + MenuBarView
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/MonitoringView.swift`
-- Modify: `/Users/a77/RamKiller/RamKiller/UI/MenuBar/MenuBarView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/MonitoringView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/UI/MenuBar/MenuBarView.swift`
 
 - [ ] **Step 1: Add PurgeButton to MonitoringView toolbar**
 
@@ -1094,7 +1094,7 @@ PurgeButton(style: .compact)
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/MonitoringView.swift RamKiller/UI/MenuBar/MenuBarView.swift
+git add BeagleX/Features/Monitoring/MonitoringView.swift BeagleX/UI/MenuBar/MenuBarView.swift
 git commit -m "phase-2: wire PurgeButton into UI"
 ```
 
@@ -1103,7 +1103,7 @@ git commit -m "phase-2: wire PurgeButton into UI"
 ## Task 17: `KillConfirmAlert`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/Components/KillConfirmAlert.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/Components/KillConfirmAlert.swift`
 
 - [ ] **Step 1: Write the helper**
 
@@ -1143,7 +1143,7 @@ extension View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/UI/Components/KillConfirmAlert.swift
+git add BeagleX/UI/Components/KillConfirmAlert.swift
 git commit -m "phase-2: KillConfirmAlert helper"
 ```
 
@@ -1152,7 +1152,7 @@ git commit -m "phase-2: KillConfirmAlert helper"
 ## Task 18: Kill button + right-click in `ProcessesView`
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Processes/ProcessesView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Processes/ProcessesView.swift`
 
 - [ ] **Step 1: Add kill UI to the table**
 
@@ -1241,12 +1241,12 @@ private func performKill(process: ProcessReading, force: Bool) async {
 - Right-click → "Kill (SIGTERM)" / "Force kill (SIGKILL)".
 - Click ❌ → confirm dialog → kill executes → process disappears from list at next 60s sample (or your own kill — instant).
 
-Test by killing a benign process (e.g., spawn `sleep 99999` in a Terminal and kill it from RamKiller).
+Test by killing a benign process (e.g., spawn `sleep 99999` in a Terminal and kill it from BeagleX).
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Processes/ProcessesView.swift
+git add BeagleX/Features/Processes/ProcessesView.swift
 git commit -m "phase-2: kill action in process list (own + system via helper)"
 ```
 
@@ -1255,14 +1255,14 @@ git commit -m "phase-2: kill action in process list (own + system via helper)"
 ## Task 19: `SmartKillAnalyzer`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/SmartKillAnalyzer.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/SmartKillAnalyzerTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/SmartKillAnalyzer.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/SmartKillAnalyzerTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class SmartKillAnalyzerTests: XCTestCase {
     func testRecommendsIdleHighRSSNonSystem() {
@@ -1323,7 +1323,7 @@ final class SmartKillAnalyzer {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKiller/Core/Services/SmartKillAnalyzer.swift RamKillerTests/SmartKillAnalyzerTests.swift
+git add BeagleX/Core/Services/SmartKillAnalyzer.swift BeagleXTests/SmartKillAnalyzerTests.swift
 git commit -m "phase-2: SmartKillAnalyzer (idle high-RSS detection)"
 ```
 
@@ -1332,8 +1332,8 @@ git commit -m "phase-2: SmartKillAnalyzer (idle high-RSS detection)"
 ## Task 20: Smart-Kill banner in MonitoringView
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/SmartKillBanner.swift`
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/MonitoringView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/SmartKillBanner.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/MonitoringView.swift`
 
 - [ ] **Step 1: Write the banner**
 
@@ -1420,7 +1420,7 @@ For testing without waiting: temporarily change `SmartKillAnalyzer()` defaults t
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/SmartKillBanner.swift RamKiller/Features/Monitoring/MonitoringView.swift
+git add BeagleX/Features/Monitoring/SmartKillBanner.swift BeagleX/Features/Monitoring/MonitoringView.swift
 git commit -m "phase-2: smart-kill banner"
 ```
 
@@ -1429,7 +1429,7 @@ git commit -m "phase-2: smart-kill banner"
 ## Task 21: First-launch helper bootstrap
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/App/AppDelegate.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/App/AppDelegate.swift`
 
 - [ ] **Step 1: Auto-prompt on launch if helper not enabled**
 
@@ -1437,7 +1437,7 @@ Add to `applicationDidFinishLaunching`:
 
 ```swift
 func applicationDidFinishLaunching(_ notification: Notification) {
-    NSLog("RamKiller launched")
+    NSLog("BeagleX launched")
     scheduleRetention()
     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
         Self.maybeBootstrapHelper()
@@ -1452,7 +1452,7 @@ static func maybeBootstrapHelper() {
 
     let alert = NSAlert()
     alert.messageText = "Install privileged helper?"
-    alert.informativeText = "RamKiller needs a small background helper to run sudo-level operations like Purge Memory and killing system processes. You'll be asked to approve it in System Settings."
+    alert.informativeText = "BeagleX needs a small background helper to run sudo-level operations like Purge Memory and killing system processes. You'll be asked to approve it in System Settings."
     alert.addButton(withTitle: "Install")
     alert.addButton(withTitle: "Later")
     if alert.runModal() == .alertFirstButtonReturn {
@@ -1464,7 +1464,7 @@ static func maybeBootstrapHelper() {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/App/AppDelegate.swift
+git add BeagleX/App/AppDelegate.swift
 git commit -m "phase-2: prompt to install helper on first launch"
 ```
 
@@ -1476,9 +1476,9 @@ git commit -m "phase-2: prompt to install helper on first launch"
 
 ```bash
 # In Terminal:
-sudo launchctl bootout system/com.vannaq.ramkiller.helper 2>/dev/null
-sudo rm -f /Library/LaunchDaemons/com.vannaq.ramkiller.helper.plist 2>/dev/null
-defaults delete com.vannaq.ramkiller 2>/dev/null
+sudo launchctl bootout system/com.vannaq.beaglex.helper 2>/dev/null
+sudo rm -f /Library/LaunchDaemons/com.vannaq.beaglex.helper.plist 2>/dev/null
+defaults delete com.vannaq.beaglex 2>/dev/null
 ```
 
 - [ ] **Step 2: Run tests**
@@ -1491,7 +1491,7 @@ defaults delete com.vannaq.ramkiller 2>/dev/null
 |---|---|
 | Launch app, prompt appears | ✅ "Install privileged helper?" alert |
 | Click "Install" | ✅ system dialog about background activity |
-| Open System Settings → Login Items & Extensions → Allow in Background | ✅ "RamKiller Helper" toggle, switch ON |
+| Open System Settings → Login Items & Extensions → Allow in Background | ✅ "BeagleX Helper" toggle, switch ON |
 | Settings → Privileged Helper → Status | ✅ green "Helper enabled", version "0.1.0" |
 | Memory page → Purge button | ✅ visible and enabled |
 | Click Purge | ✅ Unused jumps up; cooldown countdown shows |

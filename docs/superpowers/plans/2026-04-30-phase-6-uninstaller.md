@@ -16,25 +16,25 @@
 
 | Path | Purpose |
 |---|---|
-| `RamKiller/Core/Models/AppInfo.swift` | Discovered app |
-| `RamKiller/Core/Models/Leftover.swift` | One residual path |
-| `RamKiller/Core/Services/AppDiscoveryService.swift` | Lists `.app` bundles |
-| `RamKiller/Core/Services/LeftoverScanner.swift` | Finds matching paths |
-| `RamKiller/Core/Services/UninstallerService.swift` | Performs deletes |
-| `RamKiller/Core/Services/SystemAppBlacklist.swift` | Hard-coded Apple bundles |
-| `RamKiller/Features/Uninstaller/UninstallerView.swift` | (replace) |
-| `RamKiller/Features/Uninstaller/AppListView.swift` | Left pane |
-| `RamKiller/Features/Uninstaller/AppDetailView.swift` | Right pane |
-| `RamKiller/Features/Uninstaller/AppDropZone.swift` | DnD area |
-| `RamKillerTests/LeftoverScannerTests.swift` | |
+| `BeagleX/Core/Models/AppInfo.swift` | Discovered app |
+| `BeagleX/Core/Models/Leftover.swift` | One residual path |
+| `BeagleX/Core/Services/AppDiscoveryService.swift` | Lists `.app` bundles |
+| `BeagleX/Core/Services/LeftoverScanner.swift` | Finds matching paths |
+| `BeagleX/Core/Services/UninstallerService.swift` | Performs deletes |
+| `BeagleX/Core/Services/SystemAppBlacklist.swift` | Hard-coded Apple bundles |
+| `BeagleX/Features/Uninstaller/UninstallerView.swift` | (replace) |
+| `BeagleX/Features/Uninstaller/AppListView.swift` | Left pane |
+| `BeagleX/Features/Uninstaller/AppDetailView.swift` | Right pane |
+| `BeagleX/Features/Uninstaller/AppDropZone.swift` | DnD area |
+| `BeagleXTests/LeftoverScannerTests.swift` | |
 
 ---
 
 ## Task 1: `AppInfo` + `Leftover`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/AppInfo.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/Leftover.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/AppInfo.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/Leftover.swift`
 
 - [ ] **Step 1: Write AppInfo**
 
@@ -90,7 +90,7 @@ public struct Leftover: Identifiable, Hashable {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Core/Models
+git add BeagleX/Core/Models
 git commit -m "phase-6: AppInfo + Leftover models"
 ```
 
@@ -99,7 +99,7 @@ git commit -m "phase-6: AppInfo + Leftover models"
 ## Task 2: `SystemAppBlacklist`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/SystemAppBlacklist.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/SystemAppBlacklist.swift`
 
 - [ ] **Step 1: Write the blacklist**
 
@@ -135,7 +135,7 @@ public enum SystemAppBlacklist {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/SystemAppBlacklist.swift
+git add BeagleX/Core/Services/SystemAppBlacklist.swift
 git commit -m "phase-6: SystemAppBlacklist"
 ```
 
@@ -144,7 +144,7 @@ git commit -m "phase-6: SystemAppBlacklist"
 ## Task 3: `AppDiscoveryService`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/AppDiscoveryService.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/AppDiscoveryService.swift`
 
 - [ ] **Step 1: Write the service**
 
@@ -218,7 +218,7 @@ public final class AppDiscoveryService {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/AppDiscoveryService.swift
+git add BeagleX/Core/Services/AppDiscoveryService.swift
 git commit -m "phase-6: AppDiscoveryService"
 ```
 
@@ -227,14 +227,14 @@ git commit -m "phase-6: AppDiscoveryService"
 ## Task 4: `LeftoverScanner`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/LeftoverScanner.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/LeftoverScannerTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/LeftoverScanner.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/LeftoverScannerTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class LeftoverScannerTests: XCTestCase {
     func testScansKnownPaths() async {
@@ -330,7 +330,7 @@ public actor LeftoverScanner {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Core/Services/LeftoverScanner.swift RamKillerTests/LeftoverScannerTests.swift
+git add BeagleX/Core/Services/LeftoverScanner.swift BeagleXTests/LeftoverScannerTests.swift
 git commit -m "phase-6: LeftoverScanner with 14+ known patterns"
 ```
 
@@ -339,7 +339,7 @@ git commit -m "phase-6: LeftoverScanner with 14+ known patterns"
 ## Task 5: `UninstallerService`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/UninstallerService.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/UninstallerService.swift`
 
 - [ ] **Step 1: Write the service**
 
@@ -421,7 +421,7 @@ public final class UninstallerService {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/UninstallerService.swift
+git add BeagleX/Core/Services/UninstallerService.swift
 git commit -m "phase-6: UninstallerService"
 ```
 
@@ -430,7 +430,7 @@ git commit -m "phase-6: UninstallerService"
 ## Task 6: `AppListView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Uninstaller/AppListView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Uninstaller/AppListView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -479,7 +479,7 @@ struct AppListView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Uninstaller/AppListView.swift
+git add BeagleX/Features/Uninstaller/AppListView.swift
 git commit -m "phase-6: AppListView"
 ```
 
@@ -488,7 +488,7 @@ git commit -m "phase-6: AppListView"
 ## Task 7: `AppDropZone`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Uninstaller/AppDropZone.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Uninstaller/AppDropZone.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -530,7 +530,7 @@ struct AppDropZone: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Uninstaller/AppDropZone.swift
+git add BeagleX/Features/Uninstaller/AppDropZone.swift
 git commit -m "phase-6: AppDropZone"
 ```
 
@@ -539,7 +539,7 @@ git commit -m "phase-6: AppDropZone"
 ## Task 8: `AppDetailView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Uninstaller/AppDetailView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Uninstaller/AppDetailView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -701,7 +701,7 @@ struct AppDetailView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Uninstaller/AppDetailView.swift
+git add BeagleX/Features/Uninstaller/AppDetailView.swift
 git commit -m "phase-6: AppDetailView with leftover scan + uninstall"
 ```
 
@@ -710,7 +710,7 @@ git commit -m "phase-6: AppDetailView with leftover scan + uninstall"
 ## Task 9: `UninstallerView` master-detail
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Uninstaller/UninstallerView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Uninstaller/UninstallerView.swift`
 
 - [ ] **Step 1: Replace placeholder**
 
@@ -780,7 +780,7 @@ struct UninstallerView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Uninstaller/UninstallerView.swift
+git add BeagleX/Features/Uninstaller/UninstallerView.swift
 git commit -m "phase-6: UninstallerView master-detail"
 ```
 

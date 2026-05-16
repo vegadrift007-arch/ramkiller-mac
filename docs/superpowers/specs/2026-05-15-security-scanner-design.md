@@ -6,7 +6,7 @@
 
 ## Overview
 
-A new **Security** section in RamKiller that scans the Mac for malware, suspicious launch items, unsigned network-connected processes, and permission-abusing apps. Fully offline. Users can view findings, remove threats, or ignore individual items. Scanning can be triggered manually or scheduled automatically.
+A new **Security** section in BeagleX that scans the Mac for malware, suspicious launch items, unsigned network-connected processes, and permission-abusing apps. Fully offline. Users can view findings, remove threats, or ignore individual items. Scanning can be triggered manually or scheduled automatically.
 
 ---
 
@@ -88,7 +88,7 @@ enum Severity: String, Codable, Comparable {
 
 ## Threat Signature Database
 
-File: `RamKiller/Resources/threat-signatures.json`  
+File: `BeagleX/Resources/threat-signatures.json`  
 Bundled with the app. Updated with each release.
 
 ```json
@@ -166,7 +166,7 @@ Positioned between `automation` and `cacheCleaner` in the sidebar.
 ## New Files
 
 ```
-RamKiller/
+BeagleX/
   Features/
     Security/
       SecurityView.swift              — main SwiftUI view (grouped list)
@@ -184,7 +184,7 @@ RamKiller/
 Modified files:
 - `SidebarItem.swift` — add `.security` case
 - `MainContentView.swift` — wire security view
-- `RamKillerApp.swift` — inject `SecurityScanCoordinator`
+- `BeagleXApp.swift` — inject `SecurityScanCoordinator`
 - `SettingsView.swift` — add auto-scan interval picker
 
 ---

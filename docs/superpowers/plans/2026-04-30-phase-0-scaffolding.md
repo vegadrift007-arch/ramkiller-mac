@@ -4,7 +4,7 @@
 
 **Goal:** Create a runnable Xcode project skeleton with menubar + main window, 8 placeholder feature pages, login-item registration, and minimal settings page. No actual features yet.
 
-**Architecture:** Single Xcode project with 3 targets — `RamKiller` (main app), `RamKillerHelper` (privileged daemon, defined here but empty until Phase 2), and `Shared` Swift Package (XPC types). SwiftUI lifecycle with `MenuBarExtra` + `Window` scenes.
+**Architecture:** Single Xcode project with 3 targets — `BeagleX` (main app), `BeagleXHelper` (privileged daemon, defined here but empty until Phase 2), and `Shared` Swift Package (XPC types). SwiftUI lifecycle with `MenuBarExtra` + `Window` scenes.
 
 **Tech Stack:** Xcode 15.4+, Swift 5.10, SwiftUI (macOS 14.4+), `SMAppService`, Swift Package Manager.
 
@@ -14,29 +14,29 @@
 
 | Path | Purpose |
 |---|---|
-| `RamKiller.xcodeproj/` | Xcode project file |
-| `RamKiller/App/RamKillerApp.swift` | `@main`, defines `MenuBarExtra` + `Window` |
-| `RamKiller/App/AppDelegate.swift` | Hooks for app launch/terminate |
-| `RamKiller/Core/Navigation/SidebarItem.swift` | Enum of 8 sidebar entries |
-| `RamKiller/UI/Sidebar/SidebarView.swift` | Left nav |
-| `RamKiller/UI/MenuBar/MenuBarView.swift` | Menubar dropdown placeholder |
-| `RamKiller/UI/Components/PlaceholderView.swift` | Reusable "Coming in Phase X" view |
-| `RamKiller/Features/Monitoring/MonitoringView.swift` | P1 placeholder |
-| `RamKiller/Features/Processes/ProcessesView.swift` | P2 placeholder |
-| `RamKiller/Features/Automation/AutomationView.swift` | P3 placeholder |
-| `RamKiller/Features/CacheCleaner/CacheCleanerView.swift` | P4 placeholder |
-| `RamKiller/Features/LargeFiles/LargeFilesView.swift` | P5 placeholder |
-| `RamKiller/Features/Uninstaller/UninstallerView.swift` | P6 placeholder |
-| `RamKiller/Features/LaunchItems/LaunchItemsView.swift` | P7 placeholder |
-| `RamKiller/Features/Settings/SettingsView.swift` | Settings (Launch at Login + About) |
-| `RamKiller/Core/Services/LoginItemService.swift` | `SMAppService.mainApp` register/unregister |
-| `RamKiller/Resources/Localizable.xcstrings` | i18n strings (zh + en) |
-| `RamKiller/RamKiller.entitlements` | App entitlements (no sandbox) |
-| `RamKillerHelper/main.swift` | Helper stub (does nothing yet) |
-| `RamKillerHelper/RamKillerHelper.entitlements` | Helper entitlements |
+| `BeagleX.xcodeproj/` | Xcode project file |
+| `BeagleX/App/BeagleXApp.swift` | `@main`, defines `MenuBarExtra` + `Window` |
+| `BeagleX/App/AppDelegate.swift` | Hooks for app launch/terminate |
+| `BeagleX/Core/Navigation/SidebarItem.swift` | Enum of 8 sidebar entries |
+| `BeagleX/UI/Sidebar/SidebarView.swift` | Left nav |
+| `BeagleX/UI/MenuBar/MenuBarView.swift` | Menubar dropdown placeholder |
+| `BeagleX/UI/Components/PlaceholderView.swift` | Reusable "Coming in Phase X" view |
+| `BeagleX/Features/Monitoring/MonitoringView.swift` | P1 placeholder |
+| `BeagleX/Features/Processes/ProcessesView.swift` | P2 placeholder |
+| `BeagleX/Features/Automation/AutomationView.swift` | P3 placeholder |
+| `BeagleX/Features/CacheCleaner/CacheCleanerView.swift` | P4 placeholder |
+| `BeagleX/Features/LargeFiles/LargeFilesView.swift` | P5 placeholder |
+| `BeagleX/Features/Uninstaller/UninstallerView.swift` | P6 placeholder |
+| `BeagleX/Features/LaunchItems/LaunchItemsView.swift` | P7 placeholder |
+| `BeagleX/Features/Settings/SettingsView.swift` | Settings (Launch at Login + About) |
+| `BeagleX/Core/Services/LoginItemService.swift` | `SMAppService.mainApp` register/unregister |
+| `BeagleX/Resources/Localizable.xcstrings` | i18n strings (zh + en) |
+| `BeagleX/BeagleX.entitlements` | App entitlements (no sandbox) |
+| `BeagleXHelper/main.swift` | Helper stub (does nothing yet) |
+| `BeagleXHelper/BeagleXHelper.entitlements` | Helper entitlements |
 | `Shared/Package.swift` | Swift Package manifest |
 | `Shared/Sources/Shared/Placeholder.swift` | Stub for shared types |
-| `RamKillerTests/RamKillerTests.swift` | Sanity test |
+| `BeagleXTests/BeagleXTests.swift` | Sanity test |
 | `.gitignore` | Xcode/macOS ignores |
 
 ---
@@ -44,53 +44,53 @@
 ## Task 1: Create the Xcode project (manual GUI)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller.xcodeproj/...`
+- Create: `/Users/a77/BeagleX/BeagleX.xcodeproj/...`
 
 - [ ] **Step 1: Open Xcode and create the project**
 
 In Xcode menu: **File → New → Project…**
 - Choose **macOS** tab → **App** → Next
-- Product Name: `RamKiller`
+- Product Name: `BeagleX`
 - Team: select your Apple ID team (free personal team is OK)
 - Organization Identifier: `com.vannaq`
-- Bundle Identifier (auto-derived): `com.vannaq.ramkiller`
+- Bundle Identifier (auto-derived): `com.vannaq.beaglex`
 - Interface: **SwiftUI**
 - Language: **Swift**
 - Storage: **SwiftData**
 - Include Tests: ✅
-- Click Next → choose location `/Users/a77/RamKiller/` → uncheck "Create Git repository" (we already initialized) → Create
+- Click Next → choose location `/Users/a77/BeagleX/` → uncheck "Create Git repository" (we already initialized) → Create
 
 - [ ] **Step 2: Verify the project structure**
 
 Run in terminal:
 ```bash
-ls /Users/a77/RamKiller/
+ls /Users/a77/BeagleX/
 ```
 
 Expected output (order may vary):
 ```
-RamKiller
-RamKiller.xcodeproj
-RamKillerTests
-RamKillerUITests
+BeagleX
+BeagleX.xcodeproj
+BeagleXTests
+BeagleXUITests
 docs
 ```
 
 - [ ] **Step 3: Set deployment target to macOS 14.4**
 
-In Xcode: select project root → `RamKiller` target → **General** tab → **Minimum Deployments** → set to **macOS 14.4**.
+In Xcode: select project root → `BeagleX` target → **General** tab → **Minimum Deployments** → set to **macOS 14.4**.
 
 Repeat for the test targets. (Helper target will be added in Task 4.)
 
 - [ ] **Step 4: Set Swift language version to Swift 5.10**
 
-`RamKiller` target → **Build Settings** → search "Swift Language Version" → set to **Swift 5** (Xcode 15.4+ defaults to 5.10 under this setting).
+`BeagleX` target → **Build Settings** → search "Swift Language Version" → set to **Swift 5** (Xcode 15.4+ defaults to 5.10 under this setting).
 
 - [ ] **Step 5: Commit baseline project**
 
 ```bash
-cd /Users/a77/RamKiller
-git add RamKiller.xcodeproj RamKiller RamKillerTests RamKillerUITests
+cd /Users/a77/BeagleX
+git add BeagleX.xcodeproj BeagleX BeagleXTests BeagleXUITests
 git commit -m "phase-0: bootstrap Xcode project"
 ```
 
@@ -99,11 +99,11 @@ git commit -m "phase-0: bootstrap Xcode project"
 ## Task 2: Add `.gitignore`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/.gitignore`
+- Create: `/Users/a77/BeagleX/.gitignore`
 
 - [ ] **Step 1: Write the gitignore**
 
-Create `/Users/a77/RamKiller/.gitignore`:
+Create `/Users/a77/BeagleX/.gitignore`:
 
 ```gitignore
 # macOS
@@ -142,19 +142,19 @@ git commit -m "phase-0: add gitignore"
 ## Task 3: Create `Shared` Swift Package (for XPC types in later phases)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/Shared/Package.swift`
-- Create: `/Users/a77/RamKiller/Shared/Sources/Shared/Placeholder.swift`
+- Create: `/Users/a77/BeagleX/Shared/Package.swift`
+- Create: `/Users/a77/BeagleX/Shared/Sources/Shared/Placeholder.swift`
 
 - [ ] **Step 1: Create the package via terminal (faster than Xcode GUI)**
 
 ```bash
-mkdir -p /Users/a77/RamKiller/Shared/Sources/Shared
-mkdir -p /Users/a77/RamKiller/Shared/Tests/SharedTests
+mkdir -p /Users/a77/BeagleX/Shared/Sources/Shared
+mkdir -p /Users/a77/BeagleX/Shared/Tests/SharedTests
 ```
 
 - [ ] **Step 2: Write `Package.swift`**
 
-Create `/Users/a77/RamKiller/Shared/Package.swift`:
+Create `/Users/a77/BeagleX/Shared/Package.swift`:
 
 ```swift
 // swift-tools-version: 5.10
@@ -175,7 +175,7 @@ let package = Package(
 
 - [ ] **Step 3: Write the placeholder source**
 
-Create `/Users/a77/RamKiller/Shared/Sources/Shared/Placeholder.swift`:
+Create `/Users/a77/BeagleX/Shared/Sources/Shared/Placeholder.swift`:
 
 ```swift
 import Foundation
@@ -189,7 +189,7 @@ public enum SharedNamespace {
 - [ ] **Step 4: Verify it builds**
 
 ```bash
-cd /Users/a77/RamKiller/Shared
+cd /Users/a77/BeagleX/Shared
 swift build
 ```
 
@@ -197,45 +197,45 @@ Expected output ends with: `Build complete!`
 
 - [ ] **Step 5: Add the package to the Xcode project**
 
-In Xcode: **File → Add Package Dependencies… → Add Local…** → choose `/Users/a77/RamKiller/Shared` → Add Package.
-Then in `RamKiller` target → **General** → **Frameworks and Libraries** → **+** → choose **Shared**.
+In Xcode: **File → Add Package Dependencies… → Add Local…** → choose `/Users/a77/BeagleX/Shared` → Add Package.
+Then in `BeagleX` target → **General** → **Frameworks and Libraries** → **+** → choose **Shared**.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-cd /Users/a77/RamKiller
-git add Shared RamKiller.xcodeproj
+cd /Users/a77/BeagleX
+git add Shared BeagleX.xcodeproj
 git commit -m "phase-0: add Shared swift package"
 ```
 
 ---
 
-## Task 4: Add `RamKillerHelper` target (empty stub)
+## Task 4: Add `BeagleXHelper` target (empty stub)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKillerHelper/main.swift`
-- Create: `/Users/a77/RamKiller/RamKillerHelper/RamKillerHelper.entitlements`
+- Create: `/Users/a77/BeagleX/BeagleXHelper/main.swift`
+- Create: `/Users/a77/BeagleX/BeagleXHelper/BeagleXHelper.entitlements`
 
 - [ ] **Step 1: Add a Command-Line Tool target via Xcode**
 
 In Xcode: **File → New → Target… → macOS → Command Line Tool → Next**
-- Product Name: `RamKillerHelper`
+- Product Name: `BeagleXHelper`
 - Team: same as main app
-- Bundle Identifier: `com.vannaq.ramkiller.helper`
+- Bundle Identifier: `com.vannaq.beaglex.helper`
 - Language: **Swift**
 - Click Finish.
 
 - [ ] **Step 2: Write helper stub**
 
-Replace `/Users/a77/RamKiller/RamKillerHelper/main.swift` content with:
+Replace `/Users/a77/BeagleX/BeagleXHelper/main.swift` content with:
 
 ```swift
 import Foundation
 
 // XPC server arrives in Phase 2. For now we just log and exit.
 // Helper will run as a daemon registered via SMAppService later.
-let logger = OSLog(subsystem: "com.vannaq.ramkiller.helper", category: "main")
-NSLog("RamKillerHelper stub started — Phase 2 will fill this in")
+let logger = OSLog(subsystem: "com.vannaq.beaglex.helper", category: "main")
+NSLog("BeagleXHelper stub started — Phase 2 will fill this in")
 
 // Run forever so launchd doesn't restart-loop us in dev tests.
 RunLoop.current.run()
@@ -243,11 +243,11 @@ RunLoop.current.run()
 
 - [ ] **Step 3: Add `Shared` dependency to helper**
 
-In Xcode → `RamKillerHelper` target → **General** → **Frameworks and Libraries** → **+** → **Shared**.
+In Xcode → `BeagleXHelper` target → **General** → **Frameworks and Libraries** → **+** → **Shared**.
 
 - [ ] **Step 4: Create helper entitlements file**
 
-Create `/Users/a77/RamKiller/RamKillerHelper/RamKillerHelper.entitlements`:
+Create `/Users/a77/BeagleX/BeagleXHelper/BeagleXHelper.entitlements`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -260,17 +260,17 @@ Create `/Users/a77/RamKiller/RamKillerHelper/RamKillerHelper.entitlements`:
 </plist>
 ```
 
-In Xcode → `RamKillerHelper` target → **Build Settings** → search "Code Signing Entitlements" → set to `RamKillerHelper/RamKillerHelper.entitlements`.
+In Xcode → `BeagleXHelper` target → **Build Settings** → search "Code Signing Entitlements" → set to `BeagleXHelper/BeagleXHelper.entitlements`.
 
 - [ ] **Step 5: Verify both targets build**
 
-In Xcode: **Product → Build** (⌘B). Expected: "Build Succeeded" for both `RamKiller` and `RamKillerHelper`.
+In Xcode: **Product → Build** (⌘B). Expected: "Build Succeeded" for both `BeagleX` and `BeagleXHelper`.
 
 - [ ] **Step 6: Commit**
 
 ```bash
-git add RamKillerHelper RamKiller.xcodeproj
-git commit -m "phase-0: add RamKillerHelper stub target"
+git add BeagleXHelper BeagleX.xcodeproj
+git commit -m "phase-0: add BeagleXHelper stub target"
 ```
 
 ---
@@ -278,18 +278,18 @@ git commit -m "phase-0: add RamKillerHelper stub target"
 ## Task 5: Disable sandbox on main app
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/RamKiller.entitlements`
+- Modify: `/Users/a77/BeagleX/BeagleX/BeagleX.entitlements`
 
 - [ ] **Step 1: Locate the entitlements file**
 
 Xcode auto-created one. Verify with:
 ```bash
-ls /Users/a77/RamKiller/RamKiller/*.entitlements
+ls /Users/a77/BeagleX/BeagleX/*.entitlements
 ```
 
 - [ ] **Step 2: Replace the entitlements content**
 
-Set `/Users/a77/RamKiller/RamKiller/RamKiller.entitlements` to:
+Set `/Users/a77/BeagleX/BeagleX/BeagleX.entitlements` to:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -305,7 +305,7 @@ Set `/Users/a77/RamKiller/RamKiller/RamKiller.entitlements` to:
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/RamKiller.entitlements
+git add BeagleX/BeagleX.entitlements
 git commit -m "phase-0: disable sandbox on main app"
 ```
 
@@ -314,16 +314,16 @@ git commit -m "phase-0: disable sandbox on main app"
 ## Task 6: Define `SidebarItem` enum
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Navigation/SidebarItem.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/SidebarItemTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Navigation/SidebarItem.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/SidebarItemTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
-Create `/Users/a77/RamKiller/RamKillerTests/SidebarItemTests.swift`:
+Create `/Users/a77/BeagleX/BeagleXTests/SidebarItemTests.swift`:
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class SidebarItemTests: XCTestCase {
     func testAllCasesIncludesAllEightFeaturesPlusSettings() {
@@ -354,7 +354,7 @@ In Xcode: ⌘U (run all tests). Expected: build error "Cannot find type 'Sidebar
 
 - [ ] **Step 3: Create the file**
 
-Create `/Users/a77/RamKiller/RamKiller/Core/Navigation/SidebarItem.swift`:
+Create `/Users/a77/BeagleX/BeagleX/Core/Navigation/SidebarItem.swift`:
 
 ```swift
 import Foundation
@@ -406,7 +406,7 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKiller/Core RamKillerTests/SidebarItemTests.swift
+git add BeagleX/Core BeagleXTests/SidebarItemTests.swift
 git commit -m "phase-0: add SidebarItem enum + tests"
 ```
 
@@ -415,11 +415,11 @@ git commit -m "phase-0: add SidebarItem enum + tests"
 ## Task 7: Reusable `PlaceholderView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/Components/PlaceholderView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/Components/PlaceholderView.swift`
 
 - [ ] **Step 1: Write the view**
 
-Create `/Users/a77/RamKiller/RamKiller/UI/Components/PlaceholderView.swift`:
+Create `/Users/a77/BeagleX/BeagleX/UI/Components/PlaceholderView.swift`:
 
 ```swift
 import SwiftUI
@@ -456,7 +456,7 @@ Open the file in Xcode → Canvas (⌥⌘↵) → click "Resume" if prompted. Ex
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/UI/Components/PlaceholderView.swift
+git add BeagleX/UI/Components/PlaceholderView.swift
 git commit -m "phase-0: add PlaceholderView component"
 ```
 
@@ -465,19 +465,19 @@ git commit -m "phase-0: add PlaceholderView component"
 ## Task 8: Seven feature placeholder views
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/MonitoringView.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Processes/ProcessesView.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Automation/AutomationView.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Features/CacheCleaner/CacheCleanerView.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Features/LargeFiles/LargeFilesView.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Uninstaller/UninstallerView.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Features/LaunchItems/LaunchItemsView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/MonitoringView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Processes/ProcessesView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Automation/AutomationView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/CacheCleaner/CacheCleanerView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/LargeFiles/LargeFilesView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Uninstaller/UninstallerView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/LaunchItems/LaunchItemsView.swift`
 
 - [ ] **Step 1: Write each placeholder view**
 
 Each file follows the same pattern. Example for monitoring:
 
-`/Users/a77/RamKiller/RamKiller/Features/Monitoring/MonitoringView.swift`:
+`/Users/a77/BeagleX/BeagleX/Features/Monitoring/MonitoringView.swift`:
 ```swift
 import SwiftUI
 
@@ -489,7 +489,7 @@ struct MonitoringView: View {
 }
 ```
 
-`/Users/a77/RamKiller/RamKiller/Features/Processes/ProcessesView.swift`:
+`/Users/a77/BeagleX/BeagleX/Features/Processes/ProcessesView.swift`:
 ```swift
 import SwiftUI
 
@@ -501,7 +501,7 @@ struct ProcessesView: View {
 }
 ```
 
-`/Users/a77/RamKiller/RamKiller/Features/Automation/AutomationView.swift`:
+`/Users/a77/BeagleX/BeagleX/Features/Automation/AutomationView.swift`:
 ```swift
 import SwiftUI
 
@@ -513,7 +513,7 @@ struct AutomationView: View {
 }
 ```
 
-`/Users/a77/RamKiller/RamKiller/Features/CacheCleaner/CacheCleanerView.swift`:
+`/Users/a77/BeagleX/BeagleX/Features/CacheCleaner/CacheCleanerView.swift`:
 ```swift
 import SwiftUI
 
@@ -525,7 +525,7 @@ struct CacheCleanerView: View {
 }
 ```
 
-`/Users/a77/RamKiller/RamKiller/Features/LargeFiles/LargeFilesView.swift`:
+`/Users/a77/BeagleX/BeagleX/Features/LargeFiles/LargeFilesView.swift`:
 ```swift
 import SwiftUI
 
@@ -537,7 +537,7 @@ struct LargeFilesView: View {
 }
 ```
 
-`/Users/a77/RamKiller/RamKiller/Features/Uninstaller/UninstallerView.swift`:
+`/Users/a77/BeagleX/BeagleX/Features/Uninstaller/UninstallerView.swift`:
 ```swift
 import SwiftUI
 
@@ -549,7 +549,7 @@ struct UninstallerView: View {
 }
 ```
 
-`/Users/a77/RamKiller/RamKiller/Features/LaunchItems/LaunchItemsView.swift`:
+`/Users/a77/BeagleX/BeagleX/Features/LaunchItems/LaunchItemsView.swift`:
 ```swift
 import SwiftUI
 
@@ -568,7 +568,7 @@ struct LaunchItemsView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features
+git add BeagleX/Features
 git commit -m "phase-0: add 7 feature placeholder views"
 ```
 
@@ -577,16 +577,16 @@ git commit -m "phase-0: add 7 feature placeholder views"
 ## Task 9: `LoginItemService` for SMAppService.mainApp
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/LoginItemService.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/LoginItemServiceTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/LoginItemService.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/LoginItemServiceTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
-Create `/Users/a77/RamKiller/RamKillerTests/LoginItemServiceTests.swift`:
+Create `/Users/a77/BeagleX/BeagleXTests/LoginItemServiceTests.swift`:
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class LoginItemServiceTests: XCTestCase {
     func testStatusReturnsKnownValue() {
@@ -604,7 +604,7 @@ final class LoginItemServiceTests: XCTestCase {
 
 - [ ] **Step 3: Implement the service**
 
-Create `/Users/a77/RamKiller/RamKiller/Core/Services/LoginItemService.swift`:
+Create `/Users/a77/BeagleX/BeagleX/Core/Services/LoginItemService.swift`:
 
 ```swift
 import Foundation
@@ -652,7 +652,7 @@ final class LoginItemService {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKiller/Core/Services/LoginItemService.swift RamKillerTests/LoginItemServiceTests.swift
+git add BeagleX/Core/Services/LoginItemService.swift BeagleXTests/LoginItemServiceTests.swift
 git commit -m "phase-0: add LoginItemService"
 ```
 
@@ -661,11 +661,11 @@ git commit -m "phase-0: add LoginItemService"
 ## Task 10: `SettingsView` with Launch-at-Login toggle
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Settings/SettingsView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Settings/SettingsView.swift`
 
 - [ ] **Step 1: Write the view**
 
-Create `/Users/a77/RamKiller/RamKiller/Features/Settings/SettingsView.swift`:
+Create `/Users/a77/BeagleX/BeagleX/Features/Settings/SettingsView.swift`:
 
 ```swift
 import SwiftUI
@@ -693,7 +693,7 @@ struct SettingsView: View {
             }
             Section("About") {
                 LabeledContent("Version", value: "0.1.0")
-                LabeledContent("Bundle ID", value: "com.vannaq.ramkiller")
+                LabeledContent("Bundle ID", value: "com.vannaq.beaglex")
             }
         }
         .formStyle(.grouped)
@@ -743,7 +743,7 @@ Open Canvas → click Resume.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Settings
+git add BeagleX/Features/Settings
 git commit -m "phase-0: add SettingsView with launch-at-login"
 ```
 
@@ -752,7 +752,7 @@ git commit -m "phase-0: add SettingsView with launch-at-login"
 ## Task 11: `SidebarView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/Sidebar/SidebarView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/Sidebar/SidebarView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -778,7 +778,7 @@ struct SidebarView: View {
         }
         .listStyle(.sidebar)
         .frame(minWidth: 180)
-        .navigationTitle("RamKiller")
+        .navigationTitle("BeagleX")
     }
 }
 
@@ -796,7 +796,7 @@ Canvas → Resume. Expected: list with 7 tools section + settings.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/UI/Sidebar/SidebarView.swift
+git add BeagleX/UI/Sidebar/SidebarView.swift
 git commit -m "phase-0: add SidebarView"
 ```
 
@@ -805,7 +805,7 @@ git commit -m "phase-0: add SidebarView"
 ## Task 12: `MainContentView` (sidebar + detail)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/MainContentView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/MainContentView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -852,7 +852,7 @@ Canvas → Resume. Click each sidebar item → detail switches.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/UI/MainContentView.swift
+git add BeagleX/UI/MainContentView.swift
 git commit -m "phase-0: add MainContentView"
 ```
 
@@ -861,7 +861,7 @@ git commit -m "phase-0: add MainContentView"
 ## Task 13: `MenuBarView` (placeholder dropdown)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/MenuBar/MenuBarView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/MenuBar/MenuBarView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -873,7 +873,7 @@ struct MenuBarView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("RamKiller")
+            Text("BeagleX")
                 .font(.headline)
             Text("Phase 1 will fill these stats")
                 .font(.caption)
@@ -890,7 +890,7 @@ struct MenuBarView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/UI/MenuBar/MenuBarView.swift
+git add BeagleX/UI/MenuBar/MenuBarView.swift
 git commit -m "phase-0: add MenuBarView"
 ```
 
@@ -899,7 +899,7 @@ git commit -m "phase-0: add MenuBarView"
 ## Task 14: `AppDelegate`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/App/AppDelegate.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/App/AppDelegate.swift`
 
 - [ ] **Step 1: Write the delegate**
 
@@ -908,7 +908,7 @@ import AppKit
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
-        NSLog("RamKiller launched")
+        NSLog("BeagleX launched")
     }
 
     /// Closing the main window does NOT terminate the app — menubar stays alive.
@@ -921,16 +921,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/App/AppDelegate.swift
+git add BeagleX/App/AppDelegate.swift
 git commit -m "phase-0: add AppDelegate (menubar stays after window close)"
 ```
 
 ---
 
-## Task 15: Wire `RamKillerApp` (main scene)
+## Task 15: Wire `BeagleXApp` (main scene)
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/App/RamKillerApp.swift` (replace Xcode default content)
+- Modify: `/Users/a77/BeagleX/BeagleX/App/BeagleXApp.swift` (replace Xcode default content)
 
 - [ ] **Step 1: Replace the file**
 
@@ -938,11 +938,11 @@ git commit -m "phase-0: add AppDelegate (menubar stays after window close)"
 import SwiftUI
 
 @main
-struct RamKillerApp: App {
+struct BeagleXApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
-        Window("RamKiller", id: "main") {
+        Window("BeagleX", id: "main") {
             MainContentView()
                 .frame(minWidth: 900, minHeight: 600)
         }
@@ -970,7 +970,7 @@ struct RamKillerApp: App {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/App/RamKillerApp.swift
+git add BeagleX/App/BeagleXApp.swift
 git commit -m "phase-0: wire menubar + main window scene"
 ```
 
@@ -979,11 +979,11 @@ git commit -m "phase-0: wire menubar + main window scene"
 ## Task 16: Localization scaffold (zh + en)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Resources/Localizable.xcstrings`
+- Create: `/Users/a77/BeagleX/BeagleX/Resources/Localizable.xcstrings`
 
 - [ ] **Step 1: Add String Catalog via Xcode**
 
-In Xcode: **File → New → File… → macOS → Resource → String Catalog** → Name: `Localizable` → Save under `RamKiller/Resources/`.
+In Xcode: **File → New → File… → macOS → Resource → String Catalog** → Name: `Localizable` → Save under `BeagleX/Resources/`.
 
 - [ ] **Step 2: Add Chinese localization**
 
@@ -1017,7 +1017,7 @@ Reset App Language to "System" after verification.
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Resources
+git add BeagleX/Resources
 git commit -m "phase-0: add Localizable string catalog (en + zh-Hans)"
 ```
 
@@ -1026,17 +1026,17 @@ git commit -m "phase-0: add Localizable string catalog (en + zh-Hans)"
 ## Task 17: Sanity test
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKillerTests/RamKillerTests.swift`
+- Modify: `/Users/a77/BeagleX/BeagleXTests/BeagleXTests.swift`
 
 - [ ] **Step 1: Replace the boilerplate test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
-final class RamKillerTests: XCTestCase {
+final class BeagleXTests: XCTestCase {
     func testAppBundleIdentifier() {
-        XCTAssertEqual(Bundle.main.bundleIdentifier, "com.vannaq.ramkiller")
+        XCTAssertEqual(Bundle.main.bundleIdentifier, "com.vannaq.beaglex")
     }
 }
 ```
@@ -1048,7 +1048,7 @@ final class RamKillerTests: XCTestCase {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKillerTests/RamKillerTests.swift
+git add BeagleXTests/BeagleXTests.swift
 git commit -m "phase-0: sanity test for bundle identifier"
 ```
 
@@ -1089,8 +1089,8 @@ git commit -m "phase-0: post-verification fixes" --allow-empty -m "All E2E check
 
 All of the following are true:
 
-- [ ] `xcodebuild -project RamKiller.xcodeproj -scheme RamKiller build` succeeds without warnings related to deployment target.
-- [ ] `xcodebuild -project RamKiller.xcodeproj -scheme RamKiller test` passes.
+- [ ] `xcodebuild -project BeagleX.xcodeproj -scheme BeagleX build` succeeds without warnings related to deployment target.
+- [ ] `xcodebuild -project BeagleX.xcodeproj -scheme BeagleX test` passes.
 - [ ] App launches, menubar icon shows, main window has sidebar + 8 placeholder pages + settings.
 - [ ] Closing the main window keeps the app alive in the menubar.
 - [ ] Quit from menubar terminates the app.

@@ -16,25 +16,25 @@
 
 | Path | Purpose |
 |---|---|
-| `RamKiller/Resources/KnowledgeBase/cleaners.json` | 30+ pre-built cleaner definitions |
-| `RamKiller/Core/Models/Cleaner.swift` | Codable cleaner schema |
-| `RamKiller/Core/Services/CleanerKnowledgeBase.swift` | Loads + provides cleaners |
-| `RamKiller/Core/Services/ScannerService.swift` | Async size computation |
-| `RamKiller/Core/Services/CleanerService.swift` | Delete execution |
-| `RamKiller/Core/Services/PathExpander.swift` | Glob/tilde expansion |
-| `RamKiller/Features/CacheCleaner/CacheCleanerView.swift` | (replace) main UI |
-| `RamKiller/Features/CacheCleaner/CleanerRow.swift` | One cleaner item |
-| `RamKiller/Features/CacheCleaner/CleanerCategorySection.swift` | Folding section |
-| `RamKiller/Features/CacheCleaner/CleanConfirmDialog.swift` | Pre-flight summary |
-| `RamKillerTests/PathExpanderTests.swift` | |
-| `RamKillerTests/ScannerServiceTests.swift` | |
+| `BeagleX/Resources/KnowledgeBase/cleaners.json` | 30+ pre-built cleaner definitions |
+| `BeagleX/Core/Models/Cleaner.swift` | Codable cleaner schema |
+| `BeagleX/Core/Services/CleanerKnowledgeBase.swift` | Loads + provides cleaners |
+| `BeagleX/Core/Services/ScannerService.swift` | Async size computation |
+| `BeagleX/Core/Services/CleanerService.swift` | Delete execution |
+| `BeagleX/Core/Services/PathExpander.swift` | Glob/tilde expansion |
+| `BeagleX/Features/CacheCleaner/CacheCleanerView.swift` | (replace) main UI |
+| `BeagleX/Features/CacheCleaner/CleanerRow.swift` | One cleaner item |
+| `BeagleX/Features/CacheCleaner/CleanerCategorySection.swift` | Folding section |
+| `BeagleX/Features/CacheCleaner/CleanConfirmDialog.swift` | Pre-flight summary |
+| `BeagleXTests/PathExpanderTests.swift` | |
+| `BeagleXTests/ScannerServiceTests.swift` | |
 
 ---
 
 ## Task 1: `Cleaner` schema
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/Cleaner.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/Cleaner.swift`
 
 - [ ] **Step 1: Write the model**
 
@@ -90,7 +90,7 @@ public struct Cleaner: Codable, Identifiable, Hashable {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/Cleaner.swift
+git add BeagleX/Core/Models/Cleaner.swift
 git commit -m "phase-4: Cleaner schema"
 ```
 
@@ -99,7 +99,7 @@ git commit -m "phase-4: Cleaner schema"
 ## Task 2: Bundle `cleaners.json` (30 entries)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Resources/KnowledgeBase/cleaners.json`
+- Create: `/Users/a77/BeagleX/BeagleX/Resources/KnowledgeBase/cleaners.json`
 
 - [ ] **Step 1: Write the file**
 
@@ -392,12 +392,12 @@ git commit -m "phase-4: Cleaner schema"
 
 - [ ] **Step 2: Add to Resources in Xcode**
 
-In Xcode → drag `cleaners.json` from Finder into the project navigator under `RamKiller/Resources/`. Make sure "Copy items if needed" is checked and **RamKiller** is the target.
+In Xcode → drag `cleaners.json` from Finder into the project navigator under `BeagleX/Resources/`. Make sure "Copy items if needed" is checked and **BeagleX** is the target.
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Resources/KnowledgeBase/cleaners.json RamKiller.xcodeproj
+git add BeagleX/Resources/KnowledgeBase/cleaners.json BeagleX.xcodeproj
 git commit -m "phase-4: bundle cleaners.json knowledge base (30 entries)"
 ```
 
@@ -406,7 +406,7 @@ git commit -m "phase-4: bundle cleaners.json knowledge base (30 entries)"
 ## Task 3: `CleanerKnowledgeBase`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/CleanerKnowledgeBase.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/CleanerKnowledgeBase.swift`
 
 - [ ] **Step 1: Write the loader**
 
@@ -442,7 +442,7 @@ public final class CleanerKnowledgeBase {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/CleanerKnowledgeBase.swift
+git add BeagleX/Core/Services/CleanerKnowledgeBase.swift
 git commit -m "phase-4: CleanerKnowledgeBase loader"
 ```
 
@@ -451,14 +451,14 @@ git commit -m "phase-4: CleanerKnowledgeBase loader"
 ## Task 4: `PathExpander`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/PathExpander.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/PathExpanderTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/PathExpander.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/PathExpanderTests.swift`
 
 - [ ] **Step 1: Write failing tests**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class PathExpanderTests: XCTestCase {
     func testTildeExpansion() {
@@ -516,7 +516,7 @@ public enum PathExpander {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Core/Services/PathExpander.swift RamKillerTests/PathExpanderTests.swift
+git add BeagleX/Core/Services/PathExpander.swift BeagleXTests/PathExpanderTests.swift
 git commit -m "phase-4: PathExpander with tilde + glob"
 ```
 
@@ -525,14 +525,14 @@ git commit -m "phase-4: PathExpander with tilde + glob"
 ## Task 5: `ScannerService`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/ScannerService.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/ScannerServiceTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/ScannerService.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/ScannerServiceTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class ScannerServiceTests: XCTestCase {
     func testScanReturnsBytesForExistingPath() async throws {
@@ -624,7 +624,7 @@ public actor ScannerService {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Core/Services/ScannerService.swift RamKillerTests/ScannerServiceTests.swift
+git add BeagleX/Core/Services/ScannerService.swift BeagleXTests/ScannerServiceTests.swift
 git commit -m "phase-4: ScannerService with parallel size compute"
 ```
 
@@ -633,7 +633,7 @@ git commit -m "phase-4: ScannerService with parallel size compute"
 ## Task 6: `CleanerService` — perform delete
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/CleanerService.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/CleanerService.swift`
 
 - [ ] **Step 1: Write the service**
 
@@ -705,7 +705,7 @@ public final class CleanerService {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/CleanerService.swift
+git add BeagleX/Core/Services/CleanerService.swift
 git commit -m "phase-4: CleanerService with trash/permanent delete"
 ```
 
@@ -714,7 +714,7 @@ git commit -m "phase-4: CleanerService with trash/permanent delete"
 ## Task 7: `CleanerRow` UI component
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/CacheCleaner/CleanerRow.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/CacheCleaner/CleanerRow.swift`
 
 - [ ] **Step 1: Write the row**
 
@@ -774,7 +774,7 @@ struct CleanerRow: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/CacheCleaner/CleanerRow.swift
+git add BeagleX/Features/CacheCleaner/CleanerRow.swift
 git commit -m "phase-4: CleanerRow"
 ```
 
@@ -783,7 +783,7 @@ git commit -m "phase-4: CleanerRow"
 ## Task 8: `CleanerCategorySection`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/CacheCleaner/CleanerCategorySection.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/CacheCleaner/CleanerCategorySection.swift`
 
 - [ ] **Step 1: Write the section**
 
@@ -833,7 +833,7 @@ struct CleanerCategorySection: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/CacheCleaner/CleanerCategorySection.swift
+git add BeagleX/Features/CacheCleaner/CleanerCategorySection.swift
 git commit -m "phase-4: CleanerCategorySection"
 ```
 
@@ -842,7 +842,7 @@ git commit -m "phase-4: CleanerCategorySection"
 ## Task 9: `CacheCleanerView` main view
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/CacheCleaner/CacheCleanerView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/CacheCleaner/CacheCleanerView.swift`
 
 - [ ] **Step 1: Replace placeholder**
 
@@ -973,7 +973,7 @@ struct CacheCleanerView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/CacheCleaner/CacheCleanerView.swift
+git add BeagleX/Features/CacheCleaner/CacheCleanerView.swift
 git commit -m "phase-4: CacheCleanerView complete"
 ```
 

@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add a Security sidebar section to RamKiller that scans for malware, suspicious launch items, unsigned network processes, and permission-abusing apps — fully offline, with remove/quarantine and auto-scheduled scanning.
+**Goal:** Add a Security sidebar section to BeagleX that scans for malware, suspicious launch items, unsigned network processes, and permission-abusing apps — fully offline, with remove/quarantine and auto-scheduled scanning.
 
 **Architecture:** Protocol-based scanner modules (`SecurityCheck`) orchestrated by `SecurityScanCoordinator` (ObservableObject). Four independent check modules run in parallel via `async let`. Findings are transient; only `lastScanDate` and `ignoredIDs` are persisted in UserDefaults.
 
@@ -14,7 +14,7 @@
 
 **New files:**
 ```
-RamKiller/Features/Security/
+BeagleX/Features/Security/
   SecurityFinding.swift              — SecurityFinding, SecurityCheckType, Severity, ScanState
   SecurityCheck.swift                — SecurityCheck protocol + CodeSignChecker utility
   SecurityScanCoordinator.swift      — ObservableObject orchestrator
@@ -24,33 +24,33 @@ RamKiller/Features/Security/
     SuspiciousLaunchItemCheck.swift
     NetworkConnectionCheck.swift
     PermissionAbuseCheck.swift
-RamKiller/Resources/
+BeagleX/Resources/
   threat-signatures.json
-RamKillerTests/
+BeagleXTests/
   SecurityFindingTests.swift
   MalwareSignatureCheckTests.swift
   SecurityScanCoordinatorTests.swift
 ```
 
 **Modified files:**
-- `RamKiller/Core/Navigation/SidebarItem.swift` — add `.security` case
-- `RamKiller/UI/MainContentView.swift` — route `.security` to `SecurityView`
-- `RamKiller/RamKillerApp.swift` — create and inject `SecurityScanCoordinator`
-- `RamKiller/Features/Settings/SettingsView.swift` — add auto-scan interval picker
-- `RamKiller/Resources/Localizable.xcstrings` — add "Security" / "安全"
+- `BeagleX/Core/Navigation/SidebarItem.swift` — add `.security` case
+- `BeagleX/UI/MainContentView.swift` — route `.security` to `SecurityView`
+- `BeagleX/BeagleXApp.swift` — create and inject `SecurityScanCoordinator`
+- `BeagleX/Features/Settings/SettingsView.swift` — add auto-scan interval picker
+- `BeagleX/Resources/Localizable.xcstrings` — add "Security" / "安全"
 
 ---
 
 ## Task 1: Data Models
 
 **Files:**
-- Create: `RamKiller/Features/Security/SecurityFinding.swift`
-- Create: `RamKillerTests/SecurityFindingTests.swift`
+- Create: `BeagleX/Features/Security/SecurityFinding.swift`
+- Create: `BeagleXTests/SecurityFindingTests.swift`
 
 - [ ] **Step 1.1: Create SecurityFinding.swift**
 
 ```swift
-// RamKiller/Features/Security/SecurityFinding.swift
+// BeagleX/Features/Security/SecurityFinding.swift
 import Foundation
 
 enum SecurityCheckType: String, Codable, CaseIterable {
@@ -116,9 +116,9 @@ struct SecurityFinding: Identifiable, Equatable {
 - [ ] **Step 1.2: Write failing tests**
 
 ```swift
-// RamKillerTests/SecurityFindingTests.swift
+// BeagleXTests/SecurityFindingTests.swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class SecurityFindingTests: XCTestCase {
     func testSeverityOrdering() {
@@ -150,25 +150,25 @@ final class SecurityFindingTests: XCTestCase {
 - [ ] **Step 1.3: Run tests — expect FAIL (SecurityFinding not yet defined)**
 
 ```bash
-xcodebuild test -project RamKiller.xcodeproj -scheme RamKillerTests \
+xcodebuild test -project BeagleX.xcodeproj -scheme BeagleXTests \
   -destination 'platform=macOS' \
-  -only-testing:RamKillerTests/SecurityFindingTests 2>&1 | tail -5
+  -only-testing:BeagleXTests/SecurityFindingTests 2>&1 | tail -5
 ```
 
 - [ ] **Step 1.4: Run tests again after creating the file — expect PASS**
 
 ```bash
-xcodebuild test -project RamKiller.xcodeproj -scheme RamKillerTests \
+xcodebuild test -project BeagleX.xcodeproj -scheme BeagleXTests \
   -destination 'platform=macOS' \
-  -only-testing:RamKillerTests/SecurityFindingTests 2>&1 | tail -5
+  -only-testing:BeagleXTests/SecurityFindingTests 2>&1 | tail -5
 ```
 Expected: `** TEST SUCCEEDED **`
 
 - [ ] **Step 1.5: Commit**
 
 ```bash
-git add RamKiller/Features/Security/SecurityFinding.swift \
-        RamKillerTests/SecurityFindingTests.swift
+git add BeagleX/Features/Security/SecurityFinding.swift \
+        BeagleXTests/SecurityFindingTests.swift
 git commit -m "feat(security): data models — SecurityFinding, Severity, ScanState"
 ```
 
@@ -177,13 +177,13 @@ git commit -m "feat(security): data models — SecurityFinding, Severity, ScanSt
 ## Task 2: Protocol + CodeSignChecker + Threat Database
 
 **Files:**
-- Create: `RamKiller/Features/Security/SecurityCheck.swift`
-- Create: `RamKiller/Resources/threat-signatures.json`
+- Create: `BeagleX/Features/Security/SecurityCheck.swift`
+- Create: `BeagleX/Resources/threat-signatures.json`
 
 - [ ] **Step 2.1: Create SecurityCheck.swift**
 
 ```swift
-// RamKiller/Features/Security/SecurityCheck.swift
+// BeagleX/Features/Security/SecurityCheck.swift
 import Foundation
 import Darwin
 
@@ -247,15 +247,15 @@ func securityGlobMatch(pattern: String, path: String) -> Bool {
 - [ ] **Step 2.3: Verify JSON is valid**
 
 ```bash
-python3 -c "import json,sys; json.load(open('RamKiller/Resources/threat-signatures.json')); print('valid')"
+python3 -c "import json,sys; json.load(open('BeagleX/Resources/threat-signatures.json')); print('valid')"
 ```
 Expected: `valid`
 
 - [ ] **Step 2.4: Commit**
 
 ```bash
-git add RamKiller/Features/Security/SecurityCheck.swift \
-        RamKiller/Resources/threat-signatures.json
+git add BeagleX/Features/Security/SecurityCheck.swift \
+        BeagleX/Resources/threat-signatures.json
 git commit -m "feat(security): SecurityCheck protocol + threat signature database (20 families)"
 ```
 
@@ -264,15 +264,15 @@ git commit -m "feat(security): SecurityCheck protocol + threat signature databas
 ## Task 3: MalwareSignatureCheck
 
 **Files:**
-- Create: `RamKiller/Features/Security/Checks/MalwareSignatureCheck.swift`
-- Create: `RamKillerTests/MalwareSignatureCheckTests.swift`
+- Create: `BeagleX/Features/Security/Checks/MalwareSignatureCheck.swift`
+- Create: `BeagleXTests/MalwareSignatureCheckTests.swift`
 
 - [ ] **Step 3.1: Write failing test for pattern matching**
 
 ```swift
-// RamKillerTests/MalwareSignatureCheckTests.swift
+// BeagleXTests/MalwareSignatureCheckTests.swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class MalwareSignatureCheckTests: XCTestCase {
     func testGlobMatchWildcard() {
@@ -309,15 +309,15 @@ final class MalwareSignatureCheckTests: XCTestCase {
 - [ ] **Step 3.2: Run — expect FAIL**
 
 ```bash
-xcodebuild test -project RamKiller.xcodeproj -scheme RamKillerTests \
+xcodebuild test -project BeagleX.xcodeproj -scheme BeagleXTests \
   -destination 'platform=macOS' \
-  -only-testing:RamKillerTests/MalwareSignatureCheckTests 2>&1 | tail -5
+  -only-testing:BeagleXTests/MalwareSignatureCheckTests 2>&1 | tail -5
 ```
 
 - [ ] **Step 3.3: Create MalwareSignatureCheck.swift**
 
 ```swift
-// RamKiller/Features/Security/Checks/MalwareSignatureCheck.swift
+// BeagleX/Features/Security/Checks/MalwareSignatureCheck.swift
 import Foundation
 
 private struct ThreatDB: Decodable {
@@ -380,17 +380,17 @@ struct MalwareSignatureCheck: SecurityCheck {
 - [ ] **Step 3.4: Run tests — expect PASS**
 
 ```bash
-xcodebuild test -project RamKiller.xcodeproj -scheme RamKillerTests \
+xcodebuild test -project BeagleX.xcodeproj -scheme BeagleXTests \
   -destination 'platform=macOS' \
-  -only-testing:RamKillerTests/MalwareSignatureCheckTests 2>&1 | tail -5
+  -only-testing:BeagleXTests/MalwareSignatureCheckTests 2>&1 | tail -5
 ```
 Expected: `** TEST SUCCEEDED **`
 
 - [ ] **Step 3.5: Commit**
 
 ```bash
-git add RamKiller/Features/Security/Checks/MalwareSignatureCheck.swift \
-        RamKillerTests/MalwareSignatureCheckTests.swift
+git add BeagleX/Features/Security/Checks/MalwareSignatureCheck.swift \
+        BeagleXTests/MalwareSignatureCheckTests.swift
 git commit -m "feat(security): MalwareSignatureCheck — glob pattern scanning against threat DB"
 ```
 
@@ -399,12 +399,12 @@ git commit -m "feat(security): MalwareSignatureCheck — glob pattern scanning a
 ## Task 4: SuspiciousLaunchItemCheck
 
 **Files:**
-- Create: `RamKiller/Features/Security/Checks/SuspiciousLaunchItemCheck.swift`
+- Create: `BeagleX/Features/Security/Checks/SuspiciousLaunchItemCheck.swift`
 
 - [ ] **Step 4.1: Create SuspiciousLaunchItemCheck.swift**
 
 ```swift
-// RamKiller/Features/Security/Checks/SuspiciousLaunchItemCheck.swift
+// BeagleX/Features/Security/Checks/SuspiciousLaunchItemCheck.swift
 import Foundation
 
 struct SuspiciousLaunchItemCheck: SecurityCheck {
@@ -469,7 +469,7 @@ struct SuspiciousLaunchItemCheck: SecurityCheck {
 - [ ] **Step 4.2: Build to verify it compiles**
 
 ```bash
-xcodebuild build -project RamKiller.xcodeproj -scheme RamKiller \
+xcodebuild build -project BeagleX.xcodeproj -scheme BeagleX \
   -configuration Debug -destination 'platform=macOS' 2>&1 | grep -E "error:|BUILD"
 ```
 Expected: `** BUILD SUCCEEDED **`
@@ -477,7 +477,7 @@ Expected: `** BUILD SUCCEEDED **`
 - [ ] **Step 4.3: Commit**
 
 ```bash
-git add RamKiller/Features/Security/Checks/SuspiciousLaunchItemCheck.swift
+git add BeagleX/Features/Security/Checks/SuspiciousLaunchItemCheck.swift
 git commit -m "feat(security): SuspiciousLaunchItemCheck — codesign validation of launch items"
 ```
 
@@ -486,12 +486,12 @@ git commit -m "feat(security): SuspiciousLaunchItemCheck — codesign validation
 ## Task 5: NetworkConnectionCheck
 
 **Files:**
-- Create: `RamKiller/Features/Security/Checks/NetworkConnectionCheck.swift`
+- Create: `BeagleX/Features/Security/Checks/NetworkConnectionCheck.swift`
 
 - [ ] **Step 5.1: Create NetworkConnectionCheck.swift**
 
 ```swift
-// RamKiller/Features/Security/Checks/NetworkConnectionCheck.swift
+// BeagleX/Features/Security/Checks/NetworkConnectionCheck.swift
 import Foundation
 import Darwin
 
@@ -554,7 +554,7 @@ struct NetworkConnectionCheck: SecurityCheck {
 - [ ] **Step 5.2: Build**
 
 ```bash
-xcodebuild build -project RamKiller.xcodeproj -scheme RamKiller \
+xcodebuild build -project BeagleX.xcodeproj -scheme BeagleX \
   -configuration Debug -destination 'platform=macOS' 2>&1 | grep -E "error:|BUILD"
 ```
 Expected: `** BUILD SUCCEEDED **`
@@ -562,7 +562,7 @@ Expected: `** BUILD SUCCEEDED **`
 - [ ] **Step 5.3: Commit**
 
 ```bash
-git add RamKiller/Features/Security/Checks/NetworkConnectionCheck.swift
+git add BeagleX/Features/Security/Checks/NetworkConnectionCheck.swift
 git commit -m "feat(security): NetworkConnectionCheck — lsof + codesign for active TCP connections"
 ```
 
@@ -571,12 +571,12 @@ git commit -m "feat(security): NetworkConnectionCheck — lsof + codesign for ac
 ## Task 6: PermissionAbuseCheck
 
 **Files:**
-- Create: `RamKiller/Features/Security/Checks/PermissionAbuseCheck.swift`
+- Create: `BeagleX/Features/Security/Checks/PermissionAbuseCheck.swift`
 
 - [ ] **Step 6.1: Create PermissionAbuseCheck.swift**
 
 ```swift
-// RamKiller/Features/Security/Checks/PermissionAbuseCheck.swift
+// BeagleX/Features/Security/Checks/PermissionAbuseCheck.swift
 import AppKit
 
 struct PermissionAbuseCheck: SecurityCheck {
@@ -663,7 +663,7 @@ struct PermissionAbuseCheck: SecurityCheck {
 - [ ] **Step 6.2: Build**
 
 ```bash
-xcodebuild build -project RamKiller.xcodeproj -scheme RamKiller \
+xcodebuild build -project BeagleX.xcodeproj -scheme BeagleX \
   -configuration Debug -destination 'platform=macOS' 2>&1 | grep -E "error:|BUILD"
 ```
 Expected: `** BUILD SUCCEEDED **`
@@ -671,7 +671,7 @@ Expected: `** BUILD SUCCEEDED **`
 - [ ] **Step 6.3: Commit**
 
 ```bash
-git add RamKiller/Features/Security/Checks/PermissionAbuseCheck.swift
+git add BeagleX/Features/Security/Checks/PermissionAbuseCheck.swift
 git commit -m "feat(security): PermissionAbuseCheck — TCC.db query, flags unsigned apps with ≥2 high-risk permissions"
 ```
 
@@ -680,15 +680,15 @@ git commit -m "feat(security): PermissionAbuseCheck — TCC.db query, flags unsi
 ## Task 7: SecurityScanCoordinator
 
 **Files:**
-- Create: `RamKiller/Features/Security/SecurityScanCoordinator.swift`
-- Create: `RamKillerTests/SecurityScanCoordinatorTests.swift`
+- Create: `BeagleX/Features/Security/SecurityScanCoordinator.swift`
+- Create: `BeagleXTests/SecurityScanCoordinatorTests.swift`
 
 - [ ] **Step 7.1: Write failing coordinator tests**
 
 ```swift
-// RamKillerTests/SecurityScanCoordinatorTests.swift
+// BeagleXTests/SecurityScanCoordinatorTests.swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 @MainActor
 final class SecurityScanCoordinatorTests: XCTestCase {
@@ -720,15 +720,15 @@ final class SecurityScanCoordinatorTests: XCTestCase {
 - [ ] **Step 7.2: Run — expect FAIL**
 
 ```bash
-xcodebuild test -project RamKiller.xcodeproj -scheme RamKillerTests \
+xcodebuild test -project BeagleX.xcodeproj -scheme BeagleXTests \
   -destination 'platform=macOS' \
-  -only-testing:RamKillerTests/SecurityScanCoordinatorTests 2>&1 | tail -5
+  -only-testing:BeagleXTests/SecurityScanCoordinatorTests 2>&1 | tail -5
 ```
 
 - [ ] **Step 7.3: Create SecurityScanCoordinator.swift**
 
 ```swift
-// RamKiller/Features/Security/SecurityScanCoordinator.swift
+// BeagleX/Features/Security/SecurityScanCoordinator.swift
 import Foundation
 import UserNotifications
 import Shared
@@ -829,7 +829,7 @@ final class SecurityScanCoordinator: ObservableObject {
 
     private func deliverNotification(count: Int) {
         let content = UNMutableNotificationContent()
-        content.title = String(localized: "RamKiller — Security Alert")
+        content.title = String(localized: "BeagleX — Security Alert")
         content.body = String(format: String(localized: "%d security issue(s) found"), count)
         content.sound = .default
         UNUserNotificationCenter.current().add(
@@ -844,17 +844,17 @@ final class SecurityScanCoordinator: ObservableObject {
 - [ ] **Step 7.4: Run coordinator tests — expect PASS**
 
 ```bash
-xcodebuild test -project RamKiller.xcodeproj -scheme RamKillerTests \
+xcodebuild test -project BeagleX.xcodeproj -scheme BeagleXTests \
   -destination 'platform=macOS' \
-  -only-testing:RamKillerTests/SecurityScanCoordinatorTests 2>&1 | tail -5
+  -only-testing:BeagleXTests/SecurityScanCoordinatorTests 2>&1 | tail -5
 ```
 Expected: `** TEST SUCCEEDED **`
 
 - [ ] **Step 7.5: Commit**
 
 ```bash
-git add RamKiller/Features/Security/SecurityScanCoordinator.swift \
-        RamKillerTests/SecurityScanCoordinatorTests.swift
+git add BeagleX/Features/Security/SecurityScanCoordinator.swift \
+        BeagleXTests/SecurityScanCoordinatorTests.swift
 git commit -m "feat(security): SecurityScanCoordinator — parallel orchestration, ignore/remove, auto-scan"
 ```
 
@@ -863,12 +863,12 @@ git commit -m "feat(security): SecurityScanCoordinator — parallel orchestratio
 ## Task 8: SecurityView UI
 
 **Files:**
-- Create: `RamKiller/Features/Security/SecurityView.swift`
+- Create: `BeagleX/Features/Security/SecurityView.swift`
 
 - [ ] **Step 8.1: Create SecurityView.swift**
 
 ```swift
-// RamKiller/Features/Security/SecurityView.swift
+// BeagleX/Features/Security/SecurityView.swift
 import SwiftUI
 
 struct SecurityView: View {
@@ -1054,7 +1054,7 @@ struct SecurityView: View {
 - [ ] **Step 8.2: Build**
 
 ```bash
-xcodebuild build -project RamKiller.xcodeproj -scheme RamKiller \
+xcodebuild build -project BeagleX.xcodeproj -scheme BeagleX \
   -configuration Debug -destination 'platform=macOS' 2>&1 | grep -E "error:|BUILD"
 ```
 Expected: `** BUILD SUCCEEDED **`
@@ -1062,7 +1062,7 @@ Expected: `** BUILD SUCCEEDED **`
 - [ ] **Step 8.3: Commit**
 
 ```bash
-git add RamKiller/Features/Security/SecurityView.swift
+git add BeagleX/Features/Security/SecurityView.swift
 git commit -m "feat(security): SecurityView — grouped list UI with scan, ignore, remove actions"
 ```
 
@@ -1071,11 +1071,11 @@ git commit -m "feat(security): SecurityView — grouped list UI with scan, ignor
 ## Task 9: Wire Navigation & Settings
 
 **Files:**
-- Modify: `RamKiller/Core/Navigation/SidebarItem.swift`
-- Modify: `RamKiller/UI/MainContentView.swift`
-- Modify: `RamKiller/RamKillerApp.swift`
-- Modify: `RamKiller/Features/Settings/SettingsView.swift`
-- Modify: `RamKiller/Resources/Localizable.xcstrings`
+- Modify: `BeagleX/Core/Navigation/SidebarItem.swift`
+- Modify: `BeagleX/UI/MainContentView.swift`
+- Modify: `BeagleX/BeagleXApp.swift`
+- Modify: `BeagleX/Features/Settings/SettingsView.swift`
+- Modify: `BeagleX/Resources/Localizable.xcstrings`
 
 - [ ] **Step 9.1: Add `.security` to SidebarItem**
 
@@ -1151,9 +1151,9 @@ In `MainContentView.swift`, add after `case .automation:`:
 case .security:      SecurityView()
 ```
 
-- [ ] **Step 9.3: Inject SecurityScanCoordinator in RamKillerApp**
+- [ ] **Step 9.3: Inject SecurityScanCoordinator in BeagleXApp**
 
-In `RamKillerApp.swift`, add the coordinator as a `@StateObject` and inject it:
+In `BeagleXApp.swift`, add the coordinator as a `@StateObject` and inject it:
 
 ```swift
 // Add after @StateObject private var samplingCoordinator:
@@ -1165,7 +1165,7 @@ In `init()`, no changes needed (coordinator initializes itself).
 In the `Window` body, add `.environmentObject(securityCoordinator)` alongside the existing ones, and call `.onAppear { ... securityCoordinator.start() }`:
 
 ```swift
-Window("RamKiller", id: "main") {
+Window("BeagleX", id: "main") {
     MainContentView()
         .frame(minWidth: 900, minHeight: 600)
         .environmentObject(samplingCoordinator)
@@ -1179,7 +1179,7 @@ Window("RamKiller", id: "main") {
 }
 ```
 
-> **Note:** Check existing `RamKillerApp.swift` — it uses `ThemeManager.shared` directly. Preserve that pattern, just add the `securityCoordinator` line.
+> **Note:** Check existing `BeagleXApp.swift` — it uses `ThemeManager.shared` directly. Preserve that pattern, just add the `securityCoordinator` line.
 
 - [ ] **Step 9.4: Add auto-scan picker to SettingsView**
 
@@ -1204,7 +1204,7 @@ Add `@EnvironmentObject private var securityCoordinator: SecurityScanCoordinator
 
 - [ ] **Step 9.5: Add "Security" / "安全" to Localizable.xcstrings**
 
-Open `RamKiller/Resources/Localizable.xcstrings` and add the following entry in the `strings` dictionary (following the existing pattern):
+Open `BeagleX/Resources/Localizable.xcstrings` and add the following entry in the `strings` dictionary (following the existing pattern):
 
 ```json
 "Security" : {
@@ -1256,7 +1256,7 @@ Also add these supporting strings:
 - [ ] **Step 9.6: Build — verify everything compiles**
 
 ```bash
-xcodebuild build -project RamKiller.xcodeproj -scheme RamKiller \
+xcodebuild build -project BeagleX.xcodeproj -scheme BeagleX \
   -configuration Debug -destination 'platform=macOS' 2>&1 | grep -E "error:|BUILD"
 ```
 Expected: `** BUILD SUCCEEDED **`
@@ -1264,7 +1264,7 @@ Expected: `** BUILD SUCCEEDED **`
 - [ ] **Step 9.7: Run all tests**
 
 ```bash
-xcodebuild test -project RamKiller.xcodeproj -scheme RamKillerTests \
+xcodebuild test -project BeagleX.xcodeproj -scheme BeagleXTests \
   -destination 'platform=macOS' 2>&1 | tail -8
 ```
 Expected: `** TEST SUCCEEDED **`
@@ -1272,11 +1272,11 @@ Expected: `** TEST SUCCEEDED **`
 - [ ] **Step 9.8: Commit**
 
 ```bash
-git add RamKiller/Core/Navigation/SidebarItem.swift \
-        RamKiller/UI/MainContentView.swift \
-        RamKiller/RamKillerApp.swift \
-        RamKiller/Features/Settings/SettingsView.swift \
-        RamKiller/Resources/Localizable.xcstrings
+git add BeagleX/Core/Navigation/SidebarItem.swift \
+        BeagleX/UI/MainContentView.swift \
+        BeagleX/BeagleXApp.swift \
+        BeagleX/Features/Settings/SettingsView.swift \
+        BeagleX/Resources/Localizable.xcstrings
 git commit -m "feat(security): wire Security into navigation, settings, and app lifecycle"
 ```
 
@@ -1288,10 +1288,10 @@ git commit -m "feat(security): wire Security into navigation, settings, and app 
 
 ```bash
 xcodebuild archive \
-  -project RamKiller.xcodeproj \
-  -scheme RamKiller \
+  -project BeagleX.xcodeproj \
+  -scheme BeagleX \
   -configuration Release \
-  -archivePath /tmp/RamKiller-archive/RamKiller-devid.xcarchive \
+  -archivePath /tmp/BeagleX-archive/BeagleX-devid.xcarchive \
   CODE_SIGN_STYLE=Manual \
   CODE_SIGN_IDENTITY="Developer ID Application: Lanmeng Ni (3APC6ALUWK)" \
   DEVELOPMENT_TEAM=3APC6ALUWK \
@@ -1304,10 +1304,10 @@ xcodebuild archive \
 
 ```bash
 ditto -c -k --keepParent \
-  /tmp/RamKiller-archive/RamKiller-devid.xcarchive/Products/Applications/RamKiller.app \
-  /tmp/RamKiller-archive/RamKiller-1.4.0.zip
+  /tmp/BeagleX-archive/BeagleX-devid.xcarchive/Products/Applications/BeagleX.app \
+  /tmp/BeagleX-archive/BeagleX-1.4.0.zip
 
-xcrun notarytool submit /tmp/RamKiller-archive/RamKiller-1.4.0.zip \
+xcrun notarytool submit /tmp/BeagleX-archive/BeagleX-1.4.0.zip \
   --apple-id "vegadrift007@gmail.com" \
   --password "znam-ibta-xvxl-erjn" \
   --team-id "3APC6ALUWK" \
@@ -1318,12 +1318,12 @@ Expected: `status: Accepted`
 - [ ] **Step 10.3: Staple and deploy to Desktop**
 
 ```bash
-cp -r /tmp/RamKiller-archive/RamKiller-devid.xcarchive/Products/Applications/RamKiller.app \
-      /tmp/RamKiller-archive/RamKiller-final.app
-xcrun stapler staple /tmp/RamKiller-archive/RamKiller-final.app
-spctl -a -vvv -t exec /tmp/RamKiller-archive/RamKiller-final.app 2>&1 | grep "source="
-rm -rf ~/Desktop/RamKiller.app
-cp -r /tmp/RamKiller-archive/RamKiller-final.app ~/Desktop/RamKiller.app
+cp -r /tmp/BeagleX-archive/BeagleX-devid.xcarchive/Products/Applications/BeagleX.app \
+      /tmp/BeagleX-archive/BeagleX-final.app
+xcrun stapler staple /tmp/BeagleX-archive/BeagleX-final.app
+spctl -a -vvv -t exec /tmp/BeagleX-archive/BeagleX-final.app 2>&1 | grep "source="
+rm -rf ~/Desktop/BeagleX.app
+cp -r /tmp/BeagleX-archive/BeagleX-final.app ~/Desktop/BeagleX.app
 echo "Done"
 ```
 Expected: `source=Notarized Developer ID`

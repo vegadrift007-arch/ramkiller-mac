@@ -16,36 +16,36 @@
 
 | Path | Purpose |
 |---|---|
-| `RamKiller/Core/Models/MemorySnapshot.swift` | SwiftData model for 2 s memory samples |
-| `RamKiller/Core/Models/ProcessSnapshot.swift` | SwiftData model for 60 s process samples |
-| `RamKiller/Core/Services/MemoryService.swift` | Wraps `host_statistics64` + vm_stat math |
-| `RamKiller/Core/Services/ProcessService.swift` | Wraps `proc_listpids` + `proc_pidinfo` |
-| `RamKiller/Core/Services/SamplingCoordinator.swift` | Owns the timers, persists snapshots |
-| `RamKiller/Core/Services/RetentionService.swift` | Hourly pruning of 24 h+ old rows |
-| `RamKiller/Core/Models/MemoryReading.swift` | In-memory struct (not persisted) — current snapshot |
-| `RamKiller/Core/Models/ProcessReading.swift` | In-memory struct for one process |
-| `RamKiller/UI/MenuBar/MenuBarView.swift` | (modify) live stats + Top 5 |
-| `RamKiller/UI/MenuBar/MenuBarIcon.swift` | Dynamic % rendered to `NSImage` |
-| `RamKiller/Features/Monitoring/MonitoringView.swift` | (replace) dashboard |
-| `RamKiller/Features/Monitoring/StatCard.swift` | One Used/Unused/Compressor/Pressure card |
-| `RamKiller/Features/Monitoring/MemoryAreaChart.swift` | Stacked area chart 1 h / 24 h |
-| `RamKiller/Features/Monitoring/PressureTimelineChart.swift` | Colored timeline of pressure level |
-| `RamKiller/Features/Monitoring/SwapRateChart.swift` | Line chart of swap in/out per second |
-| `RamKiller/Features/Monitoring/AdvancedBreakdownView.swift` | Wired/Active/Inactive/Speculative |
-| `RamKiller/Features/Processes/ProcessesView.swift` | (replace) Top 30 list + search |
-| `RamKiller/Features/Processes/ProcessDetailView.swift` | Right-side detail panel |
-| `RamKiller/Features/Processes/ProcessRow.swift` | One row in the list |
-| `RamKiller/App/RamKillerApp.swift` | (modify) install ModelContainer + start sampling |
-| `RamKillerTests/MemoryServiceTests.swift` | Unit tests |
-| `RamKillerTests/ProcessServiceTests.swift` | Unit tests |
-| `RamKillerTests/RetentionServiceTests.swift` | Unit tests |
+| `BeagleX/Core/Models/MemorySnapshot.swift` | SwiftData model for 2 s memory samples |
+| `BeagleX/Core/Models/ProcessSnapshot.swift` | SwiftData model for 60 s process samples |
+| `BeagleX/Core/Services/MemoryService.swift` | Wraps `host_statistics64` + vm_stat math |
+| `BeagleX/Core/Services/ProcessService.swift` | Wraps `proc_listpids` + `proc_pidinfo` |
+| `BeagleX/Core/Services/SamplingCoordinator.swift` | Owns the timers, persists snapshots |
+| `BeagleX/Core/Services/RetentionService.swift` | Hourly pruning of 24 h+ old rows |
+| `BeagleX/Core/Models/MemoryReading.swift` | In-memory struct (not persisted) — current snapshot |
+| `BeagleX/Core/Models/ProcessReading.swift` | In-memory struct for one process |
+| `BeagleX/UI/MenuBar/MenuBarView.swift` | (modify) live stats + Top 5 |
+| `BeagleX/UI/MenuBar/MenuBarIcon.swift` | Dynamic % rendered to `NSImage` |
+| `BeagleX/Features/Monitoring/MonitoringView.swift` | (replace) dashboard |
+| `BeagleX/Features/Monitoring/StatCard.swift` | One Used/Unused/Compressor/Pressure card |
+| `BeagleX/Features/Monitoring/MemoryAreaChart.swift` | Stacked area chart 1 h / 24 h |
+| `BeagleX/Features/Monitoring/PressureTimelineChart.swift` | Colored timeline of pressure level |
+| `BeagleX/Features/Monitoring/SwapRateChart.swift` | Line chart of swap in/out per second |
+| `BeagleX/Features/Monitoring/AdvancedBreakdownView.swift` | Wired/Active/Inactive/Speculative |
+| `BeagleX/Features/Processes/ProcessesView.swift` | (replace) Top 30 list + search |
+| `BeagleX/Features/Processes/ProcessDetailView.swift` | Right-side detail panel |
+| `BeagleX/Features/Processes/ProcessRow.swift` | One row in the list |
+| `BeagleX/App/BeagleXApp.swift` | (modify) install ModelContainer + start sampling |
+| `BeagleXTests/MemoryServiceTests.swift` | Unit tests |
+| `BeagleXTests/ProcessServiceTests.swift` | Unit tests |
+| `BeagleXTests/RetentionServiceTests.swift` | Unit tests |
 
 ---
 
 ## Task 1: `MemoryReading` value type
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/MemoryReading.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/MemoryReading.swift`
 
 - [ ] **Step 1: Write the file**
 
@@ -90,7 +90,7 @@ public struct MemoryReading: Sendable, Equatable {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Core/Models/MemoryReading.swift
+git add BeagleX/Core/Models/MemoryReading.swift
 git commit -m "phase-1: add MemoryReading struct"
 ```
 
@@ -99,14 +99,14 @@ git commit -m "phase-1: add MemoryReading struct"
 ## Task 2: `MemoryService` — read host_statistics64
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/MemoryService.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/MemoryServiceTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/MemoryService.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/MemoryServiceTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class MemoryServiceTests: XCTestCase {
     func testReadCurrentReturnsPlausibleValues() {
@@ -260,7 +260,7 @@ public final class MemoryService {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKiller/Core/Services/MemoryService.swift RamKillerTests/MemoryServiceTests.swift
+git add BeagleX/Core/Services/MemoryService.swift BeagleXTests/MemoryServiceTests.swift
 git commit -m "phase-1: add MemoryService"
 ```
 
@@ -269,7 +269,7 @@ git commit -m "phase-1: add MemoryService"
 ## Task 3: `MemorySnapshot` SwiftData model
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/MemorySnapshot.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/MemorySnapshot.swift`
 
 - [ ] **Step 1: Write the model**
 
@@ -318,7 +318,7 @@ public final class MemorySnapshot {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Core/Models/MemorySnapshot.swift
+git add BeagleX/Core/Models/MemorySnapshot.swift
 git commit -m "phase-1: add MemorySnapshot @Model"
 ```
 
@@ -327,7 +327,7 @@ git commit -m "phase-1: add MemorySnapshot @Model"
 ## Task 4: `ProcessReading` value type
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/ProcessReading.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/ProcessReading.swift`
 
 - [ ] **Step 1: Write the file**
 
@@ -351,7 +351,7 @@ public struct ProcessReading: Sendable, Identifiable, Equatable {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/ProcessReading.swift
+git add BeagleX/Core/Models/ProcessReading.swift
 git commit -m "phase-1: add ProcessReading struct"
 ```
 
@@ -360,14 +360,14 @@ git commit -m "phase-1: add ProcessReading struct"
 ## Task 5: `ProcessService` — read process list
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/ProcessService.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/ProcessServiceTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/ProcessService.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/ProcessServiceTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class ProcessServiceTests: XCTestCase {
     func testReadAllReturnsCurrentProcess() {
@@ -489,7 +489,7 @@ public final class ProcessService {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKiller/Core/Services/ProcessService.swift RamKillerTests/ProcessServiceTests.swift
+git add BeagleX/Core/Services/ProcessService.swift BeagleXTests/ProcessServiceTests.swift
 git commit -m "phase-1: add ProcessService"
 ```
 
@@ -498,7 +498,7 @@ git commit -m "phase-1: add ProcessService"
 ## Task 6: `ProcessSnapshot` SwiftData model
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/ProcessSnapshot.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/ProcessSnapshot.swift`
 
 - [ ] **Step 1: Write the model**
 
@@ -533,16 +533,16 @@ public final class ProcessSnapshot {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/ProcessSnapshot.swift
+git add BeagleX/Core/Models/ProcessSnapshot.swift
 git commit -m "phase-1: add ProcessSnapshot @Model"
 ```
 
 ---
 
-## Task 7: Wire `ModelContainer` into `RamKillerApp`
+## Task 7: Wire `ModelContainer` into `BeagleXApp`
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/App/RamKillerApp.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/App/BeagleXApp.swift`
 
 - [ ] **Step 1: Replace the file**
 
@@ -551,19 +551,19 @@ import SwiftUI
 import SwiftData
 
 @main
-struct RamKillerApp: App {
+struct BeagleXApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     let container: ModelContainer = {
         let schema = Schema([MemorySnapshot.self, ProcessSnapshot.self])
-        let url = URL.applicationSupportDirectory.appending(path: "RamKiller/db.store")
+        let url = URL.applicationSupportDirectory.appending(path: "BeagleX/db.store")
         try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
         let config = ModelConfiguration(schema: schema, url: url)
         return try! ModelContainer(for: schema, configurations: [config])
     }()
 
     var body: some Scene {
-        Window("RamKiller", id: "main") {
+        Window("BeagleX", id: "main") {
             MainContentView()
                 .frame(minWidth: 900, minHeight: 600)
         }
@@ -589,7 +589,7 @@ For incremental compile, temporarily change `MenuBarIcon()` to `Image(systemName
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/App/RamKillerApp.swift
+git add BeagleX/App/BeagleXApp.swift
 git commit -m "phase-1: install ModelContainer in scenes"
 ```
 
@@ -598,7 +598,7 @@ git commit -m "phase-1: install ModelContainer in scenes"
 ## Task 8: `SamplingCoordinator` — owns the timers
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/SamplingCoordinator.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/SamplingCoordinator.swift`
 
 - [ ] **Step 1: Write the coordinator**
 
@@ -667,7 +667,7 @@ public final class SamplingCoordinator: ObservableObject {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/SamplingCoordinator.swift
+git add BeagleX/Core/Services/SamplingCoordinator.swift
 git commit -m "phase-1: add SamplingCoordinator"
 ```
 
@@ -676,15 +676,15 @@ git commit -m "phase-1: add SamplingCoordinator"
 ## Task 9: `RetentionService` — hourly pruning
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/RetentionService.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/RetentionServiceTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/RetentionService.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/RetentionServiceTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
 import SwiftData
-@testable import RamKiller
+@testable import BeagleX
 
 final class RetentionServiceTests: XCTestCase {
     func testPruneRemovesRecordsOlderThanCutoff() throws {
@@ -762,7 +762,7 @@ public final class RetentionService {
 - [ ] **Step 5: Commit**
 
 ```bash
-git add RamKiller/Core/Services/RetentionService.swift RamKillerTests/RetentionServiceTests.swift
+git add BeagleX/Core/Services/RetentionService.swift BeagleXTests/RetentionServiceTests.swift
 git commit -m "phase-1: add RetentionService with TTL prune"
 ```
 
@@ -771,7 +771,7 @@ git commit -m "phase-1: add RetentionService with TTL prune"
 ## Task 10: Schedule retention from app launch
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/App/AppDelegate.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/App/AppDelegate.swift`
 
 - [ ] **Step 1: Add retention timer to delegate**
 
@@ -783,7 +783,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     private var retentionTimer: Timer?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        NSLog("RamKiller launched")
+        NSLog("BeagleX launched")
         scheduleRetention()
     }
 
@@ -810,7 +810,7 @@ enum SharedContainer {
 
 - [ ] **Step 2: Wire `SharedContainer.container` from the app**
 
-In `RamKillerApp.swift`, after the container is built:
+In `BeagleXApp.swift`, after the container is built:
 
 ```swift
 init() {
@@ -823,7 +823,7 @@ init() {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/App
+git add BeagleX/App
 git commit -m "phase-1: hourly retention scheduler"
 ```
 
@@ -832,7 +832,7 @@ git commit -m "phase-1: hourly retention scheduler"
 ## Task 11: `StatCard` reusable component
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/StatCard.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/StatCard.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -881,7 +881,7 @@ struct StatCard: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/StatCard.swift
+git add BeagleX/Features/Monitoring/StatCard.swift
 git commit -m "phase-1: add StatCard component"
 ```
 
@@ -890,7 +890,7 @@ git commit -m "phase-1: add StatCard component"
 ## Task 12: `MenuBarIcon` — dynamic % rendered to NSImage
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/UI/MenuBar/MenuBarIcon.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/UI/MenuBar/MenuBarIcon.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -913,7 +913,7 @@ struct MenuBarIcon: View {
 }
 ```
 
-- [ ] **Step 2: Replace the placeholder in `RamKillerApp.swift`**
+- [ ] **Step 2: Replace the placeholder in `BeagleXApp.swift`**
 
 In the `MenuBarExtra` label, replace the temporary `Image(systemName: "memorychip")` with:
 
@@ -922,14 +922,14 @@ MenuBarIcon()
     .environmentObject(samplingCoordinator)
 ```
 
-Where `samplingCoordinator` is created in `RamKillerApp` with the container. Add the property:
+Where `samplingCoordinator` is created in `BeagleXApp` with the container. Add the property:
 
 ```swift
 @StateObject private var samplingCoordinator: SamplingCoordinator
 
 init() {
     let schema = Schema([MemorySnapshot.self, ProcessSnapshot.self])
-    let url = URL.applicationSupportDirectory.appending(path: "RamKiller/db.store")
+    let url = URL.applicationSupportDirectory.appending(path: "BeagleX/db.store")
     try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
     let config = ModelConfiguration(schema: schema, url: url)
     let container = try! ModelContainer(for: schema, configurations: [config])
@@ -942,7 +942,7 @@ init() {
 And start the coordinator in `body` via `.onAppear`:
 
 ```swift
-Window("RamKiller", id: "main") {
+Window("BeagleX", id: "main") {
     MainContentView()
         .frame(minWidth: 900, minHeight: 600)
         .environmentObject(samplingCoordinator)
@@ -960,7 +960,7 @@ Window("RamKiller", id: "main") {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/UI/MenuBar/MenuBarIcon.swift RamKiller/App/RamKillerApp.swift
+git add BeagleX/UI/MenuBar/MenuBarIcon.swift BeagleX/App/BeagleXApp.swift
 git commit -m "phase-1: live % in menubar"
 ```
 
@@ -969,7 +969,7 @@ git commit -m "phase-1: live % in menubar"
 ## Task 13: Update `MenuBarView` with live numbers
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/UI/MenuBar/MenuBarView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/UI/MenuBar/MenuBarView.swift`
 
 - [ ] **Step 1: Replace the view**
 
@@ -1054,7 +1054,7 @@ enum ByteFormat {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/UI/MenuBar/MenuBarView.swift
+git add BeagleX/UI/MenuBar/MenuBarView.swift
 git commit -m "phase-1: live data in menubar dropdown"
 ```
 
@@ -1063,7 +1063,7 @@ git commit -m "phase-1: live data in menubar dropdown"
 ## Task 14: `MemoryAreaChart`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/MemoryAreaChart.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/MemoryAreaChart.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -1119,7 +1119,7 @@ struct MemoryAreaChart: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/MemoryAreaChart.swift
+git add BeagleX/Features/Monitoring/MemoryAreaChart.swift
 git commit -m "phase-1: stacked area chart for Used/Compressor"
 ```
 
@@ -1128,7 +1128,7 @@ git commit -m "phase-1: stacked area chart for Used/Compressor"
 ## Task 15: `PressureTimelineChart`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/PressureTimelineChart.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/PressureTimelineChart.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -1180,7 +1180,7 @@ struct PressureTimelineChart: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/PressureTimelineChart.swift
+git add BeagleX/Features/Monitoring/PressureTimelineChart.swift
 git commit -m "phase-1: pressure timeline chart"
 ```
 
@@ -1189,7 +1189,7 @@ git commit -m "phase-1: pressure timeline chart"
 ## Task 16: `SwapRateChart`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/SwapRateChart.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/SwapRateChart.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -1238,7 +1238,7 @@ struct SwapRateChart: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/SwapRateChart.swift
+git add BeagleX/Features/Monitoring/SwapRateChart.swift
 git commit -m "phase-1: swap rate chart"
 ```
 
@@ -1247,7 +1247,7 @@ git commit -m "phase-1: swap rate chart"
 ## Task 17: `AdvancedBreakdownView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/AdvancedBreakdownView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/AdvancedBreakdownView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -1287,7 +1287,7 @@ struct AdvancedBreakdownView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/AdvancedBreakdownView.swift
+git add BeagleX/Features/Monitoring/AdvancedBreakdownView.swift
 git commit -m "phase-1: advanced breakdown view"
 ```
 
@@ -1296,7 +1296,7 @@ git commit -m "phase-1: advanced breakdown view"
 ## Task 18: `MonitoringView` dashboard
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Monitoring/MonitoringView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Monitoring/MonitoringView.swift`
 
 - [ ] **Step 1: Replace the placeholder**
 
@@ -1409,7 +1409,7 @@ struct MonitoringView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Monitoring/MonitoringView.swift
+git add BeagleX/Features/Monitoring/MonitoringView.swift
 git commit -m "phase-1: monitoring dashboard"
 ```
 
@@ -1418,7 +1418,7 @@ git commit -m "phase-1: monitoring dashboard"
 ## Task 19: `ProcessRow` component
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Processes/ProcessRow.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Processes/ProcessRow.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -1465,7 +1465,7 @@ struct ProcessRow: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Processes/ProcessRow.swift
+git add BeagleX/Features/Processes/ProcessRow.swift
 git commit -m "phase-1: ProcessRow component"
 ```
 
@@ -1474,7 +1474,7 @@ git commit -m "phase-1: ProcessRow component"
 ## Task 20: `ProcessDetailView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Processes/ProcessDetailView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Processes/ProcessDetailView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -1508,7 +1508,7 @@ struct ProcessDetailView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Processes/ProcessDetailView.swift
+git add BeagleX/Features/Processes/ProcessDetailView.swift
 git commit -m "phase-1: ProcessDetailView"
 ```
 
@@ -1517,7 +1517,7 @@ git commit -m "phase-1: ProcessDetailView"
 ## Task 21: `ProcessesView` list + detail
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Processes/ProcessesView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Processes/ProcessesView.swift`
 
 - [ ] **Step 1: Replace the placeholder**
 
@@ -1590,7 +1590,7 @@ struct ProcessesView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Processes/ProcessesView.swift
+git add BeagleX/Features/Processes/ProcessesView.swift
 git commit -m "phase-1: ProcessesView with table + detail"
 ```
 
@@ -1599,8 +1599,8 @@ git commit -m "phase-1: ProcessesView with table + detail"
 ## Task 22: Pass `samplingCoordinator` to all detail views
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/UI/MainContentView.swift`
-- Modify: `/Users/a77/RamKiller/RamKiller/App/RamKillerApp.swift` (already done in Task 12)
+- Modify: `/Users/a77/BeagleX/BeagleX/UI/MainContentView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/App/BeagleXApp.swift` (already done in Task 12)
 
 - [ ] **Step 1: Make MainContentView take the coordinator**
 
@@ -1635,7 +1635,7 @@ struct MainContentView: View {
 }
 ```
 
-(The `@EnvironmentObject` chain is already wired through `RamKillerApp.body` via `.environmentObject(samplingCoordinator)` in Task 12.)
+(The `@EnvironmentObject` chain is already wired through `BeagleXApp.body` via `.environmentObject(samplingCoordinator)` in Task 12.)
 
 - [ ] **Step 2: Build, run, click between Memory ↔ Processes**
 
@@ -1644,7 +1644,7 @@ struct MainContentView: View {
 - [ ] **Step 3: Commit (if any tweaks needed)**
 
 ```bash
-git add RamKiller/UI/MainContentView.swift
+git add BeagleX/UI/MainContentView.swift
 git commit -m "phase-1: ensure environment passes through detail" --allow-empty
 ```
 
@@ -1685,7 +1685,7 @@ git commit -m "phase-1: post-verification fixes" --allow-empty
 
 ## Phase 1 Acceptance Criteria
 
-- [ ] All XCTest pass (`MemoryServiceTests`, `ProcessServiceTests`, `RetentionServiceTests`, `SidebarItemTests`, `LoginItemServiceTests`, `RamKillerTests`).
+- [ ] All XCTest pass (`MemoryServiceTests`, `ProcessServiceTests`, `RetentionServiceTests`, `SidebarItemTests`, `LoginItemServiceTests`, `BeagleXTests`).
 - [ ] Memory page replaces `vm_stat`/`top` for live monitoring.
 - [ ] Process list replaces `ps`/`pgrep`.
 - [ ] Charts cover 1 h / 6 h / 24 h.

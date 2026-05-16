@@ -16,33 +16,33 @@
 
 | Path | Purpose |
 |---|---|
-| `RamKiller/Core/Models/AlertEvent.swift` | SwiftData model |
-| `RamKiller/Core/Models/UserAction.swift` | SwiftData model |
-| `RamKiller/Core/Models/AlertLevel.swift` | enum (warning/critical/emergency) |
-| `RamKiller/Core/Services/NotificationService.swift` | UserNotifications wrapper |
-| `RamKiller/Core/Services/ThresholdEngine.swift` | Evaluator |
-| `RamKiller/Core/Services/UserActionLog.swift` | Centralized action recording |
-| `RamKiller/Core/Models/ThresholdConfig.swift` | Codable settings |
-| `RamKiller/Features/Settings/AutomationSettingsSection.swift` | Threshold sliders + auto-purge toggle |
-| `RamKiller/Features/Automation/AutomationView.swift` | (replace) full analytics view |
-| `RamKiller/Features/Automation/PressureTimelineView.swift` | 7/30 day pressure bars |
-| `RamKiller/Features/Automation/CulpritProcessesView.swift` | Top 10 during pressure |
-| `RamKiller/Features/Automation/AlertHistoryView.swift` | Alert events list |
-| `RamKiller/Features/Automation/UserActionHistoryView.swift` | Kill/purge history |
-| `RamKiller/Core/Services/SamplingCoordinator.swift` | (modify) tick into ThresholdEngine |
-| `RamKiller/Core/Services/HelperBridge.swift` | (modify) call UserActionLog on success |
-| `RamKiller/Features/Processes/ProcessesView.swift` | (modify) call UserActionLog on kill |
-| `RamKiller/UI/Components/PurgeButton.swift` | (modify) call UserActionLog on success |
-| `RamKiller/App/RamKillerApp.swift` | (modify) extend Schema, request notif permission |
-| `RamKillerTests/ThresholdEngineTests.swift` | |
-| `RamKillerTests/UserActionLogTests.swift` | |
+| `BeagleX/Core/Models/AlertEvent.swift` | SwiftData model |
+| `BeagleX/Core/Models/UserAction.swift` | SwiftData model |
+| `BeagleX/Core/Models/AlertLevel.swift` | enum (warning/critical/emergency) |
+| `BeagleX/Core/Services/NotificationService.swift` | UserNotifications wrapper |
+| `BeagleX/Core/Services/ThresholdEngine.swift` | Evaluator |
+| `BeagleX/Core/Services/UserActionLog.swift` | Centralized action recording |
+| `BeagleX/Core/Models/ThresholdConfig.swift` | Codable settings |
+| `BeagleX/Features/Settings/AutomationSettingsSection.swift` | Threshold sliders + auto-purge toggle |
+| `BeagleX/Features/Automation/AutomationView.swift` | (replace) full analytics view |
+| `BeagleX/Features/Automation/PressureTimelineView.swift` | 7/30 day pressure bars |
+| `BeagleX/Features/Automation/CulpritProcessesView.swift` | Top 10 during pressure |
+| `BeagleX/Features/Automation/AlertHistoryView.swift` | Alert events list |
+| `BeagleX/Features/Automation/UserActionHistoryView.swift` | Kill/purge history |
+| `BeagleX/Core/Services/SamplingCoordinator.swift` | (modify) tick into ThresholdEngine |
+| `BeagleX/Core/Services/HelperBridge.swift` | (modify) call UserActionLog on success |
+| `BeagleX/Features/Processes/ProcessesView.swift` | (modify) call UserActionLog on kill |
+| `BeagleX/UI/Components/PurgeButton.swift` | (modify) call UserActionLog on success |
+| `BeagleX/App/BeagleXApp.swift` | (modify) extend Schema, request notif permission |
+| `BeagleXTests/ThresholdEngineTests.swift` | |
+| `BeagleXTests/UserActionLogTests.swift` | |
 
 ---
 
 ## Task 1: Define `AlertLevel`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/AlertLevel.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/AlertLevel.swift`
 
 - [ ] **Step 1: Write enum**
 
@@ -75,7 +75,7 @@ public enum AlertLevel: String, Codable, CaseIterable {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/AlertLevel.swift
+git add BeagleX/Core/Models/AlertLevel.swift
 git commit -m "phase-3: AlertLevel enum"
 ```
 
@@ -84,7 +84,7 @@ git commit -m "phase-3: AlertLevel enum"
 ## Task 2: `AlertEvent` SwiftData model
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/AlertEvent.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/AlertEvent.swift`
 
 - [ ] **Step 1: Write model**
 
@@ -117,7 +117,7 @@ public final class AlertEvent {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/AlertEvent.swift
+git add BeagleX/Core/Models/AlertEvent.swift
 git commit -m "phase-3: AlertEvent @Model"
 ```
 
@@ -126,7 +126,7 @@ git commit -m "phase-3: AlertEvent @Model"
 ## Task 3: `UserAction` SwiftData model
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/UserAction.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/UserAction.swift`
 
 - [ ] **Step 1: Write model**
 
@@ -159,7 +159,7 @@ public final class UserAction {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/UserAction.swift
+git add BeagleX/Core/Models/UserAction.swift
 git commit -m "phase-3: UserAction @Model"
 ```
 
@@ -168,7 +168,7 @@ git commit -m "phase-3: UserAction @Model"
 ## Task 4: Extend the Schema and ModelContainer
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/App/RamKillerApp.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/App/BeagleXApp.swift`
 
 - [ ] **Step 1: Update the `init()` schema**
 
@@ -188,7 +188,7 @@ let schema = Schema([
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/App/RamKillerApp.swift
+git add BeagleX/App/BeagleXApp.swift
 git commit -m "phase-3: extend Schema with AlertEvent + UserAction"
 ```
 
@@ -197,15 +197,15 @@ git commit -m "phase-3: extend Schema with AlertEvent + UserAction"
 ## Task 5: `UserActionLog` service
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/UserActionLog.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/UserActionLogTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/UserActionLog.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/UserActionLogTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
 import SwiftData
-@testable import RamKiller
+@testable import BeagleX
 
 final class UserActionLogTests: XCTestCase {
     func testRecordPersistsRow() throws {
@@ -234,7 +234,7 @@ import SwiftData
 public final class UserActionLog {
     public static let shared: UserActionLog = {
         guard let container = SharedContainer.container else {
-            fatalError("SharedContainer.container missing — wire it from RamKillerApp init")
+            fatalError("SharedContainer.container missing — wire it from BeagleXApp init")
         }
         return UserActionLog(context: ModelContext(container))
     }()
@@ -258,7 +258,7 @@ public final class UserActionLog {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Core/Services/UserActionLog.swift RamKillerTests/UserActionLogTests.swift
+git add BeagleX/Core/Services/UserActionLog.swift BeagleXTests/UserActionLogTests.swift
 git commit -m "phase-3: UserActionLog service"
 ```
 
@@ -267,8 +267,8 @@ git commit -m "phase-3: UserActionLog service"
 ## Task 6: Wire UserActionLog into Phase 2 actions
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/UI/Components/PurgeButton.swift`
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Processes/ProcessesView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/UI/Components/PurgeButton.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Processes/ProcessesView.swift`
 
 - [ ] **Step 1: Log purges**
 
@@ -309,7 +309,7 @@ UserActionLog.shared.record(type: actionType, target: target, success: kerr == 0
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/UI/Components/PurgeButton.swift RamKiller/Features/Processes/ProcessesView.swift
+git add BeagleX/UI/Components/PurgeButton.swift BeagleX/Features/Processes/ProcessesView.swift
 git commit -m "phase-3: log purges and kills to UserActionLog"
 ```
 
@@ -318,7 +318,7 @@ git commit -m "phase-3: log purges and kills to UserActionLog"
 ## Task 7: `ThresholdConfig` settings type
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/ThresholdConfig.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/ThresholdConfig.swift`
 
 - [ ] **Step 1: Write the type**
 
@@ -362,7 +362,7 @@ extension ThresholdConfig {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/ThresholdConfig.swift
+git add BeagleX/Core/Models/ThresholdConfig.swift
 git commit -m "phase-3: ThresholdConfig"
 ```
 
@@ -371,7 +371,7 @@ git commit -m "phase-3: ThresholdConfig"
 ## Task 8: `NotificationService`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/NotificationService.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/NotificationService.swift`
 
 - [ ] **Step 1: Write the service**
 
@@ -394,7 +394,7 @@ public final class NotificationService {
 
     public func deliver(level: AlertLevel, message: String, identifier: String) {
         let content = UNMutableNotificationContent()
-        content.title = "RamKiller — \(level.label)"
+        content.title = "BeagleX — \(level.label)"
         content.body = message
         content.sound = level == .emergency ? .defaultCritical : .default
 
@@ -426,7 +426,7 @@ Task { @MainActor in
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Core/Services/NotificationService.swift RamKiller/App/AppDelegate.swift
+git add BeagleX/Core/Services/NotificationService.swift BeagleX/App/AppDelegate.swift
 git commit -m "phase-3: NotificationService + request auth"
 ```
 
@@ -435,14 +435,14 @@ git commit -m "phase-3: NotificationService + request auth"
 ## Task 9: `ThresholdEngine`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/ThresholdEngine.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/ThresholdEngineTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/ThresholdEngine.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/ThresholdEngineTests.swift`
 
 - [ ] **Step 1: Write failing tests**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class ThresholdEngineTests: XCTestCase {
     func makeReading(unusedGB: Double, swapOut: Double, t: Date = Date()) -> MemoryReading {
@@ -569,7 +569,7 @@ public final class ThresholdEngine {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Core/Services/ThresholdEngine.swift RamKillerTests/ThresholdEngineTests.swift
+git add BeagleX/Core/Services/ThresholdEngine.swift BeagleXTests/ThresholdEngineTests.swift
 git commit -m "phase-3: ThresholdEngine with hold-duration logic"
 ```
 
@@ -578,7 +578,7 @@ git commit -m "phase-3: ThresholdEngine with hold-duration logic"
 ## Task 10: Wire ThresholdEngine into SamplingCoordinator
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Core/Services/SamplingCoordinator.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Core/Services/SamplingCoordinator.swift`
 
 - [ ] **Step 1: Add engine + alert flow**
 
@@ -691,7 +691,7 @@ public final class SamplingCoordinator: ObservableObject {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/SamplingCoordinator.swift
+git add BeagleX/Core/Services/SamplingCoordinator.swift
 git commit -m "phase-3: wire ThresholdEngine into sampling tick"
 ```
 
@@ -700,7 +700,7 @@ git commit -m "phase-3: wire ThresholdEngine into sampling tick"
 ## Task 11: `AutomationSettingsSection`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Settings/AutomationSettingsSection.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Settings/AutomationSettingsSection.swift`
 
 - [ ] **Step 1: Write the section**
 
@@ -742,7 +742,7 @@ In `SettingsView`, append `AutomationSettingsSection()` at the end of the `Form`
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Settings/AutomationSettingsSection.swift RamKiller/Features/Settings/SettingsView.swift
+git add BeagleX/Features/Settings/AutomationSettingsSection.swift BeagleX/Features/Settings/SettingsView.swift
 git commit -m "phase-3: automation settings section"
 ```
 
@@ -751,7 +751,7 @@ git commit -m "phase-3: automation settings section"
 ## Task 12: `PressureTimelineView` (7/30 day analytics)
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Automation/PressureTimelineView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Automation/PressureTimelineView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -817,7 +817,7 @@ struct PressureTimelineView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Automation/PressureTimelineView.swift
+git add BeagleX/Features/Automation/PressureTimelineView.swift
 git commit -m "phase-3: pressure timeline analytics"
 ```
 
@@ -826,7 +826,7 @@ git commit -m "phase-3: pressure timeline analytics"
 ## Task 13: `CulpritProcessesView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Automation/CulpritProcessesView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Automation/CulpritProcessesView.swift`
 
 - [ ] **Step 1: Write the view**
 
@@ -882,7 +882,7 @@ struct CulpritProcessesView: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/Automation/CulpritProcessesView.swift
+git add BeagleX/Features/Automation/CulpritProcessesView.swift
 git commit -m "phase-3: culprit processes view"
 ```
 
@@ -891,8 +891,8 @@ git commit -m "phase-3: culprit processes view"
 ## Task 14: `AlertHistoryView` + `UserActionHistoryView`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Automation/AlertHistoryView.swift`
-- Create: `/Users/a77/RamKiller/RamKiller/Features/Automation/UserActionHistoryView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Automation/AlertHistoryView.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/Automation/UserActionHistoryView.swift`
 
 - [ ] **Step 1: Write AlertHistoryView**
 
@@ -949,7 +949,7 @@ struct UserActionHistoryView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Automation/AlertHistoryView.swift RamKiller/Features/Automation/UserActionHistoryView.swift
+git add BeagleX/Features/Automation/AlertHistoryView.swift BeagleX/Features/Automation/UserActionHistoryView.swift
 git commit -m "phase-3: alert + action history views"
 ```
 
@@ -958,7 +958,7 @@ git commit -m "phase-3: alert + action history views"
 ## Task 15: `AutomationView` final layout
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/Automation/AutomationView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/Automation/AutomationView.swift`
 
 - [ ] **Step 1: Replace placeholder**
 
@@ -1022,7 +1022,7 @@ struct AutomationView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/Automation/AutomationView.swift
+git add BeagleX/Features/Automation/AutomationView.swift
 git commit -m "phase-3: AutomationView with timeline/culprits/alerts/actions tabs"
 ```
 

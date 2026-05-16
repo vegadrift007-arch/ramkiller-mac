@@ -17,22 +17,22 @@
 | Path | Purpose |
 |---|---|
 | `Shared/Sources/Shared/HelperCommand.swift` | (modify) add launch-item cases |
-| `RamKillerHelper/HelperService.swift` | (modify) handle new cases |
-| `RamKillerHelper/Operations/LaunchItemOperation.swift` | New ops |
-| `RamKiller/Core/Models/LaunchItem.swift` | UI model |
-| `RamKiller/Core/Services/PlistService.swift` | Enumerate sources |
-| `RamKiller/Core/Services/LaunchItemManager.swift` | Disable/enable/delete |
-| `RamKiller/Core/Services/KnownDaemons.swift` | Whitelist of "do not touch" labels |
-| `RamKiller/Features/LaunchItems/LaunchItemsView.swift` | (replace) |
-| `RamKiller/Features/LaunchItems/LaunchItemRow.swift` | |
-| `RamKillerTests/PlistServiceTests.swift` | |
+| `BeagleXHelper/HelperService.swift` | (modify) handle new cases |
+| `BeagleXHelper/Operations/LaunchItemOperation.swift` | New ops |
+| `BeagleX/Core/Models/LaunchItem.swift` | UI model |
+| `BeagleX/Core/Services/PlistService.swift` | Enumerate sources |
+| `BeagleX/Core/Services/LaunchItemManager.swift` | Disable/enable/delete |
+| `BeagleX/Core/Services/KnownDaemons.swift` | Whitelist of "do not touch" labels |
+| `BeagleX/Features/LaunchItems/LaunchItemsView.swift` | (replace) |
+| `BeagleX/Features/LaunchItems/LaunchItemRow.swift` | |
+| `BeagleXTests/PlistServiceTests.swift` | |
 
 ---
 
 ## Task 1: Extend `HelperCommand` (Shared)
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/Shared/Sources/Shared/HelperCommand.swift`
+- Modify: `/Users/a77/BeagleX/Shared/Sources/Shared/HelperCommand.swift`
 
 - [ ] **Step 1: Add new cases**
 
@@ -52,14 +52,14 @@ public enum HelperCommand: Codable, Equatable, Sendable {
 - [ ] **Step 2: Update Shared package — re-run tests**
 
 ```bash
-cd /Users/a77/RamKiller/Shared
+cd /Users/a77/BeagleX/Shared
 swift test
 ```
 
 - [ ] **Step 3: Commit**
 
 ```bash
-cd /Users/a77/RamKiller
+cd /Users/a77/BeagleX
 git add Shared
 git commit -m "phase-7: extend HelperCommand for launch-item operations"
 ```
@@ -69,7 +69,7 @@ git commit -m "phase-7: extend HelperCommand for launch-item operations"
 ## Task 2: `LaunchItemOperation` in helper
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKillerHelper/Operations/LaunchItemOperation.swift`
+- Create: `/Users/a77/BeagleX/BeagleXHelper/Operations/LaunchItemOperation.swift`
 
 - [ ] **Step 1: Write the operations**
 
@@ -146,7 +146,7 @@ enum LaunchItemOperation {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKillerHelper/Operations/LaunchItemOperation.swift
+git add BeagleXHelper/Operations/LaunchItemOperation.swift
 git commit -m "phase-7: LaunchItemOperation in helper"
 ```
 
@@ -155,7 +155,7 @@ git commit -m "phase-7: LaunchItemOperation in helper"
 ## Task 3: Wire new commands in `HelperService`
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKillerHelper/HelperService.swift`
+- Modify: `/Users/a77/BeagleX/BeagleXHelper/HelperService.swift`
 
 - [ ] **Step 1: Extend the `run(_:)` switch**
 
@@ -194,13 +194,13 @@ private func adapt(_ stub: HelperResultStub) -> HelperResult {
 - [ ] **Step 2: Build helper, run tests**
 
 ```bash
-xcodebuild -project /Users/a77/RamKiller/RamKiller.xcodeproj -target RamKillerHelper build
+xcodebuild -project /Users/a77/BeagleX/BeagleX.xcodeproj -target BeagleXHelper build
 ```
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKillerHelper/HelperService.swift
+git add BeagleXHelper/HelperService.swift
 git commit -m "phase-7: wire launch-item commands in HelperService"
 ```
 
@@ -209,7 +209,7 @@ git commit -m "phase-7: wire launch-item commands in HelperService"
 ## Task 4: `LaunchItem` model
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Models/LaunchItem.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Models/LaunchItem.swift`
 
 - [ ] **Step 1: Write the model**
 
@@ -247,7 +247,7 @@ public struct LaunchItem: Identifiable, Hashable {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Models/LaunchItem.swift
+git add BeagleX/Core/Models/LaunchItem.swift
 git commit -m "phase-7: LaunchItem model"
 ```
 
@@ -256,7 +256,7 @@ git commit -m "phase-7: LaunchItem model"
 ## Task 5: `KnownDaemons` whitelist
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/KnownDaemons.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/KnownDaemons.swift`
 
 - [ ] **Step 1: Write the constants**
 
@@ -297,7 +297,7 @@ public enum KnownDaemons {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/KnownDaemons.swift
+git add BeagleX/Core/Services/KnownDaemons.swift
 git commit -m "phase-7: KnownDaemons whitelist"
 ```
 
@@ -306,14 +306,14 @@ git commit -m "phase-7: KnownDaemons whitelist"
 ## Task 6: `PlistService` enumerator
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/PlistService.swift`
-- Test: `/Users/a77/RamKiller/RamKillerTests/PlistServiceTests.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/PlistService.swift`
+- Test: `/Users/a77/BeagleX/BeagleXTests/PlistServiceTests.swift`
 
 - [ ] **Step 1: Write the failing test**
 
 ```swift
 import XCTest
-@testable import RamKiller
+@testable import BeagleX
 
 final class PlistServiceTests: XCTestCase {
     func testDiscoverIncludesUserAgents() async {
@@ -384,17 +384,17 @@ public actor PlistService {
 
     private func readLoginItems() async -> [LaunchItem] {
         // SMAppService doesn't enumerate other apps' login items. Best-effort: NSWorkspace runningApplications
-        // doesn't help either. We return only RamKiller's own login item registration as a placeholder.
+        // doesn't help either. We return only BeagleX's own login item registration as a placeholder.
         let svc = SMAppService.mainApp
         return [LaunchItem(
-            id: "com.vannaq.ramkiller",
-            label: "RamKiller",
+            id: "com.vannaq.beaglex",
+            label: "BeagleX",
             source: .loginItem,
             plistPath: nil,
             program: Bundle.main.executablePath,
             isDisabled: svc.status != .enabled,
             isApple: false,
-            bundleIdentifier: "com.vannaq.ramkiller"
+            bundleIdentifier: "com.vannaq.beaglex"
         )]
     }
 }
@@ -409,7 +409,7 @@ public actor PlistService {
 - [ ] **Step 4: Commit**
 
 ```bash
-git add RamKiller/Core/Services/PlistService.swift RamKillerTests/PlistServiceTests.swift
+git add BeagleX/Core/Services/PlistService.swift BeagleXTests/PlistServiceTests.swift
 git commit -m "phase-7: PlistService enumerates 4 launch-item sources"
 ```
 
@@ -418,7 +418,7 @@ git commit -m "phase-7: PlistService enumerates 4 launch-item sources"
 ## Task 7: `LaunchItemManager`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Core/Services/LaunchItemManager.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Core/Services/LaunchItemManager.swift`
 
 - [ ] **Step 1: Write the manager**
 
@@ -505,7 +505,7 @@ extension Result {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Core/Services/LaunchItemManager.swift
+git add BeagleX/Core/Services/LaunchItemManager.swift
 git commit -m "phase-7: LaunchItemManager (disable/enable/delete)"
 ```
 
@@ -514,7 +514,7 @@ git commit -m "phase-7: LaunchItemManager (disable/enable/delete)"
 ## Task 8: `LaunchItemRow`
 
 **Files:**
-- Create: `/Users/a77/RamKiller/RamKiller/Features/LaunchItems/LaunchItemRow.swift`
+- Create: `/Users/a77/BeagleX/BeagleX/Features/LaunchItems/LaunchItemRow.swift`
 
 - [ ] **Step 1: Write the row**
 
@@ -579,7 +579,7 @@ struct LaunchItemRow: View {
 - [ ] **Step 2: Commit**
 
 ```bash
-git add RamKiller/Features/LaunchItems/LaunchItemRow.swift
+git add BeagleX/Features/LaunchItems/LaunchItemRow.swift
 git commit -m "phase-7: LaunchItemRow"
 ```
 
@@ -588,7 +588,7 @@ git commit -m "phase-7: LaunchItemRow"
 ## Task 9: `LaunchItemsView` grouped list
 
 **Files:**
-- Modify: `/Users/a77/RamKiller/RamKiller/Features/LaunchItems/LaunchItemsView.swift`
+- Modify: `/Users/a77/BeagleX/BeagleX/Features/LaunchItems/LaunchItemsView.swift`
 
 - [ ] **Step 1: Replace placeholder**
 
@@ -680,7 +680,7 @@ struct LaunchItemsView: View {
 - [ ] **Step 3: Commit**
 
 ```bash
-git add RamKiller/Features/LaunchItems/LaunchItemsView.swift
+git add BeagleX/Features/LaunchItems/LaunchItemsView.swift
 git commit -m "phase-7: LaunchItemsView grouped + actions"
 ```
 
@@ -731,8 +731,8 @@ git commit -m "phase-7: post-verification" --allow-empty
 If all 8 Phase plans (P0–P7) are checked off:
 
 - [ ] Run all tests one final time: ⌘U.
-- [ ] Tag a release: `git tag -a v1.0.0 -m "RamKiller v1.0.0 — full feature set"`.
+- [ ] Tag a release: `git tag -a v1.0.0 -m "BeagleX v1.0.0 — full feature set"`.
 - [ ] Optional: archive a release build via Xcode → Product → Archive → Export "Copy App" for stash on disk.
-- [ ] Backup `~/Library/Application Support/RamKiller/db.store` if you care about your accumulated history.
+- [ ] Backup `~/Library/Application Support/BeagleX/db.store` if you care about your accumulated history.
 
-**RamKiller is feature-complete.** All 8 phases — monitoring, processes, automation, cache cleaning, large/duplicate files, uninstaller, launch items — are functional, persistent, and production-quality for personal use.
+**BeagleX is feature-complete.** All 8 phases — monitoring, processes, automation, cache cleaning, large/duplicate files, uninstaller, launch items — are functional, persistent, and production-quality for personal use.

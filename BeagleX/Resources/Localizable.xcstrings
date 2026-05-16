@@ -1,0 +1,1602 @@
+{
+  "sourceLanguage" : "en",
+  "version" : "1.0",
+  "strings" : {
+    "Tools" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tools" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "工具" } }
+      }
+    },
+    "System" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "System" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "系统" } }
+      }
+    },
+    "Memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Memory" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "内存" } }
+      }
+    },
+    "Processes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Processes" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "进程" } }
+      }
+    },
+    "Automation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Automation" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自动化" } }
+      }
+    },
+    "Cache Cleaner" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cache Cleaner" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "缓存清理" } }
+      }
+    },
+    "Large Files" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Large Files" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "大文件" } }
+      }
+    },
+    "Uninstaller" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Uninstaller" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "卸载器" } }
+      }
+    },
+    "Launch Items" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Launch Items" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "启动项" } }
+      }
+    },
+    "Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "设置" } }
+      }
+    },
+    "LIVE" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "LIVE" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "实时" } }
+      }
+    },
+    "of %@ used" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "of %@ used" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已用 %@" } }
+      }
+    },
+    "%@ free" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%@ free" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "可用 %@" } }
+      }
+    },
+    "Swapping %lld/s" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Swapping %lld/s" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "交换中 %lld/秒" } }
+      }
+    },
+    "Used" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Used" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已用" } }
+      }
+    },
+    "Unused" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unused" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "可用" } }
+      }
+    },
+    "Compressor" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Compressor" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "压缩器" } }
+      }
+    },
+    "Total" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "总计" } }
+      }
+    },
+    "memory squeezed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "memory squeezed" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "压缩后释放" } }
+      }
+    },
+    "physical RAM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "physical RAM" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "物理内存" } }
+      }
+    },
+    "Memory usage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Memory usage" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "内存用量" } }
+      }
+    },
+    "GB over time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "GB over time" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "GB 时间趋势" } }
+      }
+    },
+    "Pressure" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pressure" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "压力" } }
+      }
+    },
+    "color = level" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "color = level" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "颜色 = 等级" } }
+      }
+    },
+    "Swap activity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Swap activity" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "交换活动" } }
+      }
+    },
+    "pages / second" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "pages / second" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "页 / 秒" } }
+      }
+    },
+    "Kernel breakdown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kernel breakdown" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "内核分类" } }
+      }
+    },
+    "Advanced" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Advanced" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "高级" } }
+      }
+    },
+    "Healthy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Healthy" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正常" } }
+      }
+    },
+    "Warn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Warn" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "警告" } }
+      }
+    },
+    "Critical" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Critical" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "严重" } }
+      }
+    },
+    "Under pressure" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Under pressure" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "压力中" } }
+      }
+    },
+    "Wired" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Wired" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Wired" } }
+      }
+    },
+    "kernel-locked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "kernel-locked" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "内核占用" } }
+      }
+    },
+    "Active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Active" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Active" } }
+      }
+    },
+    "recently used" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "recently used" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "近期使用" } }
+      }
+    },
+    "Inactive" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Inactive" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Inactive" } }
+      }
+    },
+    "reclaimable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "reclaimable" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "可回收" } }
+      }
+    },
+    "Speculative" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Speculative" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Speculative" } }
+      }
+    },
+    "prefetch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "prefetch" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "预读" } }
+      }
+    },
+    "Search processes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search processes" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "搜索进程" } }
+      }
+    },
+    "All processes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All processes" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全部进程" } }
+      }
+    },
+    "Refresh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Refresh" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "刷新" } }
+      }
+    },
+    "%lld procs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld procs" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "%lld 个" } }
+      }
+    },
+    "Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Name" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "名称" } }
+      }
+    },
+    "User" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "User" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "用户" } }
+      }
+    },
+    "Kill (SIGTERM)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kill (SIGTERM)" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "终止 (SIGTERM)" } }
+      }
+    },
+    "Force kill (SIGKILL)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Force kill (SIGKILL)" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "强制终止 (SIGKILL)" } }
+      }
+    },
+    "Select a process" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select a process" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "选择一个进程" } }
+      }
+    },
+    "Kill failed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kill failed" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "终止失败" } }
+      }
+    },
+    "OK" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "OK" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "好" } }
+      }
+    },
+    "Kill" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kill" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "终止" } }
+      }
+    },
+    "Force kill" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Force kill" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "强制终止" } }
+      }
+    },
+    "Cancel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "取消" } }
+      }
+    },
+    "Kill via privileged helper" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kill via privileged helper" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通过特权助手终止" } }
+      }
+    },
+    "Process" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Process" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "进程" } }
+      }
+    },
+    "Resident memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Resident memory" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "驻留内存" } }
+      }
+    },
+    "Started" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Started" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "启动时间" } }
+      }
+    },
+    "Elapsed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Elapsed" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "运行时长" } }
+      }
+    },
+    "Path" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Path" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "路径" } }
+      }
+    },
+    "Pressure Timeline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pressure Timeline" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "压力时间轴" } }
+      }
+    },
+    "Culprit Processes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Culprit Processes" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "高耗进程" } }
+      }
+    },
+    "Alert History" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Alert History" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "告警历史" } }
+      }
+    },
+    "User Actions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "User Actions" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "操作历史" } }
+      }
+    },
+    "No alerts yet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No alerts yet" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "暂无告警" } }
+      }
+    },
+    "Alerts appear here when memory thresholds are crossed." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Alerts appear here when memory thresholds are crossed." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "当内存超过阈值时告警会出现在这里。" } }
+      }
+    },
+    "Time" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "时间" } }
+      }
+    },
+    "Level" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Level" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "等级" } }
+      }
+    },
+    "Trigger" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Trigger" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "触发原因" } }
+      }
+    },
+    "No actions yet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No actions yet" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "暂无操作" } }
+      }
+    },
+    "Your kill / purge / clean actions show up here." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Your kill / purge / clean actions show up here." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "你的终止 / 释放 / 清理操作会显示在这里。" } }
+      }
+    },
+    "Type" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Type" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "类型" } }
+      }
+    },
+    "Target" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Target" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "目标" } }
+      }
+    },
+    "Result" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Result" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "结果" } }
+      }
+    },
+    "Top processes by aggregated RSS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Top processes by aggregated RSS" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "按累计 RSS 排序的进程" } }
+      }
+    },
+    "No data" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No data" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "暂无数据" } }
+      }
+    },
+    "Total RSS" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Total RSS" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "累计 RSS" } }
+      }
+    },
+    "Sampled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sampled" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "采样次数" } }
+      }
+    },
+    "No data yet" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No data yet" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "暂无数据" } }
+      }
+    },
+    "App needs to run for at least a few minutes to show trends." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App needs to run for at least a few minutes to show trends." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "应用需要运行至少几分钟才能显示趋势。" } }
+      }
+    },
+    "Samples" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Samples" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "样本" } }
+      }
+    },
+    "Pressure events" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pressure events" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "压力事件" } }
+      }
+    },
+    "Avg unused" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Avg unused" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "平均可用" } }
+      }
+    },
+    "Warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Warning" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "警告" } }
+      }
+    },
+    "Emergency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Emergency" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "紧急" } }
+      }
+    },
+    "Scan" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scan" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "扫描" } }
+      }
+    },
+    "Move to Trash" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Move to Trash" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "移到废纸篓" } }
+      }
+    },
+    "Clean %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clean %@" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "清理 %@" } }
+      }
+    },
+    "Clean %@?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clean %@?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "确定清理 %@？" } }
+      }
+    },
+    "Clean" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Clean" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "清理" } }
+      }
+    },
+    "Nothing to clean" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Nothing to clean" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "没有可清理项" } }
+      }
+    },
+    "No reclaimable cache found." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No reclaimable cache found." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未发现可释放的缓存。" } }
+      }
+    },
+    "Dismiss" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dismiss" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "知道了" } }
+      }
+    },
+    "Developer Tools" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Developer Tools" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "开发工具" } }
+      }
+    },
+    "Browsers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Browsers" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "浏览器" } }
+      }
+    },
+    "Media" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Media" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "多媒体" } }
+      }
+    },
+    "Application Caches" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Application Caches" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "应用缓存" } }
+      }
+    },
+    "Trash" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Trash" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "废纸篓" } }
+      }
+    },
+    "Duplicates" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Duplicates" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重复文件" } }
+      }
+    },
+    "Min size (MB):" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Min size (MB):" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "最小大小 (MB)：" } }
+      }
+    },
+    "Min file size (MB):" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Min file size (MB):" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "最小文件大小 (MB)：" } }
+      }
+    },
+    "Unselect all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unselect all" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "取消全选" } }
+      }
+    },
+    "Select all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select all" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全选" } }
+      }
+    },
+    "Modified" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Modified" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "修改时间" } }
+      }
+    },
+    "Size" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Size" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "大小" } }
+      }
+    },
+    "Delete %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete %@" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除 %@" } }
+      }
+    },
+    "No duplicates found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No duplicates found" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未发现重复文件" } }
+      }
+    },
+    "Save %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save %@" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "节省 %@" } }
+      }
+    },
+    "Delete duplicates (%@)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete duplicates (%@)" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除重复文件 (%@)" } }
+      }
+    },
+    "Scan locations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scan locations" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "扫描位置" } }
+      }
+    },
+    "Add Folder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Add Folder" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "添加目录" } }
+      }
+    },
+    "Reset" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重置" } }
+      }
+    },
+    "Search labels" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search labels" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "搜索标识" } }
+      }
+    },
+    "%lld total" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%lld total" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "共 %lld 项" } }
+      }
+    },
+    "No launch items found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No launch items found" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未发现启动项" } }
+      }
+    },
+    "Login Item" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Login Item" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "登录项" } }
+      }
+    },
+    "User Agent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "User Agent" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "用户代理" } }
+      }
+    },
+    "System Agent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "System Agent" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "系统代理" } }
+      }
+    },
+    "System Daemon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "System Daemon" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "系统守护进程" } }
+      }
+    },
+    "Critical system daemon — protected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Critical system daemon — protected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "关键系统守护进程 — 受保护" } }
+      }
+    },
+    "Enable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enable" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "启用" } }
+      }
+    },
+    "Disable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Disable" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "禁用" } }
+      }
+    },
+    "Delete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除" } }
+      }
+    },
+    "Delete %@?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete %@?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除 %@？" } }
+      }
+    },
+    "This permanently removes the plist file. Cannot be undone." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "This permanently removes the plist file. Cannot be undone." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "这将永久删除 plist 文件，无法撤销。" } }
+      }
+    },
+    "Disabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Disabled" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已禁用" } }
+      }
+    },
+    "Select an app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select an app" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "选择一个 App" } }
+      }
+    },
+    "Drop a .app here" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Drop a .app here" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "拖放 .app 到这里" } }
+      }
+    },
+    "Search apps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Search apps" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "搜索 App" } }
+      }
+    },
+    "Sizing…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sizing…" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "计算中…" } }
+      }
+    },
+    "Protected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Protected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "受保护" } }
+      }
+    },
+    "System app — cannot be uninstalled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "System app — cannot be uninstalled" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "系统 App — 不可卸载" } }
+      }
+    },
+    "Leftovers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Leftovers" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "残留文件" } }
+      }
+    },
+    "Rescan" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rescan" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重新扫描" } }
+      }
+    },
+    "No leftovers found." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No leftovers found." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未发现残留文件。" } }
+      }
+    },
+    "Scan may be incomplete — see warning above." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scan may be incomplete — see warning above." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "扫描可能不完整 — 请看上面警告。" } }
+      }
+    },
+    "Limited file access" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Limited file access" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "文件访问受限" } }
+      }
+    },
+    "BeagleX can't read parts of ~/Library, so some leftovers may be missed. Grant Full Disk Access for best results." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "BeagleX can't read parts of ~/Library, so some leftovers may be missed. Grant Full Disk Access for best results." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "BeagleX 无法读取部分 ~/Library，可能会漏掉一些残留文件。授予「完整磁盘访问」权限以获得最佳效果。" } }
+      }
+    },
+    "Open System Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open System Settings" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "打开系统设置" } }
+      }
+    },
+    "Select all (%lld)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select all (%lld)" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全选 (%lld)" } }
+      }
+    },
+    "Uninstall %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Uninstall %@" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "卸载 %@" } }
+      }
+    },
+    "Uninstall %@?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Uninstall %@?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "确定卸载 %@？" } }
+      }
+    },
+    "Uninstall" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Uninstall" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "卸载" } }
+      }
+    },
+    "App Support" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "App Support" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "App Support" } }
+      }
+    },
+    "Caches" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Caches" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "缓存" } }
+      }
+    },
+    "Preferences" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Preferences" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "偏好设置" } }
+      }
+    },
+    "Logs" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Logs" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "日志" } }
+      }
+    },
+    "Container" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Container" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "容器" } }
+      }
+    },
+    "Group Container" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Group Container" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "组容器" } }
+      }
+    },
+    "Saved State" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved State" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "保存状态" } }
+      }
+    },
+    "HTTP Storage" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "HTTP Storage" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "HTTP 存储" } }
+      }
+    },
+    "Launch Agent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Launch Agent" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Launch Agent" } }
+      }
+    },
+    "Launch Daemon" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Launch Daemon" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Launch Daemon" } }
+      }
+    },
+    "Pkg Receipt" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pkg Receipt" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Pkg 凭证" } }
+      }
+    },
+    "Other" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Other" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "其他" } }
+      }
+    },
+    "Startup" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Startup" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "启动" } }
+      }
+    },
+    "Launch at login" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Launch at login" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "登录时启动" } }
+      }
+    },
+    "Status: %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Status: %@" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "状态：%@" } }
+      }
+    },
+    "Privileged Helper" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Privileged Helper" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "特权助手" } }
+      }
+    },
+    "Required for: Purge Memory, killing system processes, managing system launch items" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Required for: Purge Memory, killing system processes, managing system launch items" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "用于：释放内存、终止系统进程、管理系统启动项" } }
+      }
+    },
+    "Install / Repair" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Install / Repair" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "安装 / 修复" } }
+      }
+    },
+    "Restart" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Restart" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重启" } }
+      }
+    },
+    "About" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "About" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "关于" } }
+      }
+    },
+    "Version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Version" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "版本" } }
+      }
+    },
+    "Bundle ID" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bundle ID" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Bundle ID" } }
+      }
+    },
+    "Enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Enabled" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已启用" } }
+      }
+    },
+    "Not registered" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not registered" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未注册" } }
+      }
+    },
+    "Requires approval (System Settings)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Requires approval (System Settings)" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "需要授权（系统设置）" } }
+      }
+    },
+    "Not found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not found" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未找到" } }
+      }
+    },
+    "Unknown" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Unknown" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未知" } }
+      }
+    },
+    "Helper enabled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Helper enabled" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "助手已启用" } }
+      }
+    },
+    "Needs approval — open System Settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Needs approval — open System Settings" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "需要授权 — 请打开系统设置" } }
+      }
+    },
+    "Not installed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Not installed" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未安装" } }
+      }
+    },
+    "Appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Appearance" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "外观" } }
+      }
+    },
+    "Midnight" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Midnight" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Midnight" } }
+      }
+    },
+    "Bloom" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Bloom" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Bloom" } }
+      }
+    },
+    "Dark navy + electric green" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dark navy + electric green" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "深海蓝 + 荧光绿" } }
+      }
+    },
+    "Pastel pink + soft purple" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pastel pink + soft purple" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "粉色 + 柔紫" } }
+      }
+    },
+    "Language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "语言" } }
+      }
+    },
+    "Follow System" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Follow System" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "跟随系统" } }
+      }
+    },
+    "Switching language requires a restart." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Switching language requires a restart." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "切换语言需要重启 App。" } }
+      }
+    },
+    "Restart BeagleX?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Restart BeagleX?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重启 BeagleX？" } }
+      }
+    },
+    "Restart now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Restart now" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "立即重启" } }
+      }
+    },
+    "BeagleX needs to restart to apply the new language." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "BeagleX needs to restart to apply the new language." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "BeagleX 需要重启以应用新的语言。" } }
+      }
+    },
+    "Auto-purge on threshold" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Auto-purge on threshold" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "达到阈值时自动释放" } }
+      }
+    },
+    "Automatically run Purge Memory when alert level reached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Automatically run Purge Memory when alert level reached" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "达到告警等级时自动执行释放内存" } }
+      }
+    },
+    "From level" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "From level" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "起始等级" } }
+      }
+    },
+    "Save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "保存" } }
+      }
+    },
+    "Saved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Saved" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已保存" } }
+      }
+    },
+    "Reset to defaults" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Reset to defaults" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恢复默认" } }
+      }
+    },
+    "Kill all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kill all" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全部终止" } }
+      }
+    },
+    "Kill %lld processes?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Kill %lld processes?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "终止 %lld 个进程？" } }
+      }
+    },
+    "Purge Memory" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Purge Memory" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "释放内存" } }
+      }
+    },
+    "Helper not enabled (Settings → Privileged Helper)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Helper not enabled (Settings → Privileged Helper)" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "助手未启用（设置 → 特权助手）" } }
+      }
+    },
+    "Helper unreachable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Helper unreachable" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "助手无响应" } }
+      }
+    },
+    "Sampling…" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sampling…" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "采样中…" } }
+      }
+    },
+    "Top processes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Top processes" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "高占用进程" } }
+      }
+    },
+    "Open Window" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Open Window" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "打开窗口" } }
+      }
+    },
+    "Quit" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Quit" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "退出" } }
+      }
+    },
+    "Swap out" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Swap out" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "Swap out" } }
+      }
+    },
+    "Coming in %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Coming in %@" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "即将上线 — %@" } }
+      }
+    },
+    "Pick a tool" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Pick a tool" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "选一个工具" } }
+      }
+    },
+    "Security" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Security" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "安全" } }
+      }
+    },
+    "Scan Now" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scan Now" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "立即扫描" } }
+      }
+    },
+    "Malware" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Malware" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "恶意软件" } }
+      }
+    },
+    "Network Connections" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Network Connections" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "网络连接" } }
+      }
+    },
+    "Permission Abuse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Permission Abuse" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "权限滥用" } }
+      }
+    },
+    "All clear" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All clear" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "全部正常" } }
+      }
+    },
+    "No threats detected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No threats detected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未检测到威胁" } }
+      }
+    },
+    "Remove this item?" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove this item?" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除此项目？" } }
+      }
+    },
+    "Full Disk Access required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Full Disk Access required" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "需要完全磁盘访问权限" } }
+      }
+    },
+    "Auto-scan interval" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Auto-scan interval" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自动扫描间隔" } }
+      }
+    },
+    "Off" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Off" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "关闭" } }
+      }
+    },
+    "Daily" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每天" } }
+      }
+    },
+    "Weekly" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每周" } }
+      }
+    },
+    "Run a scan to check your Mac for threats" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Run a scan to check your Mac for threats" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "运行扫描以检查 Mac 是否存在威胁" } }
+      }
+    },
+    "Scanning..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Scanning..." } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正在扫描..." } }
+      }
+    },
+    "Review the findings below and take action" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Review the findings below and take action" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "查看以下发现并采取措施" } }
+      }
+    },
+    "Ignore" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ignore" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "忽略" } }
+      }
+    },
+    "Remove" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Remove" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除" } }
+      }
+    },
+    "%d issue(s) found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d issue(s) found" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "发现 %d 个问题" } }
+      }
+    },
+    "BeagleX — Security Alert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "BeagleX — Security Alert" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "BeagleX — 安全警告" } }
+      }
+    },
+    "%d security issue(s) found" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "%d security issue(s) found" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "发现 %d 个安全问题" } }
+      }
+    },
+    "Grant Full Disk Access in System Settings → Privacy & Security to enable permission scanning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Grant Full Disk Access in System Settings → Privacy & Security to enable permission scanning" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在系统设置 → 隐私与安全性中授予完全磁盘访问权限以启用权限扫描" } }
+      }
+    },
+    "No known malware detected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No known malware detected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未检测到已知恶意软件" } }
+      }
+    },
+    "All launch items are signed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All launch items are signed" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "所有启动项均已签名" } }
+      }
+    },
+    "All connections from signed apps" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "All connections from signed apps" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "所有连接来自已签名应用" } }
+      }
+    },
+    "No permission abuse detected" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "No permission abuse detected" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "未检测到权限滥用" } }
+      }
+    }
+  }
+}
