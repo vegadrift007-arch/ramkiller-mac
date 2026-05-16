@@ -29,3 +29,10 @@ Shared/.build/
 
 # macOS DMG (built artifact, large)
 *.dmg
+
+# Superpowers dev tool artifacts
+.superpowers/
+.claude/
+
+# Memory files
+memory/
