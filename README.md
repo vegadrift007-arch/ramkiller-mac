@@ -56,7 +56,15 @@ RamKiller is an all-in-one macOS utility for keeping your Mac fast and safe. It 
 
 ## Screenshots
 
-> Add screenshots to `docs/screenshots/` and reference them here.
+| Memory monitor | Security scanner |
+|---|---|
+| ![Memory](docs/screenshots/memory.png) | ![Security](docs/screenshots/security.png) |
+
+| Menu bar widget | Cache cleaner |
+|---|---|
+| ![Menu bar](docs/screenshots/menubar.png) | ![Cache](docs/screenshots/cache-cleaner.png) |
+
+<sub>To regenerate screenshots: drop PNGs into `docs/screenshots/` matching the filenames above.</sub>
 
 ## Installation
 
@@ -124,7 +132,9 @@ Pull requests welcome. Please open an issue first for any major change so we can
 
 ## License
 
-[Add a license — MIT is recommended for an open-source utility]
+[GNU General Public License v3.0](LICENSE) — see `LICENSE` for the full text.
+
+You may use, modify, and redistribute this software under the GPL v3, which requires derivative works to be released under the same license.
 
 ## Acknowledgements
 
