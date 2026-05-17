@@ -84,9 +84,13 @@ BeagleX 是一款让你的 Mac 保持流畅和安全的 macOS 综合工具。它
 |---|---|
 | ![Memory](docs/screenshots/memory.png) | ![Security](docs/screenshots/security.png) |
 
-| Menu bar widget / 菜单栏小部件 | Cache cleaner / 缓存清理 |
+| Cache cleaner / 缓存清理 | App uninstaller / 应用卸载器 |
 |---|---|
-| ![Menu bar](docs/screenshots/menubar.png) | ![Cache](docs/screenshots/cache-cleaner.png) |
+| ![Cache](docs/screenshots/cache-cleaner.png) | ![Uninstaller](docs/screenshots/uninstaller.png) |
+
+| Settings / 设置 | Menu bar widget / 菜单栏小部件 |
+|---|---|
+| ![Settings](docs/screenshots/settings.png) | ![Menu bar](docs/screenshots/menubar.png) |
 
 ## Installation / 安装
 
